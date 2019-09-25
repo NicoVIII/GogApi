@@ -1,4 +1,4 @@
-# Andromeda-for-GOG
+# GogApi.DotNet
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![GitHub Release](https://img.shields.io/github/release/NicoVIII/GogApi.DotNet.svg)](https://github.com/NicoVIII/GogApi.DotNet/releases/latest)
 [![Github Pre-Release](https://img.shields.io/github/release/NicoVIII/GogApi.DotNet/all.svg?label=prerelease)](https://github.com/NicoVIII/GogApi.DotNet/releases)
