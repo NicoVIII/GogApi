@@ -21,9 +21,6 @@ jobs:
       - name: Get the version
         id: get_version
         run: tmp="${GITHUB_REF#refs/tags/v}" && echo ::set-output name=VERSION::${tmp%%\+*}
-      - name: Add version and pack
-        shell: pwsh
-        run: ./pack -Version ${{ steps.get_version.outputs.VERSION }}
       - name: Activate nuget.config
         run: mv _nuget.config nuget.config
       - name: Set nuget creds
@@ -31,7 +28,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./Set-NuGetCredentials -ConfigFile ./nuget.config -Source "gpr" -Username NicoVIII -Password $env:GITHUB_TOKEN
-      - name: Push to Nuget
-        run: dotnet nuget push GogApi.DotNet.${{ steps.get_version.outputs.VERSION }}.nupkg -k ${{ secrets.nugetapikey }} -s "nuget"
+      - name: Add version and pack
+        shell: pwsh
+        run: ./pack -Version ${{ steps.get_version.outputs.VERSION }}
       - name: Push to GitHub Registry
         run: dotnet nuget push GogApi.DotNet.${{ steps.get_version.outputs.VERSION }}.nupkg -s "gpr"
+      - name: Push to Nuget
+        run: dotnet nuget push GogApi.DotNet.${{ steps.get_version.outputs.VERSION }}.nupkg -k ${{ secrets.nugetapikey }} -s "nuget"
