@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Test building of library
+    name: Deploy library to nuget and GPR
     runs-on: ubuntu-latest
 
     steps:
