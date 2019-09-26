@@ -11,7 +11,7 @@
                 "build",
                 "src/GogApi.DotNet/FSharp",
                 // Ask dotnet build to generate full paths for file names.
-                "/property:GenerateFullPaths=true",
+                "/property:GenerateFullPaths=true"
             ],
             "group": {
                 "kind": "build",
