@@ -9,4 +9,6 @@ $projectFile = "src/GogApi.DotNet/FSharp/GogApi.DotNet.fsproj"
 (Get-Content $projectFile).replace('</Version>-->', '</Version>') | Set-Content $projectFile
 
 # Pack as NugetPackage
+dotnet tool restore
+dotnet paket restore
 dotnet pack src/GogApi.DotNet/FSharp -c Release -o ../../..
