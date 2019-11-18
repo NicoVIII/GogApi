@@ -3,7 +3,6 @@ module GogApi.DotNet.FSharp.Authentication
 open HttpFs.Client
 
 open GogApi.DotNet.FSharp.Base
-open GogApi.DotNet.FSharp.Helpers
 
 let redirectUri = "https://embed.gog.com/on_login_success?origin=client"
 
@@ -19,9 +18,9 @@ type TokenResponse = {
 
 let createAuth refreshed response =
     match response with
-    | Success response ->
+    | Ok response ->
         Auth { accessToken = response.access_token; refreshToken = response.refresh_token; refreshed = refreshed }
-    | Failure _ ->
+    | Error _ ->
         NoAuth
 
 let getBasicQueries () =

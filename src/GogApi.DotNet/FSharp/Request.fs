@@ -3,14 +3,13 @@ module GogApi.DotNet.FSharp.Request
 open System.IO
 
 open GogApi.DotNet.FSharp.Base
-open GogApi.DotNet.FSharp.Helpers
 
 let rec makeRequest<'T> method auth queries url :'T option * Authentication =
     let result = makeBasicJsonRequest method auth queries url
     match result with
-    | Success parsed ->
+    | Ok parsed ->
         (Some parsed, auth)
-    | Failure (raw, message) ->
+    | Error (raw, message) ->
         match auth with
         | Auth x ->
             match x with
