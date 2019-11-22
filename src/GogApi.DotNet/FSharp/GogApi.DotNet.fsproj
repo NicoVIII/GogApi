@@ -11,12 +11,6 @@
     <RepositoryUrl>https://github.com/NicoVIII/GogApi.DotNet</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="4.5.4" />
-    <PackageReference Include="Fsharp.Json" Version="0.3.7" />
-    <PackageReference Include="Http.fs" Version="5.3.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Helpers.fs" />
     <Compile Include="Base.fs" />
     <Compile Include="Authentication.fs" />
     <Compile Include="Request.fs" />
@@ -25,4 +19,5 @@
     <Compile Include="User.fs" />
     <Compile Include="GalaxyApi.fs" />
   </ItemGroup>
+  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>
