@@ -7,31 +7,17 @@ on:
 
 jobs:
   build:
-    name: Deploy library to nuget and GPR
+    name: Deploy library to nuget
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 2.1.802
       - name: Get the version
         id: get_version
         run: tmp="${GITHUB_REF#refs/tags/v}" && echo ::set-output name=VERSION::${tmp%%\+*}
-      - name: Activate nuget.config
-        run: mv _nuget.config nuget.config
-      - name: Set nuget creds
-        shell: pwsh
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./Set-NuGetCredentials -ConfigFile ./nuget.config -Source "gpr" -Username NicoVIII -Password $env:GITHUB_TOKEN
       - name: Add version and pack
-        shell: pwsh
-        run: ./pack -Version ${{ steps.get_version.outputs.VERSION }}
-      - name: Push to GitHub Registry
-        run: dotnet nuget push GogApi.DotNet.${{ steps.get_version.outputs.VERSION }}.nupkg -s "gpr"
+        run: dotnet tool restore && dotnet paket restore && dotnet fake run build.fsx -e VERSION=${{ steps.get_version.outputs.VERSION }} target Pack
       - name: Push to Nuget
         run: dotnet nuget push GogApi.DotNet.${{ steps.get_version.outputs.VERSION }}.nupkg -k ${{ secrets.nugetapikey }} -s "nuget"

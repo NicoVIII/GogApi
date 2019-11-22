@@ -547,7 +547,7 @@ NUGET
       System.Security.Cryptography.Encoding (>= 4.3)
       System.Security.Cryptography.Primitives (>= 4.3)
       System.Text.Encoding (>= 4.3)
-    System.Security.Cryptography.Cng (4.6)
+    System.Security.Cryptography.Cng (4.6.1)
     System.Security.Cryptography.Csp (4.3)
       Microsoft.NETCore.Platforms (>= 1.1)
       System.IO (>= 4.3)
