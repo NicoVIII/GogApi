@@ -1,5 +1,5 @@
 source https://www.nuget.org/api/v2
 
 nuget FSharp.Core > 4.5 lowest_matching: true, redirects: force
-nuget Fsharp.Json ~> 0.3.7
-nuget Http.fs ~> 5.3.0
+nuget Fsharp.Json ~> 0.4.0
+nuget Http.fs ~> 5.4.0
