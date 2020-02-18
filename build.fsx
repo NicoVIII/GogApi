@@ -1,9 +1,4 @@
-#r "paket:
-nuget Fake.IO.FileSystem
-nuget Fake.DotNet.Cli
-nuget Fake.DotNet.Paket
-nuget Fake.Core.Target
-nuget FSharp.Formatting //"
+#r "paket: groupref Build //"
 #load "./.fake/build.fsx/intellisense.fsx"
 
 open Fake.IO

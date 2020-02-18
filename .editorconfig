@@ -16,3 +16,9 @@ indent_size = 2
 
 [*.md]
 trim_trailing_whitespace = false
+
+[paket.dependencies]
+indent_size = 2
+
+[dotnet-tools.json]
+indent_size = 2
