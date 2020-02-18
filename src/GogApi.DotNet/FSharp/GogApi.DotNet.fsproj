@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>GogApi.DotNet</PackageId>
-    <!--<Version>$version$</Version>-->
+    <Version>0.0.1</Version>
     <Authors>NicoVIII</Authors>
     <Company>NicoVIII</Company>
     <PackageTags>GOG,API,F#</PackageTags>

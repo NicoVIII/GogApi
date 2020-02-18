@@ -1,6 +1,7 @@
 #r "paket:
 nuget Fake.IO.FileSystem
 nuget Fake.DotNet.Cli
+nuget Fake.DotNet.Paket
 nuget Fake.Core.Target
 nuget FSharp.Formatting //"
 #load "./.fake/build.fsx/intellisense.fsx"
@@ -18,10 +19,18 @@ let projectFile = "GogApi.DotNet.fsproj"
 let projectFilePath = Path.Combine(projectPath, projectFile)
 
 let forDebug (options:DotNet.BuildOptions) =
-  { options with Configuration = DotNet.BuildConfiguration.Debug }
+    { options with Configuration = DotNet.BuildConfiguration.Debug }
 
-let packOptions (options:DotNet.PackOptions) =
-    { options with OutputPath = Some __SOURCE_DIRECTORY__ }
+let forRelease (options:DotNet.BuildOptions) =
+    { options with Configuration = DotNet.BuildConfiguration.Release }
+
+let packOptions (options:Paket.PaketPackParams) =
+    { options with
+       BuildConfig = "Release"
+       OutputPath = __SOURCE_DIRECTORY__
+       ToolType = ToolType.CreateCLIToolReference(id) |> ToolType.withDefaultToolCommandName "paket"
+       WorkingDir = projectPath
+       }
 
 // Targets
 Target.create "Clean" (fun _ ->
@@ -32,21 +41,27 @@ Target.create "Clean" (fun _ ->
 )
 
 Target.create "BuildApp" (fun _ ->
-  DotNet.build forDebug projectPath
+    DotNet.build forDebug projectPath
+)
+
+Target.create "ReplaceVersion" (fun _ ->
+    // Replace version in project file
+    let version = Environment.environVarOrFail "VERSION"
+    let replacements = Seq.ofList [
+        ("<!--<Version>", "<Version>")
+        ("</Version>-->", "</Version>")
+        ("$version$", version)
+    ]
+    let files = Seq.ofList [ projectFilePath ]
+    Shell.replaceInFiles replacements files
+)
+
+Target.create "BuildPack" (fun _ ->
+  DotNet.build forRelease projectPath
 )
 
 Target.create "Pack" (fun _ ->
-  // Replace version in project file
-  let version = Environment.environVarOrFail "VERSION"
-  let replacements = Seq.ofList [
-      ("<!--<Version>", "<Version>")
-      ("</Version>-->", "</Version>")
-      ("$version$", version)
-    ]
-  let files = Seq.ofList [ projectFilePath ]
-  Shell.replaceInFiles replacements files
-
-  DotNet.pack packOptions projectPath
+  Paket.pack packOptions
 )
 
 Target.create "GenerateDocu" (fun _ -> ()
@@ -59,6 +74,8 @@ Target.create "GenerateDocu" (fun _ -> ()
 open Fake.Core.TargetOperators
 
 "Clean"
+  ==> "ReplaceVersion"
+  ==> "BuildPack"
   ==> "Pack"
 
 "Clean"
