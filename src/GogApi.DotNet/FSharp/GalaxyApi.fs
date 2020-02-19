@@ -2,9 +2,6 @@ module GogApi.DotNet.FSharp.GalaxyApi
 
 open HttpFs.Client
 
-open GogApi.DotNet.FSharp.Base
-open GogApi.DotNet.FSharp.Request
-
 type ProductInfoRequest = {
     id: int;
 }
@@ -37,7 +34,7 @@ let askForProductInfo auth (request :ProductInfoRequest) =
         createQuery "expand" "downloads"
     ]
     sprintf "https://api.gog.com/products/%i" request.id
-    |> makeRequest<ProductsResponse> Get auth queries
+    |> makeRequest<ProductsResponse> auth queries
 
 type SecureUrlRequest = {
     downlink: string;
@@ -49,4 +46,4 @@ type SecureUrlResponse = {
 }
 
 let askForSecureDownlink auth (request :SecureUrlRequest) =
-    makeRequest<SecureUrlResponse> Get auth [] request.downlink
+    makeRequest<SecureUrlResponse> auth [] request.downlink

@@ -13,7 +13,6 @@
   <ItemGroup>
     <Compile Include="Base.fs" />
     <Compile Include="Authentication.fs" />
-    <Compile Include="Request.fs" />
     <Compile Include="GamesMovies.fs" />
     <Compile Include="Listing.fs" />
     <Compile Include="User.fs" />

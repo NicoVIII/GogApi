@@ -1,47 +1,57 @@
-module GogApi.DotNet.FSharp.Base
+namespace GogApi.DotNet.FSharp
 
 open FSharp.Json
 open Hopac
 open HttpFs.Client
 
-type QueryString = {
-    name: QueryStringName;
-    value: QueryStringValue;
-}
+[<AutoOpen>]
+module Base =
+    type QueryString = {
+        name: QueryStringName;
+        value: QueryStringValue;
+    }
 
-let createQuery name value = { name = name; value = value }
+    let createQuery name value = { name = name; value = value }
 
-type AuthenticationData = {
-    accessToken: string;
-    refreshToken: string;
-    refreshed: bool;
-}
+    type AuthenticationData = {
+        accessToken: string;
+        refreshToken: string;
+    }
 
-type Authentication = NoAuth | Auth of AuthenticationData
+    type Authentication = NoAuth | Auth of AuthenticationData
 
-let config = JsonConfig.create(allowUntyped = true)
+    let config = JsonConfig.create(allowUntyped = true)
 
-let setupBasicRequest method auth queries url =
-    (Request.createUrl method url, auth)
-    // Add auth data
-    |> function
-        | (r, NoAuth) ->
-            r
-        | (r, Auth {accessToken = token}) ->
-            Request.setHeader (Authorization ("Bearer " + token)) r
-    // Add query parameters
-    |> List.fold (fun request query -> Request.queryStringItem query.name query.value request) <| queries
+    let setupRequest method auth queries url =
+        (Request.createUrl method url, auth)
+        // Add auth data
+        |> function
+            | (r, NoAuth) ->
+                r
+            | (r, Auth {accessToken = token}) ->
+                Request.setHeader (Authorization ("Bearer " + token)) r
+        // Add query parameters
+        |> List.fold (fun request query -> Request.queryStringItem query.name query.value request) <| queries
 
-let makeBasicJsonRequest<'T> method auth queries url =
-    let rawJson =
-        setupBasicRequest method auth queries url
+    let startRequest method auth queries url =
+        setupRequest method auth queries url
         |> Request.responseAsString
-        |> run
-    let parsedJson =
-        try
-            Json.deserializeEx<'T> config rawJson
-            |> Ok
-        with
-        | ex ->
-            Error (rawJson, ex.Message)
-    parsedJson
+        |> startAsTask
+
+    let parseJson<'a> rawJson =
+        let parsedJson =
+            try
+                Json.deserializeEx<'a> config rawJson
+                |> Ok
+            with
+            | ex ->
+                Error (rawJson, ex.Message)
+        parsedJson
+
+    let makeRequest<'a> auth queries url =
+        async {
+            let! jsonString =
+                startRequest Get auth queries url
+                |> Async.AwaitTask
+            return parseJson<'a> jsonString
+        }

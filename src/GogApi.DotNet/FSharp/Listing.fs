@@ -1,10 +1,5 @@
 module GogApi.DotNet.FSharp.Listing
 
-open HttpFs.Client
-
-open GogApi.DotNet.FSharp.Base
-open GogApi.DotNet.FSharp.Request
-
 type FilteredProductsRequest = {
     search :string
 }
@@ -24,4 +19,4 @@ let askForFilteredProducts auth (request :FilteredProductsRequest) =
         createQuery "mediaType" "1";
         createQuery "search" request.search
     ]
-    makeRequest<FilteredProductsResponse> Get auth queries "https://embed.gog.com/account/getFilteredProducts"
+    makeRequest<FilteredProductsResponse> auth queries "https://embed.gog.com/account/getFilteredProducts"
