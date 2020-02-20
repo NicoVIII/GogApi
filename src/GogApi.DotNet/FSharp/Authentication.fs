@@ -54,9 +54,9 @@ module Authentication =
             return createAuth result
         }
 
-    let withAutoRefresh apiFnc authentication =
+    let refreshAuthentication authentication =
         async {
-            let! authentication =
+            return!
                 // Refresh authentication, when old one expired
                 match authentication with
                 | Auth authenticationData
@@ -65,6 +65,12 @@ module Authentication =
                             refresh authenticationData
                 | _ ->
                     async { return authentication }
+        }
+
+
+    let withAutoRefresh apiFnc authentication =
+        async {
+            let! authentication = refreshAuthentication authentication
 
             // Execute API function
             let! fncResult = apiFnc authentication
