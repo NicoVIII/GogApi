@@ -29,12 +29,12 @@ type ProductsResponse = {
     downloads: DownloadsInfo;
 }
 
-let askForProductInfo auth (request :ProductInfoRequest) =
+let askForProductInfo (request :ProductInfoRequest) authentication =
     let queries = [
         createQuery "expand" "downloads"
     ]
     sprintf "https://api.gog.com/products/%i" request.id
-    |> makeRequest<ProductsResponse> auth queries
+    |> makeRequest<ProductsResponse> authentication queries
 
 type SecureUrlRequest = {
     downlink: string;
@@ -45,5 +45,5 @@ type SecureUrlResponse = {
     checksum: string;
 }
 
-let askForSecureDownlink auth (request :SecureUrlRequest) =
-    makeRequest<SecureUrlResponse> auth [] request.downlink
+let askForSecureDownlink (request :SecureUrlRequest) authentication =
+    makeRequest<SecureUrlResponse> authentication [] request.downlink

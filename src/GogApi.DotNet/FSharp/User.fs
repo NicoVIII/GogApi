@@ -7,5 +7,5 @@ type UserDataResponse = {
     email: string;
 }
 
-let askForUserData auth =
-    makeRequest<UserDataResponse> auth [] "https://embed.gog.com/userData.json"
+let askForUserData authentication =
+    makeRequest<UserDataResponse> authentication [] "https://embed.gog.com/userData.json"

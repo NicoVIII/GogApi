@@ -14,9 +14,9 @@ type FilteredProductsResponse = {
     products: ProductInfo list;
 }
 
-let askForFilteredProducts auth (request :FilteredProductsRequest) =
+let askForFilteredProducts (request :FilteredProductsRequest) authentication =
     let queries = [
         createQuery "mediaType" "1";
         createQuery "search" request.search
     ]
-    makeRequest<FilteredProductsResponse> auth queries "https://embed.gog.com/account/getFilteredProducts"
+    makeRequest<FilteredProductsResponse> authentication queries "https://embed.gog.com/account/getFilteredProducts"

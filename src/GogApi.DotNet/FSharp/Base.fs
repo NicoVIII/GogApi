@@ -3,6 +3,7 @@ namespace GogApi.DotNet.FSharp
 open FSharp.Json
 open Hopac
 open HttpFs.Client
+open System
 
 [<AutoOpen>]
 module Base =
@@ -16,6 +17,7 @@ module Base =
     type AuthenticationData = {
         accessToken: string;
         refreshToken: string;
+        accessExpires: DateTimeOffset
     }
 
     type Authentication = NoAuth | Auth of AuthenticationData
