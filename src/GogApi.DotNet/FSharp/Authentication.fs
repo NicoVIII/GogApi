@@ -24,7 +24,7 @@ module Authentication =
                   accessExpires =
                       response.expires_in - 1
                       |> float
-                      |> DateTimeOffset.UtcNow.AddSeconds }
+                      |> DateTimeOffset.Now.AddSeconds }
         | Error _ -> NoAuth
 
     let private getBasicQueries() =
@@ -57,7 +57,7 @@ module Authentication =
             // Refresh authentication, when old one expired
             let! authentication = match authentication with
                                   | Auth authenticationData when authenticationData.accessExpires
-                                                                 |> DateTimeOffset.UtcNow.CompareTo
+                                                                 |> DateTimeOffset.Now.CompareTo
                                                                  >= 0 -> refresh authenticationData
                                   | _ -> async { return authentication }
             return authentication
