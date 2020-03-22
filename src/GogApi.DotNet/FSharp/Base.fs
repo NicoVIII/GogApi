@@ -1,15 +1,15 @@
 namespace GogApi.DotNet.FSharp
 
 open FSharp.Json
-open Hopac
-open HttpFs.Client
+open FsHttp
+open FsHttp.DslCE
 open System
 
 [<AutoOpen>]
 module Base =
-    type QueryString =
-        { name: QueryStringName
-          value: QueryStringValue }
+    type QueryParameter =
+        { name: string
+          value: string }
 
     let createQuery name value =
         { name = name
@@ -26,20 +26,32 @@ module Base =
 
     let config = JsonConfig.create (allowUntyped = true)
 
-    let setupRequest method auth queries url =
-        (Request.createUrl method url, auth)
-        // Add auth data
-        |> function
-        | (r, NoAuth) -> r
-        | (r, Auth { accessToken = token }) -> Request.setHeader (Authorization("Bearer " + token)) r
-        // Add query parameters
-        |> List.fold (fun request query -> Request.queryStringItem query.name query.value request)
-        <| queries
+    let setupRequest auth queries url =
+        let url =
+            match queries with
+            | [] ->
+                url
+            | queries ->
+                let parameters =
+                    queries
+                    |> List.map (fun param -> param.name + "=" + param.value)
+                    |> List.reduce (fun param1 param2 -> param1 + "&" + param2)
+                url + "?" + parameters
 
-    let startRequest method auth queries url =
-        setupRequest method auth queries url
-        |> Request.responseAsString
-        |> startAsTask
+        let baseHeader =
+            httpLazy {
+                GET url
+                CacheControl "no-cache"
+            }
+        let request =
+            match auth with
+            | NoAuth ->
+                baseHeader
+            | Auth { accessToken = token } ->
+                httpRequest baseHeader {
+                    BearerAuth token
+                }
+        request |> sendAsync
 
     let parseJson<'T> rawJson =
         let parsedJson =
@@ -50,5 +62,10 @@ module Base =
 
     let makeRequest<'T> auth queries url =
         async {
-            let! jsonString = startRequest Get auth queries url |> Async.AwaitTask
-            return parseJson<'T> jsonString }
+            let! response = setupRequest auth queries url
+
+            let message =
+                response
+                |> toText
+            return parseJson<'T> message
+        }
