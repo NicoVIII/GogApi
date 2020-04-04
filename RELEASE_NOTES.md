@@ -5,6 +5,7 @@
 * Add a new wrapper function which can handle authentication refresh without
   polluting the other function signatures
 * Change used library: Http.Fs -> FsHttp
+* Restructure stuff
 * Generate documentation with Fornax
 
 ### 1.0.4 (2020-02-18)
