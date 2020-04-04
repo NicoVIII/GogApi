@@ -20,7 +20,7 @@ let project = "GogApi.DotNet"
 
 let summary = ""
 
-let gitOwner = "NicoVII"
+let gitOwner = "NicoVIII"
 let gitName = "GogApi.DotNet"
 let gitHome = "https://github.com/" + gitOwner
 
@@ -180,8 +180,12 @@ Target.create "Release" DoNothing
 "Clean" ==> "AssemblyInfo" ==> "Restore" ==> "Build" ==> "Test" ==> "Default"
 
 "Clean"
+"Clean"
+"Clean"
 "Clean" ==> "AssemblyInfo" ==> "Restore" ==> "BuildRelease" ==> "Docs"
 
+"Default"
+"Default"
 "Default"
 "Default" ==> "Pack" ==> "ReleaseGitHub" ==> "Push" ==> "Release"
 
