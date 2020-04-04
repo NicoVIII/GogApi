@@ -1,4 +1,4 @@
-# Contributing to Saturn
+# Contributing to GogApi.DotNet
 
 Please take a moment to review this document in order to make the contribution
 process easy and effective for everyone involved!
@@ -59,7 +59,6 @@ Feature requests are welcome and should be discussed on issue tracker. But take 
 out whether your idea fits with the scope and aims of the project. It's up to *you*
 to make a strong case to convince the community of the merits of this feature.
 Please provide as much detail and context as possible.
-
 
 ## Pull requests
 
