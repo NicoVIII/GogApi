@@ -154,10 +154,11 @@ Target.create "ReleaseGitHub" (fun _ ->
     // release on github
     let cl =
         client
-        |> GitHub.draftNewRelease gitOwner gitName release.NugetVersion (release.SemVer.PreRelease <> None)
+        |> GitHub.draftNewRelease gitOwner gitName ("v" + release.NugetVersion) (release.SemVer.PreRelease <> None)
                release.Notes
-    (cl, files)
-    ||> Seq.fold (fun acc e -> acc |> GitHub.uploadFile e)
+    //(cl, files)
+    //||> Seq.fold (fun acc e -> acc |> GitHub.uploadFile e)
+    cl
     |> GitHub.publishDraft
     |> Async.RunSynchronously)
 
@@ -177,16 +178,23 @@ Target.create "Push" (fun _ ->
 Target.create "Default" DoNothing
 Target.create "Release" DoNothing
 
-"Clean" ==> "AssemblyInfo" ==> "Restore" ==> "Build" ==> "Test" ==> "Default"
+"Clean"
+    ==> "AssemblyInfo"
+    ==> "Restore"
+    ==> "Build"
+    ==> "Test"
+    ==> "Default"
 
 "Clean"
-"Clean"
-"Clean"
-"Clean" ==> "AssemblyInfo" ==> "Restore" ==> "BuildRelease" ==> "Docs"
+    ==> "AssemblyInfo"
+    ==> "Restore"
+    ==> "BuildRelease"
+    ==> "Docs"
 
 "Default"
-"Default"
-"Default"
-"Default" ==> "Pack" ==> "ReleaseGitHub" ==> "Push" ==> "Release"
+    ==> "Pack"
+    ==> "ReleaseGitHub"
+    ==> "Push"
+    ==> "Release"
 
 Target.runOrDefault "Default"
