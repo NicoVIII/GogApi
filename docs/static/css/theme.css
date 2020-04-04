@@ -1171,3 +1171,8 @@ option {
 #logo-pic {
     height: 60px !important;
 }
+
+/* Remove bottom spacing in tables */
+td > p:last-child {
+    margin-bottom: 0;
+}
