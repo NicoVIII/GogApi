@@ -1,10 +1,11 @@
-### 2.0.0
+### 2.0.0-alpha.4
 
-* more control over async calls of the API
-* auto authentication was removed
-* a new wrapper function which can handle authentication refresh without
+* Allow more control over async calls of the API
+* Remove auto authentication from core methods
+* Add a new wrapper function which can handle authentication refresh without
   polluting the other function signatures
-* switched from Http.Fs to FsHttp
+* Change used library: Http.Fs -> FsHttp
+* Generate documentation with Fornax
 
 ### 1.0.4
 
@@ -25,5 +26,3 @@
 ### 1.0.0
 
 This release is the initial release after moving this part from Andromeda-for-Gog into an own project.
-
-I worked with it for a while now, so I think this is ready for a v1.0.0 release. As the development of Andromeda moves forward this project may change too, but I will try to stick to SemVer.

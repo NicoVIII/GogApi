@@ -10,8 +10,15 @@ NUGET
       FsCheck (>= 2.14)
     FsCheck (2.14)
       FSharp.Core (>= 4.2.3)
-    FSharp.Core (4.7)
+    FSharp.Core (4.7) - redirects: force
+    FSharp.Data (3.3.3)
+      FSharp.Core (>= 4.3.4)
+    FSharp.Json (0.4)
+      FSharp.Core (>= 4.6.2)
     Mono.Cecil (0.11.2)
+    SchlenkR.FsHttp (3.0)
+      FSharp.Core (>= 4.7)
+      FSharp.Data (>= 3.1.1)
 
 GROUP Build
 STORAGE: NONE

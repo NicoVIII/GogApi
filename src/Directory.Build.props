@@ -1,13 +1,13 @@
 <Project>
   <PropertyGroup>
     <Authors>NicoVIII</Authors>
-    <Copyright>(C) 2019-2020 NicoVIII</Copyright>
+    <Copyright>(C) 2019 NicoVIII</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://www.nuget.org/packages/GogApi.DotNet/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/NicoVIII/GogApi.DotNet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageIconUrl></PackageIconUrl>
-    <PackageTags>F#, API, GOG</PackageTags>
+    <PackageTags>GOG,API,F#</PackageTags>
     <PackageDescription></PackageDescription>
   </PropertyGroup>
 </Project>

@@ -16,19 +16,17 @@ open Fake.Api
 // --------------------------------------------------------------------------------------
 // Information about the project to be used at NuGet and in AssemblyInfo files
 // --------------------------------------------------------------------------------------
-
 let project = "GogApi.DotNet"
 
 let summary = ""
 
-let gitOwner = "NicoVII" 
+let gitOwner = "NicoVII"
 let gitName = "GogApi.DotNet"
 let gitHome = "https://github.com/" + gitOwner
 
 // --------------------------------------------------------------------------------------
 // Build variables
 // --------------------------------------------------------------------------------------
-
 let buildDir  = "./build/"
 let nugetDir  = "./out/"
 
@@ -41,24 +39,19 @@ let release = ReleaseNotes.parse (System.IO.File.ReadAllLines "RELEASE_NOTES.md"
 // --------------------------------------------------------------------------------------
 let isNullOrWhiteSpace = System.String.IsNullOrWhiteSpace
 let exec cmd args dir =
-    if Process.execSimple( fun info ->
-
-        { info with
-            FileName = cmd
-            WorkingDirectory =
-                if (isNullOrWhiteSpace dir) then info.WorkingDirectory
-                else dir
-            Arguments = args
-            }
-    ) System.TimeSpan.MaxValue <> 0 then
-        failwithf "Error while running '%s' with args: %s" cmd args
+    let proc =
+        CreateProcess.fromRawCommandLine cmd args
+        |> CreateProcess.ensureExitCodeWithMessage (sprintf "Error while running '%s' with args: %s" cmd args)
+    (if isNullOrWhiteSpace dir then proc
+    else proc |> CreateProcess.withWorkingDirectory dir)
+    |> Proc.run
+    |> ignore
 let getBuildParam = Environment.environVar
-
 let DoNothing = ignore
+
 // --------------------------------------------------------------------------------------
 // Build Targets
 // --------------------------------------------------------------------------------------
-
 Target.create "Clean" (fun _ ->
     Shell.cleanDirs [buildDir; nugetDir]
 )
@@ -90,7 +83,6 @@ Target.create "AssemblyInfo" (fun _ ->
         )
 )
 
-
 Target.create "Restore" (fun _ ->
     DotNet.restore id ""
 )
@@ -120,7 +112,6 @@ Target.create "BuildRelease" (fun _ ->
     ) "GogApi.Dotnet.sln"
 )
 
-
 Target.create "Pack" (fun _ ->
     DotNet.pack (fun p ->
         { p with
@@ -141,7 +132,6 @@ Target.create "ReleaseGitHub" (fun _ ->
     Git.Staging.stageAll ""
     Git.Commit.exec "" (sprintf "Bump version to %s" release.NugetVersion)
     Git.Branches.pushBranch "" remote (Git.Information.getBranchName "")
-
 
     Git.Branches.tag "" release.NugetVersion
     Git.Branches.pushTag "" remote release.NugetVersion
@@ -166,7 +156,7 @@ Target.create "ReleaseGitHub" (fun _ ->
         |> GitHub.draftNewRelease gitOwner gitName release.NugetVersion (release.SemVer.PreRelease <> None) release.Notes
     (cl,files)
     ||> Seq.fold (fun acc e -> acc |> GitHub.uploadFile e)
-    |> GitHub.publishDraft//releaseDraft
+    |> GitHub.publishDraft
     |> Async.RunSynchronously
 )
 

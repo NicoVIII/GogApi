@@ -5,7 +5,12 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Library.fs" />
+    <Compile Include="Base.fs" />
+    <Compile Include="Authentication.fs" />
+    <Compile Include="GamesMovies.fs" />
+    <Compile Include="Listing.fs" />
+    <Compile Include="User.fs" />
+    <Compile Include="GalaxyApi.fs" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
