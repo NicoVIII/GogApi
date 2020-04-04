@@ -149,13 +149,14 @@ Target.create "ReleaseGitHub" (fun _ ->
         // Git.createClient user pw
         GitHub.createClient user pw
 
-    let files = !!(nugetDir </> "*.nupkg")
+    //let files = !!(nugetDir </> "*.nupkg")
 
     // release on github
     let cl =
         client
         |> GitHub.draftNewRelease gitOwner gitName ("v" + release.NugetVersion) (release.SemVer.PreRelease <> None)
                release.Notes
+
     //(cl, files)
     //||> Seq.fold (fun acc e -> acc |> GitHub.uploadFile e)
     cl
@@ -169,7 +170,7 @@ Target.create "Push" (fun _ ->
         | _ -> UserInput.getUserPassword "NuGet Key: "
     Paket.push (fun p ->
         { p with
-              WorkingDir = buildDir
+              WorkingDir = nugetDir
               ApiKey = key }))
 
 // --------------------------------------------------------------------------------------
