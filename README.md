@@ -7,6 +7,8 @@
 
 This project aims at providing an interface to use the (unofficial) GOG API documented at <https://www.gog.com/forum/general/unofficial_gog_api_documentation/page1> from .NET (atm only for F#).
 
+Documentation can be found at <https://nicoviii.github.io/GogApi.DotNet>.
+
 ## Development
 [![Build Status](https://github.com/NicoVIII/GogApi.DotNet/workflows/Continuous%20Integration/badge.svg)](https://github.com/NicoVIII/GogApi.DotNet/actions)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/075c69d86f154b40bef949483e04b98c?branch=master)](https://app.codacy.com/manual/NicoVIII/GogApi.Dotnet/dashboard?bid=14410917)
