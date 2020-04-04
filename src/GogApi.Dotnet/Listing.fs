@@ -16,7 +16,7 @@ module Listing =
 
     let askForFilteredProducts (request: FilteredProductsRequest) authentication =
         let queries =
-            [ createQuery "mediaType" "1"
-              createQuery "search" request.search ]
+            [ createRequestParameter "mediaType" "1"
+              createRequestParameter "search" request.search ]
         makeRequest<FilteredProductsResponse> authentication queries
             "https://embed.gog.com/account/getFilteredProducts"

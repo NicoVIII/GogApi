@@ -30,16 +30,16 @@ module Authentication =
                       |> DateTimeOffset.Now.AddSeconds }
         | Error _ -> NoAuth
 
-    let private getBasicQueries() =
-        [ createQuery "client_id" "46899977096215655"
-          createQuery "client_secret" "9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9" ]
+    let private getBasicParameters() =
+        [ createRequestParameter "client_id" "46899977096215655"
+          createRequestParameter "client_secret" "9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9" ]
 
     let newToken (code: string) =
         async {
-            let! result = getBasicQueries()
-                          |> List.append [ createQuery "grant_type" "authorization_code" ]
-                          |> List.append [ createQuery "code" code ]
-                          |> List.append [ createQuery "redirect_uri" redirectUri ]
+            let! result = getBasicParameters()
+                          |> List.append [ createRequestParameter "grant_type" "authorization_code" ]
+                          |> List.append [ createRequestParameter "code" code ]
+                          |> List.append [ createRequestParameter "redirect_uri" redirectUri ]
                           |> makeRequest<TokenResponse> NoAuth
                           <| "https://auth.gog.com/token"
             return createAuth result
@@ -47,9 +47,9 @@ module Authentication =
 
     let refresh authentication =
         async {
-            let! result = getBasicQueries()
-                          |> List.append [ createQuery "grant_type" "refresh_token" ]
-                          |> List.append [ createQuery "refresh_token" authentication.refreshToken ]
+            let! result = getBasicParameters()
+                          |> List.append [ createRequestParameter "grant_type" "refresh_token" ]
+                          |> List.append [ createRequestParameter "refresh_token" authentication.refreshToken ]
                           |> makeRequest<TokenResponse> NoAuth
                           <| "https://auth.gog.com/token"
             return createAuth result

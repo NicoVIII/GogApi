@@ -6,14 +6,32 @@ open FSharp.Json
 open FsHttp
 open FsHttp.DslCE
 
+/// <summary>
+/// This module contains low-level functions and types to make requests to the GOG API
+/// </summary>
 module Request =
-    let createQuery name value =
+    /// <summary>
+    /// Simple record for request parameters
+    /// </summary>
+    type RequestParameter =
+        { name: string
+          value: string }
+
+    /// <summary>
+    /// Creates a simple Request Parameter
+    /// </summary>
+    let createRequestParameter name value =
         { name = name
           value = value }
 
-    let private config = JsonConfig.create (allowUntyped = true)
-
-    let private setupRequest auth queries url =
+    /// <summary>
+    /// Creates the GET request with correct authentication headers and parameters to given url
+    /// </summary>
+    /// <returns>
+    /// An Async which can be executed to send the request
+    /// </returns>
+    let setupRequest auth queries url =
+        // Add parameters to request url
         let url =
             match queries with
             | [] -> url
@@ -23,13 +41,13 @@ module Request =
                     |> List.map (fun param -> param.name + "=" + param.value)
                     |> List.reduce (fun param1 param2 -> param1 + "&" + param2)
                 url + "?" + parameters
-
+        // Headerpart which is always used - with authentication and without it
         let baseHeader =
             httpLazy {
                 GET url
                 CacheControl "no-cache"
             }
-
+        // Extend request header with authentication info if available
         let request =
             match auth with
             | NoAuth -> baseHeader
@@ -37,13 +55,26 @@ module Request =
 
         request |> sendAsync
 
+    /// <summary>
+    /// Helper function which catches exception from FSharp.Json and returns Result type
+    /// </summary>
+    /// <returns>
+    /// - Error when exception occured
+    /// - otherwise Ok with parsed object
+    /// </returns>
     let private parseJson<'T> rawJson =
         let parsedJson =
             try
-                Json.deserializeEx<'T> config rawJson |> Ok
+                Json.deserialize<'T> rawJson |> Ok
             with ex -> Error(rawJson, ex.Message)
         parsedJson
 
+    /// <summary>
+    /// Function which creates an request which will be parsed into an object after returning
+    /// </summary>
+    /// <returns>
+    /// An Async which can be executed to send the request and parse the answer
+    /// </returns>
     let makeRequest<'T> auth queries url =
         async {
             let! response = setupRequest auth queries url
