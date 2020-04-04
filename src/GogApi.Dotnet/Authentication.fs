@@ -5,9 +5,15 @@ open GogApi.DotNet.FSharp.Request
 
 open System
 
+/// <summary>
+/// This module holds everything which is needed to authenticate to the API
+/// </summary>
 module Authentication =
     let redirectUri = "https://embed.gog.com/on_login_success?origin=client"
 
+    /// <summary>
+    /// Typesafe variant of the response data of https://auth.gog.com/token
+    /// </summary>
     type TokenResponse =
         { expires_in: int
           scope: string
@@ -17,6 +23,9 @@ module Authentication =
           refresh_token: string
           session_id: string }
 
+    /// <summary>
+    /// Creates a new authentication from a TokenResponse
+    /// </summary>
     let createAuth response =
         match response with
         | Ok response ->
@@ -34,6 +43,10 @@ module Authentication =
         [ createRequestParameter "client_id" "46899977096215655"
           createRequestParameter "client_secret" "9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9" ]
 
+    /// <summary>
+    /// Uses authentication code to create a Authentication with authorization
+    /// token
+    /// </summary>
     let newToken (code: string) =
         async {
             let! result = getBasicParameters()
@@ -45,23 +58,45 @@ module Authentication =
             return createAuth result
         }
 
-    let refresh authentication =
-        async {
-            let! result = getBasicParameters()
-                          |> List.append [ createRequestParameter "grant_type" "refresh_token" ]
-                          |> List.append [ createRequestParameter "refresh_token" authentication.refreshToken ]
-                          |> makeRequest<TokenResponse> NoAuth
-                          <| "https://auth.gog.com/token"
-            return createAuth result
-        }
+    /// <summary>
+    /// Tries to refresh the current authentication.
+    /// </summary>
+    /// <returns>
+    /// - New Authentication, if token in given authentication expired
+    /// - otherwise the input
+    /// </returns>
+    let refresh authenticationData =
+        let sendRefreshRequest =
+            async {
+                let! response = getBasicParameters()
+                                |> List.append [ createRequestParameter "grant_type" "refresh_token" ]
+                                |> List.append
+                                    [ createRequestParameter "refresh_token" authenticationData.refreshToken ]
+                                |> makeRequest<TokenResponse> NoAuth
+                                <| "https://auth.gog.com/token"
+                return createAuth response
+            }
 
+        // Refresh authentication only, when old one expired
+        let oldTokenExpired =
+            authenticationData.accessExpires
+            |> DateTimeOffset.Now.CompareTo
+            >= 0
+        if oldTokenExpired
+        then sendRefreshRequest
+        else async { return Auth authenticationData }
+
+    /// <summary>
+    /// Tries to refresh the current authentication.
+    /// </summary>
+    /// <returns>
+    /// - New Authentication, if token in given authentication expired
+    /// - otherwise the input
+    /// </returns>
     let refreshAuthentication authentication =
         async {
-            // Refresh authentication, when old one expired
             let! authentication = match authentication with
-                                  | Auth authenticationData when authenticationData.accessExpires
-                                                                 |> DateTimeOffset.Now.CompareTo
-                                                                 >= 0 -> refresh authenticationData
+                                  | Auth authData -> refresh authData
                                   | _ -> async { return authentication }
             return authentication
         }
