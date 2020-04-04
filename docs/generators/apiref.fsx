@@ -223,7 +223,7 @@ let generate' (ctx : SiteContents)  =
                 br []
         ] ""
 
-    [("ApiRef", ref); yield! namespaces; yield! modules; yield! types]
+    [("apiref", ref); yield! namespaces; yield! modules; yield! types]
 
 let generate (ctx : SiteContents) (projectRoot: string) (page: string) =
     try
