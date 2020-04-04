@@ -133,8 +133,8 @@ Target.create "ReleaseGitHub" (fun _ ->
     Git.Commit.exec "" (sprintf "Bump version to %s" release.NugetVersion)
     Git.Branches.pushBranch "" remote (Git.Information.getBranchName "")
 
-    Git.Branches.tag "" release.NugetVersion
-    Git.Branches.pushTag "" remote release.NugetVersion
+    Git.Branches.tag "" ("v" + release.NugetVersion)
+    Git.Branches.pushTag "" remote ("v" + release.NugetVersion)
 
     let client =
         let user =
