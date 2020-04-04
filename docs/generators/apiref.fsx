@@ -29,7 +29,6 @@ let formatMember (m: Member) =
         [ td []
               [ code [] [ !!m.Name ]
                 br []
-                b [] [ !!"Signature: " ]
                 !!m.Details.Signature
                 br []
                 if not (m.Attributes.IsEmpty) then
