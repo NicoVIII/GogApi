@@ -9,14 +9,13 @@ type SiteInfo = {
 }
 
 let config = {
-    title = "FancyApp"
-    description = "Description of FancyApp project"
+    title = "GogApi.DotNet"
+    description = "This project aims at providing an interface to use the (unofficial) GOG API from .NET."
     theme_variant = Some "blue"
     numbers_in_menu = true
     root_url = "https://nicoviii.github.io/GogApi.DotNet"
 }
 
-let loader (projectRoot: string) (siteContet: SiteContents) =
-    siteContet.Add(config)
-
-    siteContet
+let loader (_: string) (siteContent: SiteContents) =
+    siteContent.Add(config)
+    siteContent
