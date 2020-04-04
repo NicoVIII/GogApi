@@ -13,7 +13,7 @@ let config = {
     description = "Description of FancyApp project"
     theme_variant = Some "blue"
     numbers_in_menu = true
-    root_url = "https://nicoviii.github.io/GogApi.DotNet/"
+    root_url = "https://nicoviii.github.io/GogApi.DotNet"
 }
 
 let loader (projectRoot: string) (siteContet: SiteContents) =
