@@ -1,15 +1,18 @@
-module GogApi.DotNet.FSharp.GamesMovies
+namespace GogApi.DotNet.FSharp
 
-type OwnedGamesResponse =
-    { owned: int list }
+open GogApi.DotNet.FSharp.Request
 
-let askForOwnedGameIds authentication =
-    makeRequest<OwnedGamesResponse> authentication [] "https://embed.gog.com/user/data/games"
+module GamesMovies =
+    type OwnedGamesResponse =
+        { owned: int list }
 
-type GameDetailsResponse =
-    { title: string
-      downloads: obj list list }
+    let askForOwnedGameIds authentication =
+        makeRequest<OwnedGamesResponse> authentication [] "https://embed.gog.com/user/data/games"
 
-let askForGameInfo id authentication =
-    sprintf "https://embed.gog.com/account/gameDetails/%i.json" id
-    |> makeRequest<GameDetailsResponse> authentication []
+    type GameDetailsResponse =
+        { title: string
+          downloads: obj list list }
+
+    let askForGameInfo id authentication =
+        sprintf "https://embed.gog.com/account/gameDetails/%i.json" id
+        |> makeRequest<GameDetailsResponse> authentication []

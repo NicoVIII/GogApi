@@ -1,37 +1,40 @@
-module GogApi.DotNet.FSharp.GalaxyApi
+namespace GogApi.DotNet.FSharp
 
-type ProductInfoRequest =
-    { id: int }
+open GogApi.DotNet.FSharp.Request
 
-type InstallerFileInfo =
-    { id: string
-      size: int64
-      downlink: string }
+module GalaxyApi =
+    type ProductInfoRequest =
+        { id: int }
 
-type InstallerInfo =
-    { id: string
-      os: string
-      version: string option
-      files: InstallerFileInfo list }
+    type InstallerFileInfo =
+        { id: string
+          size: int64
+          downlink: string }
 
-type DownloadsInfo =
-    { installers: InstallerInfo list }
+    type InstallerInfo =
+        { id: string
+          os: string
+          version: string option
+          files: InstallerFileInfo list }
 
-type ProductsResponse =
-    { id: int
-      title: string
-      downloads: DownloadsInfo }
+    type DownloadsInfo =
+        { installers: InstallerInfo list }
 
-let askForProductInfo (request: ProductInfoRequest) authentication =
-    let queries = [ createQuery "expand" "downloads" ]
-    sprintf "https://api.gog.com/products/%i" request.id |> makeRequest<ProductsResponse> authentication queries
+    type ProductsResponse =
+        { id: int
+          title: string
+          downloads: DownloadsInfo }
 
-type SecureUrlRequest =
-    { downlink: string }
+    let askForProductInfo (request: ProductInfoRequest) authentication =
+        let queries = [ createQuery "expand" "downloads" ]
+        sprintf "https://api.gog.com/products/%i" request.id |> makeRequest<ProductsResponse> authentication queries
 
-type SecureUrlResponse =
-    { downlink: string
-      checksum: string }
+    type SecureUrlRequest =
+        { downlink: string }
 
-let askForSecureDownlink (request: SecureUrlRequest) authentication =
-    makeRequest<SecureUrlResponse> authentication [] request.downlink
+    type SecureUrlResponse =
+        { downlink: string
+          checksum: string }
+
+    let askForSecureDownlink (request: SecureUrlRequest) authentication =
+        makeRequest<SecureUrlResponse> authentication [] request.downlink

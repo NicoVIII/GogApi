@@ -1,18 +1,22 @@
-module GogApi.DotNet.FSharp.Listing
+namespace GogApi.DotNet.FSharp
 
-type FilteredProductsRequest =
-    { search: string }
+open GogApi.DotNet.FSharp.Request
 
-type ProductInfo =
-    { id: int
-      title: string }
+module Listing =
+    type FilteredProductsRequest =
+        { search: string }
 
-type FilteredProductsResponse =
-    { totalProducts: int
-      products: ProductInfo list }
+    type ProductInfo =
+        { id: int
+          title: string }
 
-let askForFilteredProducts (request: FilteredProductsRequest) authentication =
-    let queries =
-        [ createQuery "mediaType" "1"
-          createQuery "search" request.search ]
-    makeRequest<FilteredProductsResponse> authentication queries "https://embed.gog.com/account/getFilteredProducts"
+    type FilteredProductsResponse =
+        { totalProducts: int
+          products: ProductInfo list }
+
+    let askForFilteredProducts (request: FilteredProductsRequest) authentication =
+        let queries =
+            [ createQuery "mediaType" "1"
+              createQuery "search" request.search ]
+        makeRequest<FilteredProductsResponse> authentication queries
+            "https://embed.gog.com/account/getFilteredProducts"

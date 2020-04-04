@@ -5,8 +5,10 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Base.fs" />
+    <Compile Include="Types.fs" />
+    <Compile Include="Request.fs" />
     <Compile Include="Authentication.fs" />
+    <Compile Include="Helpers.fs" />
     <Compile Include="GamesMovies.fs" />
     <Compile Include="Listing.fs" />
     <Compile Include="User.fs" />

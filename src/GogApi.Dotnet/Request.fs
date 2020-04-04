@@ -1,36 +1,22 @@
 namespace GogApi.DotNet.FSharp
 
+open GogApi.DotNet.FSharp.Types
+
 open FSharp.Json
 open FsHttp
 open FsHttp.DslCE
-open System
 
-[<AutoOpen>]
-module Base =
-    type QueryParameter =
-        { name: string
-          value: string }
-
+module Request =
     let createQuery name value =
         { name = name
           value = value }
 
-    type AuthenticationData =
-        { accessToken: string
-          refreshToken: string
-          accessExpires: DateTimeOffset }
+    let private config = JsonConfig.create (allowUntyped = true)
 
-    type Authentication =
-        | NoAuth
-        | Auth of AuthenticationData
-
-    let config = JsonConfig.create (allowUntyped = true)
-
-    let setupRequest auth queries url =
+    let private setupRequest auth queries url =
         let url =
             match queries with
-            | [] ->
-                url
+            | [] -> url
             | queries ->
                 let parameters =
                     queries
@@ -43,17 +29,15 @@ module Base =
                 GET url
                 CacheControl "no-cache"
             }
+
         let request =
             match auth with
-            | NoAuth ->
-                baseHeader
-            | Auth { accessToken = token } ->
-                httpRequest baseHeader {
-                    BearerAuth token
-                }
+            | NoAuth -> baseHeader
+            | Auth { accessToken = token } -> httpRequest baseHeader { BearerAuth token }
+
         request |> sendAsync
 
-    let parseJson<'T> rawJson =
+    let private parseJson<'T> rawJson =
         let parsedJson =
             try
                 Json.deserializeEx<'T> config rawJson |> Ok
@@ -64,8 +48,6 @@ module Base =
         async {
             let! response = setupRequest auth queries url
 
-            let message =
-                response
-                |> toText
+            let message = response |> toText
             return parseJson<'T> message
         }

@@ -1,5 +1,8 @@
 namespace GogApi.DotNet.FSharp
 
+open GogApi.DotNet.FSharp.Types
+open GogApi.DotNet.FSharp.Request
+
 open System
 
 module Authentication =
@@ -62,12 +65,3 @@ module Authentication =
                                   | _ -> async { return authentication }
             return authentication
         }
-
-
-    let withAutoRefresh apiFnc authentication =
-        async {
-            let! authentication = refreshAuthentication authentication
-
-            // Execute API function
-            let! fncResult = apiFnc authentication
-            return (fncResult, authentication) }
