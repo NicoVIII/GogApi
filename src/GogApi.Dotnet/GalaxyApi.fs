@@ -25,7 +25,7 @@ module GalaxyApi =
           title: string
           downloads: DownloadsInfo }
 
-    let askForProductInfo (request: ProductInfoRequest) authentication =
+    let getProductInfo (request: ProductInfoRequest) authentication =
         let queries = [ createRequestParameter "expand" "downloads" ]
         sprintf "https://api.gog.com/products/%i" request.id |> makeRequest<ProductsResponse> authentication queries
 
@@ -36,5 +36,5 @@ module GalaxyApi =
         { downlink: string
           checksum: string }
 
-    let askForSecureDownlink (request: SecureUrlRequest) authentication =
+    let getSecureDownlink (request: SecureUrlRequest) authentication =
         makeRequest<SecureUrlResponse> authentication [] request.downlink

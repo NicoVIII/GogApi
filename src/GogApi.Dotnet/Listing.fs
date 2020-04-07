@@ -14,7 +14,7 @@ module Listing =
         { totalProducts: int
           products: ProductInfo list }
 
-    let askForFilteredProducts (request: FilteredProductsRequest) authentication =
+    let getFilteredProducts (request: FilteredProductsRequest) authentication =
         let queries =
             [ createRequestParameter "mediaType" "1"
               createRequestParameter "search" request.search ]

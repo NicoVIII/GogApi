@@ -47,7 +47,7 @@ module Authentication =
     /// Uses authentication code to create a Authentication with authorization
     /// token
     /// </summary>
-    let newToken (code: string) =
+    let getNewToken (code: string) =
         async {
             let! result = getBasicParameters()
                           |> List.append [ createRequestParameter "grant_type" "authorization_code" ]
@@ -65,7 +65,7 @@ module Authentication =
     /// - New Authentication, if token in given authentication expired
     /// - otherwise the input
     /// </returns>
-    let refresh authenticationData =
+    let getRefreshToken authenticationData =
         let sendRefreshRequest =
             async {
                 let! response = getBasicParameters()
@@ -96,7 +96,7 @@ module Authentication =
     let refreshAuthentication authentication =
         async {
             let! authentication = match authentication with
-                                  | Auth authData -> refresh authData
+                                  | Auth authData -> getRefreshToken authData
                                   | _ -> async { return authentication }
             return authentication
         }
