@@ -4,7 +4,7 @@ open System.Reflection
 
 [<assembly: AssemblyTitleAttribute("GogApi.Dotnet")>]
 [<assembly: AssemblyProductAttribute("GogApi.DotNet")>]
-[<assembly: AssemblyDescriptionAttribute("")>]
+[<assembly: AssemblyDescriptionAttribute("This project aims at providing an interface to use the (unofficial) GOG API from .NET.")>]
 [<assembly: AssemblyVersionAttribute("2.0.0")>]
 [<assembly: AssemblyFileVersionAttribute("2.0.0")>]
 do ()
@@ -12,6 +12,6 @@ do ()
 module internal AssemblyVersionInformation =
     let [<Literal>] AssemblyTitle = "GogApi.Dotnet"
     let [<Literal>] AssemblyProduct = "GogApi.DotNet"
-    let [<Literal>] AssemblyDescription = ""
+    let [<Literal>] AssemblyDescription = "This project aims at providing an interface to use the (unofficial) GOG API from .NET."
     let [<Literal>] AssemblyVersion = "2.0.0"
     let [<Literal>] AssemblyFileVersion = "2.0.0"

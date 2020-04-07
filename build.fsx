@@ -18,7 +18,7 @@ open Fake.Api
 // --------------------------------------------------------------------------------------
 let project = "GogApi.DotNet"
 
-let summary = ""
+let summary = "This project aims at providing an interface to use the (unofficial) GOG API from .NET."
 
 let gitOwner = "NicoVIII"
 let gitName = "GogApi.DotNet"
@@ -108,16 +108,13 @@ Target.create "BuildRelease" (fun _ ->
                                String.concat "\n" release.Notes) ] } }) "GogApi.Dotnet.sln")
 
 Target.create "Pack" (fun _ ->
-    DotNet.pack (fun p ->
+    Paket.pack (fun p ->
         { p with
-              Configuration = DotNet.BuildConfiguration.Release
-              OutputPath = Some nugetDir
-              MSBuildParams =
-                  { p.MSBuildParams with
-                        Properties =
-                            [ ("Version", release.NugetVersion)
-                              ("PackageReleaseNotes",
-                               String.concat "\n" release.Notes) ] } }) "GogApi.Dotnet.sln")
+              OutputPath = nugetDir
+              Version = release.NugetVersion
+              ReleaseNotes =
+                  String.concat "\n" release.Notes
+              ToolType = ToolType.CreateCLIToolReference() }))
 
 Target.create "ReleaseGitHub" (fun _ ->
     let remote =
