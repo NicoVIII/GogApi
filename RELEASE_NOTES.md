@@ -1,4 +1,4 @@
-### 2.0.0-alpha.8
+### 2.0.0-alpha.9
 
 * Allow more control over async calls of the API
 * Remove auto authentication from core methods
@@ -6,7 +6,7 @@
   polluting the other function signatures
 * Change used library: Http.Fs -> FsHttp
 * For most functions you need a valid Authentication now
-* Restructure stuff
+* Restructure stuff to better resemble the api calls
 * Generate documentation with Fornax
 
 ### 1.0.4 (2020-02-18)
