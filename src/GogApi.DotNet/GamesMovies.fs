@@ -8,7 +8,7 @@ module GamesMovies =
         { owned: int list }
 
     let getOwnedGameIds authentication =
-        makeRequest<OwnedGameIdsResponse> authentication []
+        makeRequest<OwnedGameIdsResponse> (Some authentication) []
             "https://embed.gog.com/user/data/games"
 
     type GameInfoResponse =
@@ -17,4 +17,4 @@ module GamesMovies =
 
     let getGameInfo id authentication =
         sprintf "https://embed.gog.com/account/gameDetails/%i.json" id
-        |> makeRequest<GameInfoResponse> authentication []
+        |> makeRequest<GameInfoResponse> (Some authentication) []

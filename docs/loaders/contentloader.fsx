@@ -8,6 +8,7 @@ open System.IO
 type PostConfig = {
     disableLiveRefresh: bool
 }
+
 type Post = {
     file: string
     link : string
@@ -20,7 +21,6 @@ type Post = {
     menu_order: int
     hide_menu: bool
 }
-
 
 let markdownPipeline =
     MarkdownPipelineBuilder()
@@ -87,7 +87,7 @@ let loadFile projectRoot n =
         with
         | _ -> None
 
-    let menu_order =
+    let menuOrder =
         try
             let n = config |> List.find (fun n -> n.ToLower().StartsWith "menu_order" )
             n.Split(':').[1] |> trimString |> System.Int32.Parse
@@ -119,7 +119,7 @@ let loadFile projectRoot n =
       published = published
       tags = tags
       content = content
-      menu_order = menu_order
+      menu_order = menuOrder
       hide_menu = hide
       text = text }
 
@@ -136,8 +136,7 @@ and addHeadPath hp tp ns =
     | (nn, st) :: tn when nn = hp -> (nn, addPath tp st       ) ::                   tn
     | hn       :: tn              -> hn                         :: addHeadPath hp tp tn
 
-
-let loader (projectRoot: string) (siteContet: SiteContents) =
+let loader (projectRoot: string) (siteContent: SiteContents) =
     try
         let postsPath = System.IO.Path.Combine(projectRoot, "content")
         let posts =
@@ -146,7 +145,7 @@ let loader (projectRoot: string) (siteContet: SiteContents) =
             |> Array.map (loadFile projectRoot)
 
         posts
-        |> Array.iter (fun p -> siteContet.Add p)
+        |> Array.iter siteContent.Add
 
         let tree =
             (Node [], posts)
@@ -154,9 +153,9 @@ let loader (projectRoot: string) (siteContet: SiteContents) =
                 let path = e.link.Replace("content/", "").Split('/') |> List.ofArray
                 addPath path acc)
 
-        siteContet.Add(tree)
-        siteContet.Add({disableLiveRefresh = true})
+        siteContent.Add(tree)
+        siteContent.Add({disableLiveRefresh = true})
     with
     | ex -> printfn "EX: %A" ex
 
-    siteContet
+    siteContent
