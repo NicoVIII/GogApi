@@ -6,8 +6,6 @@ storage: none
 framework: netcoreapp3.1, netstandard2.0, netstandard2.1
 
 nuget FSharp.Core > 4.5 lowest_matching: true, redirects: force
-nuget Expecto
-nuget FsCheck 2.14.0
 nuget Expecto.FsCheck
 
 nuget Fsharp.Json ~> 0.4.0
@@ -31,14 +29,9 @@ group Build
   storage: none
 
   nuget Fake.Core.Target
-  nuget Fake.Core.Process
-  nuget Fake.DotNet.Cli
   nuget Fake.Core.ReleaseNotes
   nuget Fake.DotNet.AssemblyInfoFile
   nuget Fake.DotNet.Paket
   nuget Fake.Tools.Git
-  nuget Fake.Core.Environment
   nuget Fake.Core.UserInput
-  nuget Fake.IO.FileSystem
-  nuget Fake.DotNet.MsBuild
   nuget Fake.Api.GitHub
