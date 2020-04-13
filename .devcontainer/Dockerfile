@@ -32,7 +32,7 @@ RUN apt-get update \
     && chmod 0440 /etc/sudoers.d/$USERNAME \
     #
     # Add helpful tools
-    && apt-get -y install nano \
+    && apt-get -y install bash-completion nano \
     #
     # Clean up
     && apt-get autoremove -y \
@@ -43,3 +43,6 @@ RUN dotnet tool restore
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=dialog
+
+# Add autocomplete for git in terminal
+RUN echo "source /usr/share/bash-completion/completions/git" > /root/.bashrc
