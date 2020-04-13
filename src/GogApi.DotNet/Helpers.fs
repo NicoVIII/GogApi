@@ -3,6 +3,10 @@ namespace GogApi.DotNet.FSharp
 open GogApi.DotNet.FSharp.Types
 open System
 
+/// <summary>
+/// This module holds everything which isn't an API call but can help with handling
+/// them
+/// </summary>
 module Helpers =
     /// <summary>
     /// This helper function is used to extend every API call function and
@@ -17,10 +21,10 @@ module Helpers =
     /// Authentication (could change because of the refresh)</returns>
     let withAutoRefresh apiFnc (authentication: Authentication) =
         async {
-            // Refresh authentication only, when old one expired
+            // Refresh authentication only, when old one nearly expired
             let oldTokenExpired =
                 authentication.accessExpires
-                |> DateTimeOffset.Now.CompareTo
+                |> DateTimeOffset.Now.AddMinutes(-1.0).CompareTo
                 >= 0
 
             let! authentication =

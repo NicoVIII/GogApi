@@ -2,6 +2,9 @@ namespace GogApi.DotNet.FSharp
 
 open GogApi.DotNet.FSharp.Request
 
+/// <summary>
+/// Contains special endpoints for Galaxy
+/// </summary>
 module GalaxyApi =
     type ProductInfoRequest =
         { id: int }
@@ -25,6 +28,9 @@ module GalaxyApi =
           title: string
           downloads: DownloadsInfo }
 
+    /// <summary>
+    /// Returns information about a product
+    /// </summary>
     let getProductInfo (request: ProductInfoRequest) authentication =
         let queries = [ createRequestParameter "expand" "downloads" ]
         sprintf "https://api.gog.com/products/%i" request.id
@@ -37,5 +43,9 @@ module GalaxyApi =
         { downlink: string
           checksum: string }
 
+    /// <summary>
+    /// Takes a downlink from productinfo and transforms it into a secure version
+    /// which can be used to download installer files
+    /// </summary>
     let getSecureDownlink (request: SecureUrlRequest) authentication =
         makeRequest<SecureUrlResponse> (Some authentication) [] request.downlink
