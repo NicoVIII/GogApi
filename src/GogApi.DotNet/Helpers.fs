@@ -32,11 +32,9 @@ module Helpers =
             // Execute API function
             let! fncResult = match authentication with
                              | Some authentication ->
-                                 async {
-                                     let! fncResult = apiFnc authentication
-                                     return fncResult }
+                                 async { return! apiFnc authentication }
                              | None ->
                                  // TODO: think again about error handling in the whole API
-                                 async { failwith "Didn't get valid authentication!" }
+                                 failwith "Didn't get valid authentication!"
             return (fncResult, authentication)
         }
