@@ -114,7 +114,7 @@ Target.create "Pack" (fun _ ->
               Version = release.NugetVersion
               ReleaseNotes =
                   String.concat "\n" release.Notes
-              ToolType = ToolType.CreateCLIToolReference() }))
+              ToolType = ToolType.CreateLocalTool() }))
 
 Target.create "ReleaseGitHub" (fun _ ->
     let remote =
@@ -168,7 +168,8 @@ Target.create "Push" (fun _ ->
     Paket.push (fun p ->
         { p with
               WorkingDir = nugetDir
-              ApiKey = key }))
+              ApiKey = key
+              ToolType = ToolType.CreateLocalTool() }))
 
 // --------------------------------------------------------------------------------------
 // Build order
