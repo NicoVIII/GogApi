@@ -9,8 +9,6 @@ open System
 /// This module holds everything which is needed to authenticate to the API
 /// </summary>
 module Authentication =
-    let redirectUri = "https://embed.gog.com/on_login_success?origin=client"
-
     // TODO: think about using anonymous records instead?
     /// <summary>
     /// Typesafe variant of the response data of https://auth.gog.com/token
@@ -49,7 +47,7 @@ module Authentication =
     /// Uses authentication code to create a Authentication with authorization
     /// token
     /// </summary>
-    let getNewToken (code: string) =
+    let getNewToken (redirectUri: string) (code: string)=
         async {
             let! result = getBasicParameters()
                           |> List.append

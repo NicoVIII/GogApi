@@ -14,8 +14,11 @@ In this guide I will show you how this is effectivly done with this library in F
 
 ## Request authentication code
 
-At first you need to request a notification code. For that you need some kind of embedded
-browser and point the browser to:  
+At first you need to request a authentication code. For that you need some kind of embedded
+browser and point the browser to an url like:  
+<https://login.gog.com/auth?client_id=46899977096215655&layout=client2&redirect_uri=__REDIRECT_URI__&response_type=code>
+
+I use always `https://embed.gog.com/on_login_success?origin=client` as redirect uri and therefore the link is:
 <https://login.gog.com/auth?client_id=46899977096215655&layout=client2&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code>
 
 You can find the documentation for that endpoint here:  
@@ -33,14 +36,17 @@ This is the authentication code you need for the next step.
 
 ## Request authentication token
 
-For this you need the authentication code from the previous step. This is used to request
+For this you need the used redirect uri and authentication code from the previous step. This is used to request
 an authentication token, which is used to authenticate your API calls.
 
 ```fsharp
 open GogApi.DotNet.FSharp
 
+// let redirectUri = <RedirectUri>
 // let authCode = <AuthenticationCode>
-let newTokenAsync = Authentication.getNewToken authCode // string -> Async<Authentication>
+
+let newTokenAsync = Authentication.getNewToken redirectUri authCode
+// newTokenAsync: Async<Authentication>
 ```
 
 From here you can fire the call to the API in any way you see fitting.
@@ -59,5 +65,5 @@ refreshes the authentication when the tokens validity runs out.
 You can use this to autorefresh before any API call:
 
 ```fsharp
-Authentication.withAutoRefresh(Games.getAvailableGamesForSearch state.search) authentication
+Authentication.withAutoRefresh(Games.getAvailableGamesForSearch search) authentication
 ```
