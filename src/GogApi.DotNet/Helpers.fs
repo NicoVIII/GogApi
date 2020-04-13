@@ -15,7 +15,7 @@ module Helpers =
     /// this request</param>
     /// <returns>Async which after execution holds API response and current
     /// Authentication (could change because of the refresh)</returns>
-    let withautoRefresh apiFnc (authentication: Authentication) =
+    let withAutoRefresh apiFnc (authentication: Authentication) =
         async {
             // Refresh authentication only, when old one expired
             let oldTokenExpired =
