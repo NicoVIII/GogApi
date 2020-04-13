@@ -23,16 +23,15 @@ Documentation can be found at <https://nicoviii.github.io/GogApi.DotNet>.
 
 ### How to release.
 
-Create release.cmd or release.sh file (already git-ignored) with following content (sample from `cmd`, but `sh` file should be similar):
+Create release.cmd or release.sh file (already git-ignored) with following content (sample from `sh`, but `cmd` file is similar):
 
 ```
-@echo off
-cls
+#! /bin/bash
+export NUGET_KEY=YOUR_NUGET_KEY
+export GITHUB_USER=YOUR_GH_USERNAME
+export GITHUB_PW=YOUR_GH_PASSWORD_OR_ACCESS_TOKEN
 
-SET nuget-key=YOUR_NUGET_KEY
-SET github-user=YOUR_GH_USERNAME
-SET github-pw=YOUR_GH_PASSWORD_OR_ACCESS_TOKEN
-
+dotnet tool restore
 dotnet fake build --target Release
 ```
 
