@@ -1,6 +1,7 @@
 namespace GogApi.DotNet.FSharp
 
-open GogApi.DotNet.FSharp
+open GogApi.DotNet.FSharp.Types
+open System
 
 module Helpers =
     /// <summary>
@@ -14,7 +15,7 @@ module Helpers =
     /// this request</param>
     /// <returns>Async which after execution holds API response and current
     /// Authentication (could change because of the refresh)</returns>
-    let autoRefresh authentication =
+    let withautoRefresh apiFnc (authentication: Authentication) =
         async {
             // Refresh authentication only, when old one expired
             let oldTokenExpired =
@@ -22,12 +23,11 @@ module Helpers =
                 |> DateTimeOffset.Now.CompareTo
                 >= 0
 
-            let authentication =
+            let! authentication =
                 if oldTokenExpired then
-                    let! authentication = Authentication.getRefreshToken authentication
-                    authentication
+                    Authentication.getRefreshToken authentication
                 else
-                    Some authentication
+                    Some authentication |> async.Return
 
             // Execute API function
             let! fncResult = match authentication with

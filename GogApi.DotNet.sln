@@ -5,13 +5,13 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F1C3697A-14C7-44F4-BB2C-8F2874DD3C7D}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GogApi.Dotnet", "src\GogApi.Dotnet\GogApi.Dotnet.fsproj", "{2B2AF76F-D332-43DF-81EA-B5410493FA8B}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GogApi.DotNet", "src\GogApi.DotNet\GogApi.DotNet.fsproj", "{2B2AF76F-D332-43DF-81EA-B5410493FA8B}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GogApi.Dotnet.Cli", "src\GogApi.Dotnet.Cli\GogApi.Dotnet.Cli.fsproj", "{FB0DA14A-D15A-49F2-B693-DEFE8D67057B}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GogApi.DotNet.Cli", "src\GogApi.DotNet.Cli\GogApi.DotNet.Cli.fsproj", "{FB0DA14A-D15A-49F2-B693-DEFE8D67057B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{DDCA53F5-9626-4C73-9BDA-21A28CD98993}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GogApi.Dotnet.UnitTests", "tests\GogApi.Dotnet.UnitTests\GogApi.Dotnet.UnitTests.fsproj", "{04410448-2C89-48B9-AB7A-54FAC8CBDB0C}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GogApi.DotNet.UnitTests", "tests\GogApi.DotNet.UnitTests\GogApi.DotNet.UnitTests.fsproj", "{04410448-2C89-48B9-AB7A-54FAC8CBDB0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

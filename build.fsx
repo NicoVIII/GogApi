@@ -88,7 +88,7 @@ Target.create "Restore" (fun _ -> DotNet.restore id "")
 Target.create "Build" (fun _ -> DotNet.build id "")
 
 Target.create "Test"
-    (fun _ -> exec "dotnet" @"run --project .\tests\GogApi.Dotnet.UnitTests\GogApi.Dotnet.UnitTests.fsproj" ".")
+    (fun _ -> exec "dotnet" @"run --project .\tests\GogApi.DotNet.UnitTests\GogApi.DotNet.UnitTests.fsproj" ".")
 
 Target.create "Docs" (fun _ -> exec "dotnet" @"fornax build" "docs")
 
@@ -105,7 +105,7 @@ Target.create "BuildRelease" (fun _ ->
                         Properties =
                             [ ("Version", release.NugetVersion)
                               ("PackageReleaseNotes",
-                               String.concat "\n" release.Notes) ] } }) "GogApi.Dotnet.sln")
+                               String.concat "\n" release.Notes) ] } }) "GogApi.DotNet.sln")
 
 Target.create "Pack" (fun _ ->
     Paket.pack (fun p ->

@@ -2,7 +2,7 @@
 namespace System
 open System.Reflection
 
-[<assembly: AssemblyTitleAttribute("GogApi.Dotnet")>]
+[<assembly: AssemblyTitleAttribute("GogApi.DotNet")>]
 [<assembly: AssemblyProductAttribute("GogApi.DotNet")>]
 [<assembly: AssemblyDescriptionAttribute("This project aims at providing an interface to use the (unofficial) GOG API from .NET.")>]
 [<assembly: AssemblyVersionAttribute("2.0.0")>]
@@ -10,7 +10,7 @@ open System.Reflection
 do ()
 
 module internal AssemblyVersionInformation =
-    let [<Literal>] AssemblyTitle = "GogApi.Dotnet"
+    let [<Literal>] AssemblyTitle = "GogApi.DotNet"
     let [<Literal>] AssemblyProduct = "GogApi.DotNet"
     let [<Literal>] AssemblyDescription = "This project aims at providing an interface to use the (unofficial) GOG API from .NET."
     let [<Literal>] AssemblyVersion = "2.0.0"
