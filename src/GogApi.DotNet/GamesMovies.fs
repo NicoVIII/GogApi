@@ -3,16 +3,18 @@ namespace GogApi.DotNet.FSharp
 open GogApi.DotNet.FSharp.Request
 
 module GamesMovies =
-    type OwnedGamesResponse =
+    // TODO: Make it typesafer? More Domaintypes? Is that a good idea? As alternative?
+    type OwnedGameIdsResponse =
         { owned: int list }
 
     let getOwnedGameIds authentication =
-        makeRequest<OwnedGamesResponse> authentication [] "https://embed.gog.com/user/data/games"
+        makeRequest<OwnedGameIdsResponse> authentication []
+            "https://embed.gog.com/user/data/games"
 
-    type GameDetailsResponse =
+    type GameInfoResponse =
         { title: string
           downloads: obj list list }
 
     let getGameInfo id authentication =
         sprintf "https://embed.gog.com/account/gameDetails/%i.json" id
-        |> makeRequest<GameDetailsResponse> authentication []
+        |> makeRequest<GameInfoResponse> authentication []

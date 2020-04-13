@@ -48,8 +48,9 @@ module Request =
         // Extend request header with authentication info if available
         let request =
             match authentication with
-            | NoAuth -> baseHeader
-            | Auth { accessToken = token } -> httpRequest baseHeader { BearerAuth token }
+            | Some { accessToken = token } ->
+                httpRequest baseHeader { BearerAuth token }
+            | None -> baseHeader
 
         request |> sendAsync
 

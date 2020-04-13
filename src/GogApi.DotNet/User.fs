@@ -8,4 +8,5 @@ module User =
           email: string }
 
     let getUserData authentication =
-        makeRequest<UserDataResponse> authentication [] "https://embed.gog.com/userData.json"
+        makeRequest<UserDataResponse> authentication []
+            "https://embed.gog.com/userData.json"

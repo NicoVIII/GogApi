@@ -11,6 +11,7 @@ open System
 module Authentication =
     let redirectUri = "https://embed.gog.com/on_login_success?origin=client"
 
+    // TODO: think about using anonymous records instead?
     /// <summary>
     /// Typesafe variant of the response data of https://auth.gog.com/token
     /// </summary>
@@ -29,7 +30,7 @@ module Authentication =
     let createAuth response =
         match response with
         | Ok response ->
-            Auth
+            Some
                 { accessToken = response.access_token
                   refreshToken = response.refresh_token
                   // Safety second to avoid errors through code execution duration
@@ -37,11 +38,12 @@ module Authentication =
                       response.expires_in - 1
                       |> float
                       |> DateTimeOffset.Now.AddSeconds }
-        | Error _ -> NoAuth
+        | Error _ -> None
 
     let private getBasicParameters() =
         [ createRequestParameter "client_id" "46899977096215655"
-          createRequestParameter "client_secret" "9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9" ]
+          createRequestParameter "client_secret"
+              "9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9" ]
 
     /// <summary>
     /// Uses authentication code to create a Authentication with authorization
@@ -50,10 +52,12 @@ module Authentication =
     let getNewToken (code: string) =
         async {
             let! result = getBasicParameters()
-                          |> List.append [ createRequestParameter "grant_type" "authorization_code" ]
+                          |> List.append
+                              [ createRequestParameter "grant_type" "authorization_code" ]
                           |> List.append [ createRequestParameter "code" code ]
-                          |> List.append [ createRequestParameter "redirect_uri" redirectUri ]
-                          |> makeRequest<TokenResponse> NoAuth
+                          |> List.append
+                              [ createRequestParameter "redirect_uri" redirectUri ]
+                          |> makeRequest<TokenResponse> None
                           <| "https://auth.gog.com/token"
             return createAuth result
         }
@@ -65,38 +69,15 @@ module Authentication =
     /// - New Authentication, if token in given authentication expired
     /// - otherwise the input
     /// </returns>
-    let getRefreshToken authenticationData =
-        let sendRefreshRequest =
-            async {
-                let! response = getBasicParameters()
-                                |> List.append [ createRequestParameter "grant_type" "refresh_token" ]
-                                |> List.append
-                                    [ createRequestParameter "refresh_token" authenticationData.refreshToken ]
-                                |> makeRequest<TokenResponse> NoAuth
-                                <| "https://auth.gog.com/token"
-                return createAuth response
-            }
-
-        // Refresh authentication only, when old one expired
-        let oldTokenExpired =
-            authenticationData.accessExpires
-            |> DateTimeOffset.Now.CompareTo
-            >= 0
-        if oldTokenExpired
-        then sendRefreshRequest
-        else async { return Auth authenticationData }
-
-    /// <summary>
-    /// Tries to refresh the current authentication.
-    /// </summary>
-    /// <returns>
-    /// - New Authentication, if token in given authentication expired
-    /// - otherwise the input
-    /// </returns>
-    let refreshAuthentication authentication =
+    let getRefreshToken authentication =
         async {
-            let! authentication = match authentication with
-                                  | Auth authData -> getRefreshToken authData
-                                  | _ -> async { return authentication }
-            return authentication
+            let! response = getBasicParameters()
+                            |> List.append
+                                [ createRequestParameter "grant_type" "refresh_token" ]
+                            |> List.append
+                                [ createRequestParameter "refresh_token"
+                                      authentication.refreshToken ]
+                            |> makeRequest<TokenResponse> None
+                            <| "https://auth.gog.com/token"
+            return createAuth response
         }
