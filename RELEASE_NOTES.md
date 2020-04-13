@@ -1,4 +1,4 @@
-### 2.0.0-alpha.6
+### 2.0.0-alpha.7
 
 * Allow more control over async calls of the API
 * Remove auto authentication from core methods
