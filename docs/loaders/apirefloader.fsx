@@ -21,7 +21,7 @@ let rec collectModules pn pu nn nu (m: Module) =
 
 
 let loader (projectRoot: string) (siteContet: SiteContents) =
-    let dll = Path.Combine(projectRoot, "..", "build", "GogApi.Dotnet.dll")
+    let dll = Path.Combine(projectRoot, "..", "build", "GogApi.DotNet.dll")
     let output = MetadataFormat.Generate(dll, markDownComments = false, publicOnly = true)
 
     let allModules =
