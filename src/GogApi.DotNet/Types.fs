@@ -13,3 +13,14 @@ module Types =
         { accessToken: string
           refreshToken: string
           accessExpires: DateTimeOffset }
+
+    type GameId = GameId of int
+    type UserId = UserId of int
+
+    type Currency =
+        { code: string
+          symbol: string }
+
+    type Language =
+        { code: string
+          name: string }
