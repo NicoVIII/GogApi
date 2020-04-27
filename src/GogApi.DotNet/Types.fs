@@ -1,5 +1,6 @@
 namespace GogApi.DotNet.FSharp
 
+open FSharp.Json
 open System
 
 /// <summary>
@@ -15,7 +16,16 @@ module Types =
           accessExpires: DateTimeOffset }
 
     type GameId = GameId of int
-    type UserId = UserId of int
+
+    type UserId = UserId of uint64
+
+    type UserName = UserName of string
+
+    type FriendInfo =
+        { username: UserName
+          userSince: int
+          galaxyId: string
+          avatar: string }
 
     type Currency =
         { code: string
@@ -24,3 +34,9 @@ module Types =
     type Language =
         { code: string
           name: string }
+
+    type UserIdStringTransform() =
+        interface ITypeTransform with
+            member x.targetType () = (fun _ -> typeof<string>) ()
+            member x.toTargetType value = (fun (v: obj) -> (v :?> UserId) |> (fun (UserId userId) -> userId) |> string :> obj) value
+            member x.fromTargetType value = (fun (v: obj) -> v :?> string |> uint64 |> UserId :> obj) value

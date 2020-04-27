@@ -2,6 +2,7 @@ namespace GogApi.DotNet.FSharp
 
 open GogApi.DotNet.FSharp.Request
 open GogApi.DotNet.FSharp.Types
+open FSharp.Json
 
 /// <summary>
 /// Methods used to manage the user’s account
@@ -15,9 +16,16 @@ module User =
           ratingBrand: string
           isLoggedIn: bool
           checksum: {| cart: string option; games: string option; wishlist: string option; reviews_votes: string option; games_rating: string option |}
-          updates: {| messages: int; pendingFriendRequests: int; unreadChatMessages: int; products: int; forum: int; total: int |}
+          updates: {| messages: int; pendingFriendRequests: int; unreadChatMessages: int; products: int; total: int |}
+          [<JsonField(Transform=typeof<UserIdStringTransform>)>]
           userId: UserId
-          username: string
+          username: UserName
+          galaxyUserId: string
+          avatar: string option
+          walletBalance: {| currency: string; amount: int |}
+          purchasedItems: {| games: int; movies: int |}
+          wishlistedItems: int
+          friends: FriendInfo list
           email: string
           personalizedProductPrices: obj list
           personalizedSeriesPrices: obj list }
