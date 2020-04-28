@@ -11,8 +11,6 @@ nuget Expecto.FsCheck
 nuget Fsharp.Json ~> 0.4.0
 nuget SchlenkR.FsHttp ~> 3.0
 
-nuget CommandLineParser.FSharp
-
 group Docs
   source https://api.nuget.org/v3/index.json
 

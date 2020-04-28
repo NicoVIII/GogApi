@@ -5,6 +5,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Pattern.fs" />
+    <Compile Include="Authentication.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>

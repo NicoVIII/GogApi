@@ -17,14 +17,38 @@ module GamesMovies =
         makeRequest<OwnedGameIdsResponse> (Some authentication) []
             "https://embed.gog.com/user/data/games"
 
+    type GameExtra =
+        { manualUrl: string
+          downloaderUrl: string
+          name: string
+          ``type``: string // TODO: Is it possible to match this to a DU?
+          info: int
+          size: string } // TODO: parse this somehow in a number? In additional field?
+
     type GameInfoResponse =
         { title: string
-          downloads: obj list list }
+          backgroundImage: string
+          cdKey: string
+          textInformation: string
+          downloads: obj list list
+          galaxyDownloads: obj list
+          extras: GameExtra list
+          dlcs: obj list
+          tags: obj list
+          isPreOrder: bool
+          releaseTimestamp: uint64
+          messages: obj list
+          changelog: string
+          forumLink: string
+          isBaseProductMissing: bool
+          missingBaseProduct: obj option
+          features: obj list
+          simpleGalaxyInstallers: {| path: string; os: string |} list }
 
     /// <summary>
-    /// Fetches a list of game ids of the games the authenticated account owns
+    /// Fetches some details about the game with given id
     /// </summary>
     let getGameDetails (GameId id) authentication =
         sprintf "https://embed.gog.com/account/gameDetails/%i.json" id
         |> makeRequest<GameInfoResponse> (Some authentication) []
-        // TODO: Improve return type structure
+// TODO: Improve return type structure

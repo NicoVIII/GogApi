@@ -1,47 +1,31 @@
-﻿namespace GogApi.DotNet
+﻿namespace GogApi.DotNet.Cli
 
-open CommandLine
-open FSharp.Json
 open GogApi.DotNet.FSharp
 open GogApi.DotNet.FSharp.Types
 open System
-open System.IO
 
-module Cli =
-    let url =
-        "https://login.gog.com/auth?client_id=46899977096215655&layout=client2&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code"
-    let authFile = "authentication.json"
+open GogApi.DotNet.Cli.Pattern
 
-    let rec getAuthentication() =
-        match File.Exists authFile with
-        | false ->
-            printfn
-                "Please go to %s , log in and paste the code in the resulting get parameter:"
-                url
-            let authCode = Console.ReadLine()
-
-            let authentication =
-                Authentication.getNewToken
-                    "https://embed.gog.com/on_login_success?origin=client" authCode
-                |> Async.RunSynchronously
-
-            match authentication with
-            | Some authentication -> authentication
-            | None -> getAuthentication()
-        | true ->
-            Json.deserialize<Authentication> <| File.ReadAllText authFile
-
+module Program =
     let printHelp() =
         printfn "-- GogApi.DotNet.Cli --"
         printfn "help\n - Shows this list"
-        printfn "quit\n - Leaves program"
+        printfn "exit | quit\n - Leaves program"
         printfn ""
         printfn "getUserData\n - Shows information of the currently logged in user"
+        printfn "getOwnedGameIds\n - Shows ids of owned games"
+        printfn "getGameDetails <gameid>\n - Shows details for given game"
         printfn ""
 
-    let rec handleApiCall authentication =
-        // Save authentication
-        File.WriteAllText (authFile, authentication |> Json.serialize)
+    let inline handleApiCall apiCall authentication =
+        let result, authentication =
+            Helpers.withAutoRefresh apiCall authentication
+            |> Async.RunSynchronously
+        printfn "%A\n" result
+        authentication
+
+    let rec handleCommand authentication =
+        Authentication.save authentication
 
         printfn "Enter a command (Type 'help' to see available commands):"
         Console.ReadLine().Split ' '
@@ -49,27 +33,25 @@ module Cli =
         |> function
         | [ "help" ] ->
             printHelp()
-            handleApiCall authentication
+            handleCommand authentication
         | [ "getUserData" ] ->
-            let result, authentication =
-                Helpers.withAutoRefresh User.getUserData authentication
-                |> Async.RunSynchronously
-            printfn "%A\n" result
-            handleApiCall authentication
+            handleApiCall User.getUserData authentication
+            |> handleCommand
         | [ "getOwnedGameIds" ] ->
-            let result, authentication =
-                Helpers.withAutoRefresh GamesMovies.getOwnedGameIds authentication
-                |> Async.RunSynchronously
-            printfn "%A\n" result
-            handleApiCall authentication
+            handleApiCall GamesMovies.getOwnedGameIds authentication
+            |> handleCommand
+        | "getGameDetails"::[UInt gameId] ->
+            handleApiCall (GamesMovies.getGameDetails (GameId gameId)) authentication
+            |> handleCommand
+        | [ "exit" ]
         | [ "quit" ] ->
             ()
         | _ ->
             printfn "Invalid command.\n"
-            handleApiCall authentication
+            handleCommand authentication
 
     [<EntryPoint>]
     let main _ =
-        getAuthentication ()
-        |> handleApiCall
+        Authentication.get ()
+        |> handleCommand
         0

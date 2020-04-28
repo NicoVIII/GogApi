@@ -15,7 +15,7 @@ module Types =
           refreshToken: string
           accessExpires: DateTimeOffset }
 
-    type GameId = GameId of int
+    type GameId = GameId of uint32
 
     type UserId = UserId of uint64
 

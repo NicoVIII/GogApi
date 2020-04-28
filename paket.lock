@@ -2,8 +2,6 @@ STORAGE: NONE
 RESTRICTION: || (== netcoreapp3.1) (== netstandard2.0) (== netstandard2.1)
 NUGET
   remote: https://api.nuget.org/v3/index.json
-    CommandLineParser.FSharp (2.7.82)
-      FSharp.Core (>= 4.5.1)
     Expecto (9.0)
       FSharp.Core (>= 4.6)
       Mono.Cecil (>= 0.11.2)

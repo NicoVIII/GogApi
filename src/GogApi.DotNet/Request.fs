@@ -10,6 +10,8 @@ open FsHttp.DslCE
 /// This module contains low-level functions and types to make requests to the GOG API
 /// </summary>
 module Request =
+    let jsonConfig = { JsonConfig.Default with allowUntyped = true }
+
     /// <summary>
     /// Simple record for request parameters
     /// </summary>
@@ -65,7 +67,7 @@ module Request =
     let parseJson<'T> rawJson =
         let parsedJson =
             try
-                Json.deserialize<'T> rawJson |> Ok
+                Json.deserializeEx<'T> jsonConfig rawJson |> Ok
             with ex -> Error(rawJson, ex.Message)
         parsedJson
 
