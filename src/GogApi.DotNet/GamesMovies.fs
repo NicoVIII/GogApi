@@ -1,5 +1,7 @@
 namespace GogApi.DotNet.FSharp
 
+open FSharp.Json
+
 open GogApi.DotNet.FSharp.Request
 open GogApi.DotNet.FSharp.Types
 
@@ -30,7 +32,8 @@ module GamesMovies =
           backgroundImage: string
           cdKey: string
           textInformation: string
-          downloads: obj list list
+          [<JsonField(Transform=typeof<DownloadsObjListTransform>)>]
+          downloads: Map<string, Download>
           galaxyDownloads: obj list
           extras: GameExtra list
           dlcs: obj list
