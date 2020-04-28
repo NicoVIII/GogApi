@@ -40,5 +40,5 @@ module Helpers =
                              | None ->
                                  // TODO: think again about error handling in the whole API
                                  failwith "Didn't get valid authentication!"
-            return (fncResult, authentication)
+            return (fncResult, authentication.Value)
         }

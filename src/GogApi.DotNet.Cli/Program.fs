@@ -55,7 +55,13 @@ module Cli =
                 Helpers.withAutoRefresh User.getUserData authentication
                 |> Async.RunSynchronously
             printfn "%A\n" result
-            handleApiCall authentication.Value
+            handleApiCall authentication
+        | [ "getOwnedGameIds" ] ->
+            let result, authentication =
+                Helpers.withAutoRefresh GamesMovies.getOwnedGameIds authentication
+                |> Async.RunSynchronously
+            printfn "%A\n" result
+            handleApiCall authentication
         | [ "quit" ] ->
             ()
         | _ ->
