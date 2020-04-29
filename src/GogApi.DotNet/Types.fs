@@ -32,15 +32,15 @@ module Types =
 
     type DownloadOSInfo =
         { date: string
-          downloaderUrl: string
+          downloaderUrl: string option
           manualUrl: string
           name: string
           size: string // TODO: parse this somehow in a number? In additional field?
-          version: string }
+          version: string option }
 
     type Download =
         { linux: DownloadOSInfo list
-          osx: DownloadOSInfo list
+          mac: DownloadOSInfo list
           windows: DownloadOSInfo list }
 
     type Language =
@@ -49,7 +49,7 @@ module Types =
 
     type GameExtra =
         { manualUrl: string
-          downloaderUrl: string
+          downloaderUrl: string option
           name: string
           ``type``: string // TODO: Is it possible to match this to a DU?
           info: int

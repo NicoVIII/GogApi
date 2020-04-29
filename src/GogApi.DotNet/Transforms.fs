@@ -29,23 +29,24 @@ module Transforms =
         let mapList = downloadMap.TryFind key
         match mapList with
         | Some mapList ->
-            mapList
-            :?> obj list
+            mapList :?> obj list
             |> List.map (fun (map: obj) ->
                 let map = map :?> Map<string, obj>
                 { date = map.Item "date" :?> string
-                  downloaderUrl = map.Item "downloaderUrl" :?> string
+                  downloaderUrl =
+                      map.TryFind "downloaderUrl" |> Option.map (fun x -> x :?> string)
                   manualUrl = map.Item "manualUrl" :?> string
                   name = map.Item "name" :?> string
                   size = map.Item "size" :?> string // TODO: parse this somehow in a number? In additional field?
-                  version = map.Item "version" :?> string })
+                  version = map.TryFind "version" |> Option.map (fun x -> x :?> string) })
         | None -> []
 
     let private objListToDownloadInfo (map: Map<string, Download>) (objList: obj list) =
         let downloadMap = objList.[1] :?> Map<string, obj>
+
         let download =
             { linux = extractDownloadOSInfoList downloadMap "linux"
-              osx = extractDownloadOSInfoList downloadMap "osx"
+              mac = extractDownloadOSInfoList downloadMap "mac"
               windows = extractDownloadOSInfoList downloadMap "windows" }
         map.Add(objList.[0] |> string, download)
 
@@ -53,7 +54,8 @@ module Transforms =
         interface ITypeTransform with
             member x.targetType() = (fun _ -> typeof<list<list<obj>>>)()
 
-            member x.toTargetType value = value // TODO: Do I have to implement this?
+            member x.toTargetType value =
+                failwith "Why converting in the wrong direction?" // TODO: Do I have to implement this?
 
             member x.fromTargetType value =
                 value :?> list<list<obj>> |> List.fold objListToDownloadInfo Map.empty :> obj
