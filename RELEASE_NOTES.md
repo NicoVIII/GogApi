@@ -7,7 +7,9 @@
 * Change used library: Http.Fs -> FsHttp
 * For most functions you need a valid Authentication now
 * Restructure stuff to better resemble the api calls
+* Expand response data and available API functions
 * Generate documentation with Fornax
+* Introduce Cli in project to test API
 
 ### 1.0.4 (2020-02-18)
 
