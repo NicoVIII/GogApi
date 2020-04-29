@@ -1,9 +1,10 @@
 namespace GogApi.DotNet.FSharp
 
+open FSharp.Json
+
 open GogApi.DotNet.FSharp.Request
 open GogApi.DotNet.FSharp.Transforms
 open GogApi.DotNet.FSharp.Types
-open FSharp.Json
 
 /// <summary>
 /// Methods used to manage the user’s account
@@ -18,7 +19,7 @@ module User =
           isLoggedIn: bool
           checksum: {| cart: string option; games: string option; wishlist: string option; reviews_votes: string option; games_rating: string option |}
           updates: {| messages: int; pendingFriendRequests: int; unreadChatMessages: int; products: int; total: int |}
-          [<JsonField(Transform=typeof<UserIdStringTransform>)>]
+          [<JsonField(Transform = typeof<UserIdStringTransform>)>]
           userId: UserId
           username: UserName
           galaxyUserId: string
@@ -34,6 +35,28 @@ module User =
     /// <summary>
     /// Fetches information about the currently authenticated user
     /// </summary>
-    let getUserData authentication =
+    let getData authentication =
         makeRequest<UserDataResponse> (Some authentication) []
             "https://embed.gog.com/userData.json"
+
+    type DataGamesResponse =
+        { owned: GameId list }
+
+    /// <summary>
+    /// Fetches a list of game ids of the games the authenticated account owns
+    /// </summary>
+    let getDataGames authentication =
+        makeRequest<DataGamesResponse> (Some authentication) []
+            "https://embed.gog.com/user/data/games"
+
+    type WishlistResponse =
+        { [<JsonField(Transform = typeof<GameIdBoolMapStringTransform>)>]
+          wishlist: Map<GameId, bool>
+          checksum: string }
+
+    /// <summary>
+    /// Fetches a list of game ids of the games the authenticated account owns
+    /// </summary>
+    let getWishlist authentication =
+        makeRequest<WishlistResponse> (Some authentication) []
+            "https://embed.gog.com/user/wishlist.json"

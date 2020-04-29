@@ -54,3 +54,7 @@ module Types =
           ``type``: string // TODO: Is it possible to match this to a DU?
           info: int
           size: string } // TODO: parse this somehow in a number? In additional field?
+
+    type ProductInfo =
+        { id: int
+          title: string }

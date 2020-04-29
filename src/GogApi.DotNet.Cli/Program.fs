@@ -12,9 +12,11 @@ module Program =
         printfn "help\n - Shows this list"
         printfn "exit | quit\n - Leaves program"
         printfn ""
-        printfn "getUserData\n - Shows information of the currently logged in user"
-        printfn "getOwnedGameIds\n - Shows ids of owned games"
-        printfn "getGameDetails <gameid>\n - Shows details for given game"
+        printfn "Account/getGameDetails <gameid>\n - Shows details for given game"
+        printfn ""
+        printfn "User/getData\n - Shows information of the currently logged in user"
+        printfn "User/getDataGames\n - Shows ids of owned games"
+        printfn "User/getWishlist\n - Shows the contents of your wishlist"
         printfn ""
 
     let inline handleApiCall apiCall authentication =
@@ -34,17 +36,17 @@ module Program =
         | [ "help" ] ->
             printHelp()
             handleCommand authentication
-        | [ "getUserData" ] ->
-            handleApiCall User.getUserData authentication
+        | "Account/getGameDetails"::[UInt gameId] ->
+            handleApiCall (Account.getGameDetails (GameId gameId)) authentication
             |> handleCommand
-        | [ "getOwnedGameIds" ] ->
-            handleApiCall GamesMovies.getOwnedGameIds authentication
+        | [ "User/getData" ] ->
+            handleApiCall User.getData authentication
             |> handleCommand
-        | "getGameDetails"::[UInt gameId] ->
-            handleApiCall (GamesMovies.getGameDetails (GameId gameId)) authentication
+        | [ "User/getDataGames" ] ->
+            handleApiCall User.getDataGames authentication
             |> handleCommand
-        | [ "getWishlist" ] ->
-            handleApiCall Wishlist.getWishlist authentication
+        | [ "User/getWishlist" ] ->
+            handleApiCall User.getWishlist authentication
             |> handleCommand
         | [ "exit" ]
         | [ "quit" ] ->

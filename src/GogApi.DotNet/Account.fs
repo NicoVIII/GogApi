@@ -9,17 +9,7 @@ open GogApi.DotNet.FSharp.Types
 /// <summary>
 /// This module holds all API calls which has to do with games/movies on GOG
 /// </summary>
-module GamesMovies =
-    type OwnedGameIdsResponse =
-        { owned: GameId list }
-
-    /// <summary>
-    /// Fetches a list of game ids of the games the authenticated account owns
-    /// </summary>
-    let getOwnedGameIds authentication =
-        makeRequest<OwnedGameIdsResponse> (Some authentication) []
-            "https://embed.gog.com/user/data/games"
-
+module Account =
     type GameInfoResponse =
         { title: string
           backgroundImage: string
@@ -47,3 +37,21 @@ module GamesMovies =
     let getGameDetails (GameId id) authentication =
         sprintf "https://embed.gog.com/account/gameDetails/%i.json" id
         |> makeRequest<GameInfoResponse> (Some authentication) []
+
+    type FilteredProductsRequest =
+        { search: string }
+
+    type FilteredProductsResponse =
+        { totalProducts: int
+          products: ProductInfo list }
+
+    /// <summary>
+    /// Searches for games owned by the user matching the given search term.
+    /// TODO: This is a specified version of an API, this will be generatlized
+    /// </summary>
+    let getFilteredGames (request: FilteredProductsRequest) authentication =
+        let queries =
+            [ createRequestParameter "mediaType" "1"
+              createRequestParameter "search" request.search ]
+        makeRequest<FilteredProductsResponse> (Some authentication) queries
+            "https://embed.gog.com/account/getFilteredProducts"
