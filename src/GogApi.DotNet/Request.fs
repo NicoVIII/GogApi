@@ -68,7 +68,7 @@ module Request =
         let parsedJson =
             try
                 Json.deserializeEx<'T> jsonConfig rawJson |> Ok
-            with ex -> Error(rawJson, ex.Message)
+            with ex -> Error(rawJson, ex.ToString())
         parsedJson
 
     /// <summary>
