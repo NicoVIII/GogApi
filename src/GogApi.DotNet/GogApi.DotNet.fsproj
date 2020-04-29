@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Types.fs" />
+    <Compile Include="Transforms.fs" />
     <Compile Include="Request.fs" />
     <Compile Include="Authentication.fs" />
     <Compile Include="Helpers.fs" />

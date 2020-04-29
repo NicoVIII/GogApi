@@ -3,6 +3,7 @@ namespace GogApi.DotNet.FSharp
 open FSharp.Json
 
 open GogApi.DotNet.FSharp.Request
+open GogApi.DotNet.FSharp.Transforms
 open GogApi.DotNet.FSharp.Types
 
 /// <summary>
@@ -18,14 +19,6 @@ module GamesMovies =
     let getOwnedGameIds authentication =
         makeRequest<OwnedGameIdsResponse> (Some authentication) []
             "https://embed.gog.com/user/data/games"
-
-    type GameExtra =
-        { manualUrl: string
-          downloaderUrl: string
-          name: string
-          ``type``: string // TODO: Is it possible to match this to a DU?
-          info: int
-          size: string } // TODO: parse this somehow in a number? In additional field?
 
     type GameInfoResponse =
         { title: string
@@ -54,4 +47,3 @@ module GamesMovies =
     let getGameDetails (GameId id) authentication =
         sprintf "https://embed.gog.com/account/gameDetails/%i.json" id
         |> makeRequest<GameInfoResponse> (Some authentication) []
-// TODO: Improve return type structure
