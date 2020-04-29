@@ -108,13 +108,16 @@ Target.create "BuildRelease" (fun _ ->
                                String.concat "\n" release.Notes) ] } }) "GogApi.DotNet.sln")
 
 Target.create "Pack" (fun _ ->
-    Paket.pack (fun p ->
+    DotNet.pack (fun p ->
         { p with
-              OutputPath = nugetDir
-              Version = release.NugetVersion
-              ReleaseNotes =
-                  String.concat "\n" release.Notes
-              ToolType = ToolType.CreateLocalTool() }))
+            Configuration = DotNet.BuildConfiguration.Release
+            OutputPath = Some nugetDir
+            MSBuildParams =
+            { p.MSBuildParams with
+                  Properties =
+                      [ ("Version", release.NugetVersion)
+                        ("PackageReleaseNotes",
+                         String.concat "\n" release.Notes) ] } }) "GogApi.DotNet.sln")
 
 Target.create "ReleaseGitHub" (fun _ ->
     let remote =
