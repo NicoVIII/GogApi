@@ -11,19 +11,32 @@ open GogApi.DotNet.FSharp.Types
 module Transforms =
     type UserIdStringTransform() =
         interface ITypeTransform with
-            member x.targetType() = (fun _ -> typeof<string>)()
+            member __.targetType() = (fun _ -> typeof<string>)()
 
-            member x.toTargetType value =
+            member __.toTargetType value =
                 (fun (v: obj) ->
                     (v :?> UserId)
                     |> (fun (UserId userId) -> userId)
                     |> string :> obj) value
 
-            member x.fromTargetType value =
+            member __.fromTargetType value =
                 (fun (v: obj) ->
                     v :?> string
                     |> uint64
                     |> UserId :> obj) value
+
+    type GameIdBoolMapStringTransform() =
+        interface ITypeTransform with
+            member __.targetType() = (fun _ -> typeof<Map<string,bool>>)()
+
+            member __.toTargetType _ =
+                failwith "Why converting in the wrong direction?" // TODO: Do I have to implement this?
+
+            member __.fromTargetType value =
+                (fun (v: obj) ->
+                    v :?> Map<string,bool>
+                    |> Map.fold (fun map key value -> map |> Map.add (key |> uint32 |> GameId) value) Map.empty
+                    :> obj) value
 
     let private extractDownloadOSInfoList (downloadMap: Map<string, obj>) key =
         let mapList = downloadMap.TryFind key
@@ -52,10 +65,10 @@ module Transforms =
 
     type DownloadsObjListTransform() =
         interface ITypeTransform with
-            member x.targetType() = (fun _ -> typeof<list<list<obj>>>)()
+            member __.targetType() = (fun _ -> typeof<list<list<obj>>>)()
 
-            member x.toTargetType value =
+            member __.toTargetType _ =
                 failwith "Why converting in the wrong direction?" // TODO: Do I have to implement this?
 
-            member x.fromTargetType value =
+            member __.fromTargetType value =
                 value :?> list<list<obj>> |> List.fold objListToDownloadInfo Map.empty :> obj

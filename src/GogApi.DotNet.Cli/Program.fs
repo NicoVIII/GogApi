@@ -43,6 +43,9 @@ module Program =
         | "getGameDetails"::[UInt gameId] ->
             handleApiCall (GamesMovies.getGameDetails (GameId gameId)) authentication
             |> handleCommand
+        | [ "getWishlist" ] ->
+            handleApiCall Wishlist.getWishlist authentication
+            |> handleCommand
         | [ "exit" ]
         | [ "quit" ] ->
             ()

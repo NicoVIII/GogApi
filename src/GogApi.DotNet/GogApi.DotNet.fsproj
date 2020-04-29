@@ -11,6 +11,7 @@
     <Compile Include="Authentication.fs" />
     <Compile Include="Helpers.fs" />
     <Compile Include="GamesMovies.fs" />
+    <Compile Include="Wishlist.fs" />
     <Compile Include="Listing.fs" />
     <Compile Include="User.fs" />
     <Compile Include="GalaxyApi.fs" />
