@@ -20,6 +20,8 @@ module Types =
 
     type UserName = UserName of string
 
+    type DownLink = DownLink of string
+
     type FriendInfo =
         { username: UserName
           userSince: int
@@ -58,3 +60,16 @@ module Types =
     type ProductInfo =
         { id: int
           title: string }
+
+    type File =
+        { id: int
+          size: uint32
+          downlink: DownLink }
+
+    type BonusContent =
+        { id: int
+          name: string
+          ``type``: string
+          count: int
+          total_size: uint32
+          files: File list }

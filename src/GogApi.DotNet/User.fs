@@ -9,6 +9,7 @@ open GogApi.DotNet.FSharp.Types
 /// <summary>
 /// Methods used to manage the user’s account
 /// </summary>
+[<RequireQualifiedAccess>]
 module User =
     type UserDataResponse =
         { country: string
@@ -55,7 +56,7 @@ module User =
           checksum: string }
 
     /// <summary>
-    /// Fetches a list of game ids of the games the authenticated account owns
+    /// TODO:
     /// </summary>
     let getWishlist authentication =
         makeRequest<WishlistResponse> (Some authentication) []
