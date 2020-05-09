@@ -117,7 +117,7 @@ Target.create "Pack" (fun _ ->
                   Properties =
                       [ ("Version", release.NugetVersion)
                         ("PackageReleaseNotes",
-                         String.concat "\n" release.Notes) ] } }) "GogApi.DotNet.sln")
+                         String.concat "\n" release.Notes) ] } }) "./src/GogApi.DotNet/GogApi.DotNet.fsproj")
 
 Target.create "ReleaseGitHub" (fun _ ->
     let remote =
