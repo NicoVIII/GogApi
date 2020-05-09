@@ -20,8 +20,6 @@
         "ionide.ionide-paket",
         "ms-dotnettools.csharp",
         "editorconfig.editorconfig",
-        "aaron-bond.better-comments",
-        "ybaumes.highlight-trailing-white-spaces"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
