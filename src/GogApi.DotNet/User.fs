@@ -30,8 +30,9 @@ module User =
           wishlistedItems: int
           friends: FriendInfo list
           email: string
-          personalizedProductPrices: obj list
-          personalizedSeriesPrices: obj list }
+          //personalizedProductPrices: obj list // TODO:
+          //personalizedSeriesPrices: obj list // TODO:
+          }
 
     /// <summary>
     /// Fetches information about the currently authenticated user
@@ -41,10 +42,10 @@ module User =
             "https://embed.gog.com/userData.json"
 
     type DataGamesResponse =
-        { owned: GameId list }
+        { owned: ProductId list }
 
     /// <summary>
-    /// Fetches a list of game ids of the games the authenticated account owns
+    /// Fetches a list of ids of the games and movies the authenticated account owns
     /// </summary>
     let getDataGames authentication =
         makeRequest<DataGamesResponse> (Some authentication) []
@@ -52,11 +53,11 @@ module User =
 
     type WishlistResponse =
         { [<JsonField(Transform = typeof<GameIdBoolMapStringTransform>)>]
-          wishlist: Map<GameId, bool>
+          wishlist: Map<ProductId, bool>
           checksum: string }
 
     /// <summary>
-    /// TODO:
+    /// Fetches information about the wishlist of the current user
     /// </summary>
     let getWishlist authentication =
         makeRequest<WishlistResponse> (Some authentication) []

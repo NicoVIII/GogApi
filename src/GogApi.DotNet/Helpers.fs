@@ -38,7 +38,9 @@ module Helpers =
                              | Some authentication ->
                                  async { return! apiFnc authentication }
                              | None ->
-                                 // TODO: think again about error handling in the whole API
+                                 // I guess it's okay to throw an exception here
+                                 // Only if the authentication wasn't valid before
+                                 // this should fail (or GOG is down or something?)
                                  failwith "Didn't get valid authentication!"
             return (fncResult, authentication.Value)
         }

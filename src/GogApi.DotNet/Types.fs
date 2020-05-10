@@ -14,13 +14,32 @@ module Types =
           refreshToken: string
           accessExpires: DateTimeOffset }
 
-    type GameId = GameId of uint32
+    type ProductId = ProductId of uint32
 
+    /// <summary>
+    /// Represents the id of a user
+    /// </summary>
     type UserId = UserId of uint64
 
+    /// <summary>
+    /// Represents the name of a user
+    /// </summary>
     type UserName = UserName of string
 
+    /// <summary>
+    /// Represents a link, which can be used to request a safe download link
+    /// </summary>
     type DownLink = DownLink of string
+
+    /// <summary>
+    /// Represents a link, which can be used to download a file
+    /// </summary>
+    type SafeDownLink = SafeDownLink of string
+
+    /// <summary>
+    /// Represents a size of a file
+    /// </summary>
+    type FileSize = FileSize of uint64
 
     type FriendInfo =
         { username: UserName
@@ -37,7 +56,7 @@ module Types =
           downloaderUrl: string option
           manualUrl: string
           name: string
-          size: string // TODO: parse this somehow in a number? In additional field?
+          size: string
           version: string option }
 
     type Download =
@@ -53,12 +72,12 @@ module Types =
         { manualUrl: string
           downloaderUrl: string option
           name: string
-          ``type``: string // TODO: Is it possible to match this to a DU?
+          ``type``: string
           info: int
-          size: string } // TODO: parse this somehow in a number? In additional field?
+          size: string }
 
     type ProductInfo =
-        { id: int
+        { id: ProductId
           title: string }
 
     type File =
@@ -73,3 +92,8 @@ module Types =
           count: int
           total_size: uint32
           files: File list }
+
+    type Tag =
+        { id: string
+          name: string
+          productCount: string }

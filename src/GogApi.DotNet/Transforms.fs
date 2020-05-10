@@ -30,12 +30,12 @@ module Transforms =
             member __.targetType() = (fun _ -> typeof<Map<string,bool>>)()
 
             member __.toTargetType _ =
-                failwith "Why converting in the wrong direction?" // TODO: Do I have to implement this?
+                failwith "This is a one way transform only!"
 
             member __.fromTargetType value =
                 (fun (v: obj) ->
                     v :?> Map<string,bool>
-                    |> Map.fold (fun map key value -> map |> Map.add (key |> uint32 |> GameId) value) Map.empty
+                    |> Map.fold (fun map key value -> map |> Map.add (key |> uint32 |> ProductId) value) Map.empty
                     :> obj) value
 
     let private extractDownloadOSInfoList (downloadMap: Map<string, obj>) key =
@@ -50,7 +50,7 @@ module Transforms =
                       map.TryFind "downloaderUrl" |> Option.map (fun x -> x :?> string)
                   manualUrl = map.Item "manualUrl" :?> string
                   name = map.Item "name" :?> string
-                  size = map.Item "size" :?> string // TODO: parse this somehow in a number? In additional field?
+                  size = map.Item "size" :?> string
                   version = map.TryFind "version" |> Option.map (fun x -> x :?> string) })
         | None -> []
 
@@ -68,7 +68,7 @@ module Transforms =
             member __.targetType() = (fun _ -> typeof<list<list<obj>>>)()
 
             member __.toTargetType _ =
-                failwith "Why converting in the wrong direction?" // TODO: Do I have to implement this?
+                failwith "This is a one way transform only!"
 
             member __.fromTargetType value =
                 value :?> list<list<obj>> |> List.fold objListToDownloadInfo Map.empty :> obj

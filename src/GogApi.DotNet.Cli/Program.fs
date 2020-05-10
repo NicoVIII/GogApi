@@ -40,7 +40,7 @@ module Program =
             printHelp()
             handleCommand authentication
         | "Account/getGameDetails"::[UInt gameId] ->
-            handleApiCall (Account.getGameDetails (GameId gameId)) authentication
+            handleApiCall (Account.getGameDetails (ProductId gameId)) authentication
             |> handleCommand
         | [ "User/getData" ] ->
             handleApiCall User.getData authentication
@@ -52,7 +52,7 @@ module Program =
             handleApiCall User.getWishlist authentication
             |> handleCommand
         | "GalaxyApi/getProduct"::[UInt productId] ->
-            handleApiCall (GalaxyApi.getProduct productId) authentication
+            handleApiCall (GalaxyApi.getProduct (ProductId productId)) authentication
             |> handleCommand
         | "GalaxyApi/getSecureDownlink"::[downlink] ->
             handleApiCall (GalaxyApi.getSecureDownlink (DownLink downlink)) authentication

@@ -18,25 +18,31 @@ module GalaxyApi =
           version: string option
           files: InstallerFileInfo list }
 
+    type Patch =
+        { id: string
+          language: string
+          language_full: string
+          name: string
+          os: string
+          total_size: FileSize
+          version: string
+          files: {| downlink: DownLink
+                    id: string
+                    size: FileSize |} list }
+
     type DownloadsInfo =
         { installers: InstallerInfo list
-          patches: obj list
-          language_packs: obj list
+          patches: Patch list
+          //language_packs: obj list
           bonus_content: BonusContent list }
 
     type Product =
-        { id: uint32
+        { id: ProductId
           link: string
           expanded_link: string }
 
-    type Dlcs =
-        | Empty of obj list
-        | Filled of {| products: Product list
-                       all_products_url: string
-                       expanded_all_products_url: string |}
-
     type ProductsResponse =
-        { id: int
+        { id: ProductId
           title: string
           purchase_link: string
           slug: string
@@ -48,12 +54,12 @@ module GalaxyApi =
                     product_card: string
                     support: string
                     forum: string |}
-          in_development: {| active: bool; until: obj option |}
+          in_development: {| active: bool |} // TODO: until: obj option
           is_secret: bool
           is_installable: bool
           game_type: string
           is_pre_order: bool
-          release_date: string // TODO: to DateTime oder so?
+          release_date: string
           images: {| background: string
                      logo: string
                      logo2x: string
@@ -68,7 +74,7 @@ module GalaxyApi =
     /// <summary>
     /// Returns information about a product
     /// </summary>
-    let getProduct (id: uint32) authentication =
+    let getProduct (ProductId id) authentication =
         let queries =
             [ createRequestParameter "expand" "downloads" ]
 
@@ -76,7 +82,7 @@ module GalaxyApi =
         |> makeRequest<ProductsResponse> (Some authentication) queries
 
     type SecureUrlResponse =
-        { downlink: DownLink
+        { downlink: SafeDownLink
           checksum: string }
 
     /// <summary>
