@@ -38,6 +38,11 @@ type SafeDownLink = SafeDownLink of string
 /// </summary>
 type FileSize = FileSize of uint64
 
+/// <summary>
+/// Represents a page in requests
+/// </summary>
+type Page = Page of uint32
+
 type FriendInfo =
     { username: UserName
       userSince: int
@@ -87,4 +92,3 @@ type Tag =
     { id: string
       name: string
       productCount: string }
-

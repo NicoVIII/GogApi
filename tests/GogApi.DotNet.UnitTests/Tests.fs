@@ -1,7 +1,5 @@
 module GogApi.DotNet.UnitTests.Tests
 
-open DiscriminatedUnionHelper
-
 open Expecto
 open GogApi.DotNet.FSharp.DomainTypes
 
@@ -14,12 +12,18 @@ let tests =
                 |> GameFeature.fromString
             actual = feature
         )
-
         testProperty "Language to/from string" (fun language ->
             let actual =
                 language
                 |> Language.toString
                 |> Language.fromString
+            actual = language
+        )
+        testProperty "Sort to/from string" (fun language ->
+            let actual =
+                language
+                |> Sort.toString
+                |> Sort.fromString
             actual = language
         )
     ]

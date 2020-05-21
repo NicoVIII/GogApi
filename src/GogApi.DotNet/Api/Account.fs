@@ -49,11 +49,56 @@ module Account =
     type FilteredProductsRequest =
         { feature: GameFeature option
           language: Language option
-          search: string option }
+          search: string option
+          sort: Sort option }
+
+    type FilteredProductsResponseInternal =
+        { [<JsonField("sort_by")>]
+          sortBy: string option
+          page: Page
+          totalProducts: uint32
+          totalPages: uint32
+          productsPerPage: uint32
+          contentSystemCompatibility: obj option
+          moviesCount: uint32
+          tags: Tag list
+          products: ProductInfo list
+          updatedProductsCount: uint32
+          hiddenUpdatedProductsCount: uint32
+          appliedFilters: {| tags: obj option |}
+          hasHiddenProducts: bool }
 
     type FilteredProductsResponse =
-        { totalProducts: int
-          products: ProductInfo list }
+        { sortBy: Sort option
+          page: Page
+          totalProducts: uint32
+          totalPages: uint32
+          productsPerPage: uint32
+          contentSystemCompatibility: obj option
+          moviesCount: uint32
+          tags: Tag list
+          products: ProductInfo list
+          updatedProductsCount: uint32
+          hiddenUpdatedProductsCount: uint32
+          appliedFilters: {| tags: obj option |}
+          hasHiddenProducts: bool }
+
+    let fromInternaFilteredProductsResponse (internalResponse: FilteredProductsResponseInternal) =
+        { sortBy =
+              internalResponse.sortBy
+              |> Option.map Sort.fromString
+          page = internalResponse.page
+          totalProducts = internalResponse.totalProducts
+          totalPages = internalResponse.totalPages
+          productsPerPage = internalResponse.productsPerPage
+          contentSystemCompatibility = internalResponse.contentSystemCompatibility
+          moviesCount = internalResponse.moviesCount
+          tags = internalResponse.tags
+          products = internalResponse.products
+          updatedProductsCount = internalResponse.updatedProductsCount
+          hiddenUpdatedProductsCount = internalResponse.hiddenUpdatedProductsCount
+          appliedFilters = internalResponse.appliedFilters
+          hasHiddenProducts = internalResponse.hasHiddenProducts }
 
     /// <summary>
     /// Searches for games owned by the user matching the given search term.
@@ -65,7 +110,9 @@ module Account =
               createOptionalRequestParameter "language"
                   (request.language |> Option.map Language.toString)
               createRequestParameter "mediaType" "1"
-              createOptionalRequestParameter "search" request.search ]
+              createOptionalRequestParameter "search" request.search
+              createOptionalRequestParameter "sort"
+                  (request.sort |> Option.map Sort.toString) ]
             |> List.concat
 
         makeRequest<FilteredProductsResponse> (Some authentication) queries

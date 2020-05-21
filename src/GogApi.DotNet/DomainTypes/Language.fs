@@ -49,16 +49,16 @@ module Language =
 
     let private reverseLanguageMap =
         (Map.empty, languageMap)
-        ||> Map.fold (fun rMap feature str ->
+        ||> Map.fold (fun rMap language str ->
             match Map.containsKey str rMap with
-            | false -> rMap |> Map.add str feature
+            | false -> rMap |> Map.add str language
             | true -> failwithf "The identifier of a language is duplicated: %s" str)
 
-    let toString feature =
-        match feature with
-        | Custom feature -> feature
-        | feature when Map.containsKey feature languageMap -> Map.find feature languageMap
-        | _ -> failwithf "Language case not handled: %A" feature
+    let toString language =
+        match language with
+        | Custom language -> language
+        | language when Map.containsKey language languageMap -> Map.find language languageMap
+        | _ -> failwithf "Language case not handled: %A" language
 
     let fromString str =
         match str with
