@@ -46,10 +46,9 @@ module Account =
         sprintf "https://embed.gog.com/account/gameDetails/%i.json" id
         |> makeRequest<GameInfoResponse> (Some authentication) []
 
-    type FilteredProductsRequest = {
-        feature: GameFeature
-        search: string
-    }
+    type FilteredProductsRequest =
+        { feature: GameFeature option
+          search: string option }
 
     type FilteredProductsResponse =
         { totalProducts: int
@@ -60,9 +59,11 @@ module Account =
     /// </summary>
     let getFilteredGames (request: FilteredProductsRequest) authentication =
         let queries =
-            [ createRequestParameter "feature" (GameFeature.toString request.feature)
+            [ createOptionalRequestParameter "feature"
+                  (request.feature |> Option.map GameFeature.toString)
               createRequestParameter "mediaType" "1"
-              createRequestParameter "search" request.search ]
+              createOptionalRequestParameter "search" request.search ]
+            |> List.concat
 
         makeRequest<FilteredProductsResponse> (Some authentication) queries
             "https://embed.gog.com/account/getFilteredProducts"

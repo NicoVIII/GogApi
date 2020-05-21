@@ -42,6 +42,7 @@ module Authentication =
         [ createRequestParameter "client_id" "46899977096215655"
           createRequestParameter "client_secret"
               "9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9" ]
+        |> List.concat
 
     /// <summary>
     /// Uses authentication code to create a Authentication with authorization
@@ -49,14 +50,15 @@ module Authentication =
     /// </summary>
     let getNewToken (redirectUri: string) (code: string) =
         async {
+            let queries =
+                [ getBasicParameters ()
+                  createRequestParameter "grant_type" "authorization_code"
+                  createRequestParameter "code" code
+                  createRequestParameter "redirect_uri" redirectUri ]
+                |> List.concat
+
             let! result =
-                getBasicParameters ()
-                |> List.append
-                    [ createRequestParameter "grant_type" "authorization_code" ]
-                |> List.append [ createRequestParameter "code" code ]
-                |> List.append [ createRequestParameter "redirect_uri" redirectUri ]
-                |> makeRequest<TokenResponse> None
-                <| "https://auth.gog.com/token"
+                makeRequest<TokenResponse> None queries "https://auth.gog.com/token"
             return createAuth result
         }
 
@@ -69,12 +71,13 @@ module Authentication =
     /// </returns>
     let getRefreshToken authentication =
         async {
+            let queries =
+                [ getBasicParameters ()
+                  createRequestParameter "grant_type" "refresh_token"
+                  createRequestParameter "refresh_token" authentication.refreshToken ]
+                |> List.concat
+
             let! response =
-                getBasicParameters ()
-                |> List.append [ createRequestParameter "grant_type" "refresh_token" ]
-                |> List.append
-                    [ createRequestParameter "refresh_token" authentication.refreshToken ]
-                |> makeRequest<TokenResponse> None
-                <| "https://auth.gog.com/token"
+                makeRequest<TokenResponse> None queries "https://auth.gog.com/token"
             return createAuth response
         }

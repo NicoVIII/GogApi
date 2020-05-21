@@ -33,7 +33,7 @@ module GalaxyApi =
     type DownloadsInfo =
         { installers: InstallerInfo list
           patches: Patch list
-          //language_packs: obj list
+          language_packs: obj list // TODO: #10
           bonus_content: BonusContent list }
 
     type Product =
@@ -77,6 +77,7 @@ module GalaxyApi =
     let getProduct (ProductId id) authentication =
         let queries =
             [ createRequestParameter "expand" "downloads" ]
+            |> List.concat
 
         sprintf "https://api.gog.com/products/%i" id
         |> makeRequest<ProductsResponse> (Some authentication) queries

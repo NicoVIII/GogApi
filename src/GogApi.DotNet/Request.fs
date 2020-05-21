@@ -10,21 +10,24 @@ open FsHttp.DslCE
 /// This module contains low-level functions and types to make requests to the GOG API
 /// </summary>
 module Request =
-    let jsonConfig = { JsonConfig.Default with allowUntyped = true }
+    let jsonConfig =
+        { JsonConfig.Default with
+              allowUntyped = true }
 
     /// <summary>
     /// Simple record for request parameters
     /// </summary>
-    type RequestParameter =
-        { name: string
-          value: string }
+    type RequestParameter = { name: string; value: string }
 
     /// <summary>
     /// Creates a RequestParameter
     /// </summary>
-    let createRequestParameter name value =
-        { name = name
-          value = value }
+    let createRequestParameter name value = [ { name = name; value = value } ]
+
+    let createOptionalRequestParameter name valueOption =
+        match valueOption with
+        | Some value -> createRequestParameter name value
+        | None -> []
 
     /// <summary>
     /// Creates the GET request with correct authentication headers and parameters to given url
@@ -40,6 +43,7 @@ module Request =
                     queries
                     |> List.map (fun param -> param.name + "=" + param.value)
                     |> List.reduce (fun param1 param2 -> param1 + "&" + param2)
+
                 url + "?" + parameters
         // Headerpart which is always used - with authentication and without it
         let baseHeader =
@@ -50,8 +54,7 @@ module Request =
         // Extend request header with authentication info if available
         let request =
             match authentication with
-            | Some { accessToken = token } ->
-                httpRequest baseHeader { BearerAuth token }
+            | Some { accessToken = token } -> httpRequest baseHeader { BearerAuth token }
             | None -> baseHeader
 
         request |> sendAsync
@@ -69,6 +72,7 @@ module Request =
             try
                 Json.deserializeEx<'T> jsonConfig rawJson |> Ok
             with ex -> Error(rawJson, ex.ToString())
+
         parsedJson
 
     /// <summary>
