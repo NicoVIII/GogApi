@@ -40,5 +40,5 @@ module GameFeature =
 
     let fromString str =
         match str with
-        | str when reverseFeatureMap.ContainsKey str -> Map.find str reverseFeatureMap
+        | str when Map.containsKey str reverseFeatureMap -> Map.find str reverseFeatureMap
         | str -> Custom str

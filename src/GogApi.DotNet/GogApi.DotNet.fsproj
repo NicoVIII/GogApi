@@ -7,6 +7,7 @@
   <ItemGroup>
     <Compile Include="SimpleDomainTypes.fs" />
     <Compile Include="DomainTypes/GameFeature.fs" />
+    <Compile Include="DomainTypes/Language.fs" />
     <Compile Include="Transforms.fs" />
     <Compile Include="Request.fs" />
     <Compile Include="Authentication.fs" />

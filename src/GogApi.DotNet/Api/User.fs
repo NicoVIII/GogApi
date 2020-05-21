@@ -15,7 +15,7 @@ module User =
         { country: string
           currencies: Currency list
           selectedCurrency: Currency
-          preferredLanguage: Language
+          preferredLanguage: LanguageApi
           ratingBrand: string
           isLoggedIn: bool
           checksum: {| cart: string option

@@ -14,4 +14,12 @@ let tests =
                 |> GameFeature.fromString
             actual = feature
         )
+
+        testProperty "Language to/from string" (fun language ->
+            let actual =
+                language
+                |> Language.toString
+                |> Language.fromString
+            actual = language
+        )
     ]

@@ -58,7 +58,7 @@ type Download =
       mac: DownloadOSInfo list
       windows: DownloadOSInfo list }
 
-type Language = { code: string; name: string }
+type LanguageApi = { code: string; name: string }
 
 type GameExtra =
     { manualUrl: string
