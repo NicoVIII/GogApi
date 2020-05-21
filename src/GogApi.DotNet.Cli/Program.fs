@@ -1,10 +1,10 @@
 ﻿namespace GogApi.DotNet.Cli
 
+open Pattern
+
 open GogApi.DotNet.FSharp
 open GogApi.DotNet.FSharp.Types
 open System
-
-open GogApi.DotNet.Cli.Pattern
 
 module Program =
     let printHelp() =

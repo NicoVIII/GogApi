@@ -1,10 +1,10 @@
 namespace GogApi.DotNet.FSharp
 
-open FSharp.Json
+open Request
+open Transforms
+open Types
 
-open GogApi.DotNet.FSharp.Request
-open GogApi.DotNet.FSharp.Transforms
-open GogApi.DotNet.FSharp.Types
+open FSharp.Json
 
 /// <summary>
 /// Methods used to manage the user’s account

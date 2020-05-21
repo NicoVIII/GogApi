@@ -47,9 +47,7 @@ module Types =
           galaxyId: string
           avatar: string }
 
-    type Currency =
-        { code: string
-          symbol: string }
+    type Currency = { code: string; symbol: string }
 
     type DownloadOSInfo =
         { date: string
@@ -64,9 +62,7 @@ module Types =
           mac: DownloadOSInfo list
           windows: DownloadOSInfo list }
 
-    type Language =
-        { code: string
-          name: string }
+    type Language = { code: string; name: string }
 
     type GameExtra =
         { manualUrl: string
@@ -76,9 +72,7 @@ module Types =
           info: int
           size: string }
 
-    type ProductInfo =
-        { id: ProductId
-          title: string }
+    type ProductInfo = { id: ProductId; title: string }
 
     type File =
         { id: int

@@ -1,9 +1,9 @@
 namespace GogApi.DotNet.FSharp
 
+open Types
+
 open FSharp.Json
 open System
-
-open GogApi.DotNet.FSharp.Types
 
 /// <summary>
 /// Contains all transforms which are necessary to parse json answers

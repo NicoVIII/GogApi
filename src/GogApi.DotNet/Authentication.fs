@@ -1,7 +1,7 @@
 namespace GogApi.DotNet.FSharp
 
-open GogApi.DotNet.FSharp.Types
-open GogApi.DotNet.FSharp.Request
+open Request
+open Types
 
 open System
 

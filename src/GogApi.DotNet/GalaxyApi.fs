@@ -1,7 +1,7 @@
 namespace GogApi.DotNet.FSharp
 
-open GogApi.DotNet.FSharp.Request
-open GogApi.DotNet.FSharp.Types
+open Request
+open Types
 
 /// <summary>
 /// Contains special endpoints for Galaxy
