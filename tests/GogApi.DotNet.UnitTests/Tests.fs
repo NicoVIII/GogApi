@@ -3,7 +3,7 @@ module GogApi.DotNet.UnitTests.Tests
 open DiscriminatedUnionHelper
 
 open Expecto
-open GogApi.DotNet.FSharp.Types
+open GogApi.DotNet.FSharp.DomainTypes
 
 let tests =
     testList "DU to/from string tests" [

@@ -1,8 +1,8 @@
 namespace GogApi.DotNet.FSharp
 
+open GogApi.DotNet.FSharp.DomainTypes
 open Request
 open Transforms
-open Types
 
 open FSharp.Json
 

@@ -1,6 +1,6 @@
 namespace GogApi.DotNet.FSharp
 
-open Types
+open GogApi.DotNet.FSharp.DomainTypes
 
 open FSharp.Json
 open FsHttp

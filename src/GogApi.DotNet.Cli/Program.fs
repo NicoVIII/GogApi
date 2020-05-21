@@ -3,7 +3,7 @@
 open Pattern
 
 open GogApi.DotNet.FSharp
-open GogApi.DotNet.FSharp.Types
+open GogApi.DotNet.FSharp.DomainTypes
 open System
 
 module Program =

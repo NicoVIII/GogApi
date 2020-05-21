@@ -5,14 +5,15 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Types.fs" />
+    <Compile Include="SimpleDomainTypes.fs" />
+    <Compile Include="DomainTypes/GameFeature.fs" />
     <Compile Include="Transforms.fs" />
     <Compile Include="Request.fs" />
     <Compile Include="Authentication.fs" />
     <Compile Include="Helpers.fs" />
-    <Compile Include="Account.fs" />
-    <Compile Include="User.fs" />
-    <Compile Include="GalaxyApi.fs" />
+    <Compile Include="Api/Account.fs" />
+    <Compile Include="Api/User.fs" />
+    <Compile Include="Api/GalaxyApi.fs" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
