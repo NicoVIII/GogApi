@@ -17,3 +17,8 @@ module Pattern =
         match UInt64.TryParse str with
         | true, number -> Some number
         | _ -> None
+
+    let (|NonEmptyString|_|) (str: string) =
+        match str with
+        | "" -> None
+        | str -> Some str

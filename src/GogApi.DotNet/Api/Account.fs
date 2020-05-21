@@ -49,6 +49,7 @@ module Account =
     type FilteredProductsRequest =
         { feature: GameFeature option
           language: Language option
+          page: Page option
           search: string option
           sort: Sort option
           system: OS option }
@@ -111,10 +112,11 @@ module Account =
               createOptionalRequestParameter "language"
                   (request.language |> Option.map Language.toString)
               createRequestParameter "mediaType" "1"
+              createOptionalRequestParameter "page" (Option.map (fun (Page p) -> p.ToString()) request.page)
               createOptionalRequestParameter "search" request.search
               createOptionalRequestParameter "sort"
                   (request.sort |> Option.map Sort.toString)
-              createOptionalRequestParameter "syste"
+              createOptionalRequestParameter "system"
                   (request.system |> Option.map OS.toString) ]
             |> List.concat
 
