@@ -50,7 +50,8 @@ module Account =
         { feature: GameFeature option
           language: Language option
           search: string option
-          sort: Sort option }
+          sort: Sort option
+          system: OS option }
 
     type FilteredProductsResponseInternal =
         { [<JsonField("sort_by")>]
@@ -112,7 +113,9 @@ module Account =
               createRequestParameter "mediaType" "1"
               createOptionalRequestParameter "search" request.search
               createOptionalRequestParameter "sort"
-                  (request.sort |> Option.map Sort.toString) ]
+                  (request.sort |> Option.map Sort.toString)
+              createOptionalRequestParameter "syste"
+                  (request.system |> Option.map OS.toString) ]
             |> List.concat
 
         makeRequest<FilteredProductsResponse> (Some authentication) queries

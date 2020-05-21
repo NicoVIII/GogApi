@@ -26,7 +26,7 @@ module Sort =
         ||> Map.fold (fun rMap sort str ->
             match Map.containsKey str rMap with
             | false -> rMap |> Map.add str sort
-            | true -> failwithf "The identifier of a language is duplicated: %s" str)
+            | true -> failwithf "The identifier of a sort is duplicated: %s" str)
 
     let toString sort =
         match sort with

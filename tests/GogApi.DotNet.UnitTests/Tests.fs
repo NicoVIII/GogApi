@@ -19,11 +19,18 @@ let tests =
                 |> Language.fromString
             actual = language
         )
-        testProperty "Sort to/from string" (fun language ->
+        testProperty "Sort to/from string" (fun sort ->
             let actual =
-                language
+                sort
                 |> Sort.toString
                 |> Sort.fromString
-            actual = language
+            actual = sort
+        )
+        testProperty "OS to/from string" (fun system ->
+            let actual =
+                system
+                |> OS.toString
+                |> OS.fromString
+            actual = system
         )
     ]
