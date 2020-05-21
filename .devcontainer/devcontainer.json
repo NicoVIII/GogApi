@@ -20,6 +20,9 @@
         "ionide.ionide-paket",
         "ms-dotnettools.csharp",
         "editorconfig.editorconfig",
+        "aaron-bond.better-comments",
+        "gruntfuggly.todo-tree",
+        "ybaumes.highlight-trailing-white-spaces"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -29,5 +32,5 @@
 	"postCreateCommand": "dotnet tool restore && dotnet restore",
 
 	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
-	// "remoteUser": "vscode"
+	"remoteUser": "vscode"
 }
