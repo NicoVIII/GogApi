@@ -48,6 +48,7 @@ module Account =
 
     type FilteredProductsRequest =
         { feature: GameFeature option
+          language: Language option
           search: string option }
 
     type FilteredProductsResponse =
@@ -61,6 +62,8 @@ module Account =
         let queries =
             [ createOptionalRequestParameter "feature"
                   (request.feature |> Option.map GameFeature.toString)
+              createOptionalRequestParameter "language"
+                  (request.language |> Option.map Language.toString)
               createRequestParameter "mediaType" "1"
               createOptionalRequestParameter "search" request.search ]
             |> List.concat
