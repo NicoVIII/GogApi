@@ -46,7 +46,10 @@ module Account =
         sprintf "https://embed.gog.com/account/gameDetails/%i.json" id
         |> makeRequest<GameInfoResponse> (Some authentication) []
 
-    type FilteredProductsRequest = { search: string }
+    type FilteredProductsRequest = {
+        feature: GameFeature
+        search: string
+    }
 
     type FilteredProductsResponse =
         { totalProducts: int
@@ -54,11 +57,11 @@ module Account =
 
     /// <summary>
     /// Searches for games owned by the user matching the given search term.
-    /// TODO: #8 This is a specified version of an API, this will be generatlized
     /// </summary>
     let getFilteredGames (request: FilteredProductsRequest) authentication =
         let queries =
-            [ createRequestParameter "mediaType" "1"
+            [ createRequestParameter "feature" (GameFeature.toString request.feature)
+              createRequestParameter "mediaType" "1"
               createRequestParameter "search" request.search ]
 
         makeRequest<FilteredProductsResponse> (Some authentication) queries

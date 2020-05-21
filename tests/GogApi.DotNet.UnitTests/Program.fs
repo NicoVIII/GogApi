@@ -1,7 +1,11 @@
-﻿open System
-open Expecto
+﻿namespace GogApi.DotNet.UnitTests
+
 open Tests
 
-[<EntryPoint>]
-let main args =
-    runTestsWithArgs defaultConfig args tests
+open Expecto
+open System
+
+module Program =
+    [<EntryPoint>]
+    let main args =
+        runTestsWithArgs defaultConfig args tests

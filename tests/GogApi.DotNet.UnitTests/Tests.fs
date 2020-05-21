@@ -1,15 +1,17 @@
-module Tests
+module GogApi.DotNet.UnitTests.Tests
+
+open DiscriminatedUnionHelper
 
 open Expecto
+open GogApi.DotNet.FSharp.Types
 
 let tests =
-    testList "Group of tests" [
-        test "A simple test" {
-            let subject = "Hello World"
-            Expect.equal subject "Hello World" "The strings should equal"
-        }
-
-        testProperty "Reverse of reverse of a list is the original list" (
-            fun (xs:list<int>) -> List.rev (List.rev xs) = xs
+    testList "DU to/from string tests" [
+        testProperty "GameFeature to/from string" (fun feature ->
+            let actual =
+                feature
+                |> GameFeature.toString
+                |> GameFeature.fromString
+            actual = feature
         )
     ]
