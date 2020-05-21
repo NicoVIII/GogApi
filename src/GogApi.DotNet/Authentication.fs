@@ -3,6 +3,7 @@ namespace GogApi.DotNet.FSharp
 open GogApi.DotNet.FSharp.DomainTypes
 open Request
 
+open FSharp.Json
 open System
 
 /// <summary>
@@ -13,13 +14,19 @@ module Authentication =
     /// Typesafe variant of the response data of https://auth.gog.com/token
     /// </summary>
     type TokenResponse =
-        { expires_in: int
+        { [<JsonField("expires_in")>]
+          expiresIn: int
           scope: string
-          token_type: string
-          access_token: string
-          user_id: string
-          refresh_token: string
-          session_id: string }
+          [<JsonField("token_type")>]
+          tokenType: string
+          [<JsonField("access_token")>]
+          accessToken: string
+          [<JsonField("user_id")>]
+          userId: string
+          [<JsonField("refresh_token")>]
+          refreshToken: string
+          [<JsonField("session_id")>]
+          sessionId: string }
 
     /// <summary>
     /// Creates a new authentication from a TokenResponse
@@ -28,11 +35,11 @@ module Authentication =
         match response with
         | Ok response ->
             Some
-                { accessToken = response.access_token
-                  refreshToken = response.refresh_token
+                { accessToken = response.accessToken
+                  refreshToken = response.refreshToken
                   // Safety second to avoid errors through code execution duration
                   accessExpires =
-                      response.expires_in
+                      response.expiresIn
                       - 1
                       |> float
                       |> DateTimeOffset.Now.AddSeconds }
@@ -69,7 +76,7 @@ module Authentication =
     /// - New Authentication, if token in given authentication expired
     /// - otherwise the input
     /// </returns>
-    let getRefreshToken authentication =
+    let getRefreshToken (authentication: Authentication) =
         async {
             let queries =
                 [ getBasicParameters ()

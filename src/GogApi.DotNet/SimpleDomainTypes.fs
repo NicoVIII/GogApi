@@ -1,5 +1,6 @@
 namespace GogApi.DotNet.FSharp.DomainTypes
 
+open FSharp.Json
 open System
 
 /// <summary>
@@ -78,7 +79,8 @@ type BonusContent =
       name: string
       ``type``: string
       count: int
-      total_size: uint32
+      [<JsonField("total_size")>]
+      totalSize: uint32
       files: File list }
 
 type Tag =
