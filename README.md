@@ -1,4 +1,5 @@
 # GogApi.DotNet
+
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![GitHub Release](https://img.shields.io/github/release/NicoVIII/GogApi.DotNet.svg)](https://github.com/NicoVIII/GogApi.DotNet/releases/latest)
 [![Github Pre-Release](https://img.shields.io/github/release/NicoVIII/GogApi.DotNet/all.svg?label=prerelease)](https://github.com/NicoVIII/GogApi.DotNet/releases)
@@ -10,6 +11,7 @@ This project aims at providing an interface to use the (unofficial) GOG API docu
 Documentation can be found at <https://nicoviii.github.io/GogApi.DotNet>.
 
 ## Development
+
 [![Build Status](https://github.com/NicoVIII/GogApi.DotNet/workflows/Continuous%20Integration/badge.svg)](https://github.com/NicoVIII/GogApi.DotNet/actions)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/075c69d86f154b40bef949483e04b98c?branch=master)](https://app.codacy.com/manual/NicoVIII/GogApi.Dotnet/dashboard?bid=14410917)
 
@@ -35,9 +37,15 @@ dotnet tool restore
 dotnet fake build --target Release
 ```
 
+If you want to release a version you have to:
+
+-   Adjust RELEASE_NOTES.md
+-   Check if SECURITY.md has to be updated
+-   Run release.sh
+
 ### How to contribute
 
-*Imposter syndrome disclaimer*: I want your help. No really, I do.
+_Imposter syndrome disclaimer_: I want your help. No really, I do.
 
 There might be a little voice inside that tells you you're not ready; that you need to do one more tutorial, or learn another framework, or write a few more blog posts before you can help me with this project.
 
