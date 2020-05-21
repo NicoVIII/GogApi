@@ -18,8 +18,16 @@ module User =
           preferredLanguage: Language
           ratingBrand: string
           isLoggedIn: bool
-          checksum: {| cart: string option; games: string option; wishlist: string option; reviews_votes: string option; games_rating: string option |}
-          updates: {| messages: int; pendingFriendRequests: int; unreadChatMessages: int; products: int; total: int |}
+          checksum: {| cart: string option
+                       games: string option
+                       wishlist: string option
+                       reviews_votes: string option
+                       games_rating: string option |}
+          updates: {| messages: int
+                      pendingFriendRequests: int
+                      unreadChatMessages: int
+                      products: int
+                      total: int |}
           [<JsonField(Transform = typeof<UserIdStringTransform>)>]
           userId: UserId
           username: UserName
@@ -30,9 +38,8 @@ module User =
           wishlistedItems: int
           friends: FriendInfo list
           email: string
-          //personalizedProductPrices: obj list // TODO:
-          //personalizedSeriesPrices: obj list // TODO:
-          }
+          personalizedProductPrices: obj list // TODO: #10
+          personalizedSeriesPrices: obj list } // TODO: #10
 
     /// <summary>
     /// Fetches information about the currently authenticated user
@@ -41,8 +48,7 @@ module User =
         makeRequest<UserDataResponse> (Some authentication) []
             "https://embed.gog.com/userData.json"
 
-    type DataGamesResponse =
-        { owned: ProductId list }
+    type DataGamesResponse = { owned: ProductId list }
 
     /// <summary>
     /// Fetches a list of ids of the games and movies the authenticated account owns

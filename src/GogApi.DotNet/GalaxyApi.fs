@@ -54,7 +54,7 @@ module GalaxyApi =
                     product_card: string
                     support: string
                     forum: string |}
-          in_development: {| active: bool |} // TODO: until: obj option
+          in_development: {| active: bool; until: obj option |} // TODO: #10
           is_secret: bool
           is_installable: bool
           game_type: string
@@ -68,7 +68,7 @@ module GalaxyApi =
                      sidebarIcon2x: string
                      menuNotificationAv: string
                      menuNotificationAv2: string |}
-          // dlcs: Dlcs // TODO: fix somehow... When empty: [], when not record
+          // dlcs: Dlcs // TODO: #11 fix somehow... When empty: [], when not record
           downloads: DownloadsInfo }
 
     /// <summary>
