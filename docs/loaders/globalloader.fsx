@@ -4,7 +4,6 @@ type SiteInfo = {
     title: string
     description: string
     theme_variant: string option
-    numbers_in_menu: bool
     root_url: string
 }
 
@@ -12,8 +11,12 @@ let config = {
     title = "GogApi.DotNet"
     description = "This project aims at providing an interface to use the (unofficial) GOG API from .NET."
     theme_variant = Some "blue"
-    numbers_in_menu = true
-    root_url = "https://nicoviii.github.io/GogApi.DotNet"
+    root_url =
+      #if WATCH
+        "http://localhost:8080/"
+      #else
+        "https://nicoviii.github.io/GogApi.DotNet"
+      #endif
 }
 
 let loader (_: string) (siteContent: SiteContents) =

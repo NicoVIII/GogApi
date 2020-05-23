@@ -17,7 +17,7 @@ group Docs
   framework: netstandard2.0
   storage: symlink
 
-  nuget FSharp.Formatting 4.0.0-alpha03 prerelease
+  nuget FSharp.Formatting ~> 4.0
   nuget Markdig
   nuget Newtonsoft.Json
 

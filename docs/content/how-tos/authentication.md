@@ -1,10 +1,9 @@
 ---
-layout: post
 title: Authentication
-author: @nicoviii
-published: 2020-04-05
+category: how-to
 menu_order: 1
 ---
+
 # Authentication
 
 You can read about the Authflow here:

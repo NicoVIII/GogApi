@@ -25,3 +25,5 @@ jobs:
       run: dotnet restore
     - name: Build library
       run: dotnet fake build
+    - name: Build documentation
+      run: dotnet fake build -t Docs
