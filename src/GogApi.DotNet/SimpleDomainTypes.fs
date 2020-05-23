@@ -11,6 +11,9 @@ type Authentication =
       refreshToken: string
       accessExpires: DateTimeOffset }
 
+/// <summary>
+/// Represents the id of a product (game/movie)
+/// </summary>
 type ProductId = ProductId of uint32
 
 /// <summary>
@@ -43,14 +46,24 @@ type FileSize = FileSize of uint64
 /// </summary>
 type Page = Page of uint32
 
+/// <summary>
+/// Contains info about a friend
+/// </summary>
 type FriendInfo =
     { username: UserName
       userSince: int
       galaxyId: string
       avatar: string }
 
+/// <summary>
+/// Contains info about a currency
+/// </summary>
 type Currency = { code: string; symbol: string }
 
+/// <summary>
+/// Contains info about a specific download for a specific OS.
+/// Is used inside of <see cref="T:GogApi.DotNet.FSharp.DomainTypes.Download"/>
+/// </summary>
 type DownloadOSInfo =
     { date: string
       downloaderUrl: string option
@@ -59,11 +72,17 @@ type DownloadOSInfo =
       size: string
       version: string option }
 
+/// <summary>
+/// Contains info about available downloads for different OSes
+/// </summary>
 type Download =
     { linux: DownloadOSInfo list
       mac: DownloadOSInfo list
       windows: DownloadOSInfo list }
 
+/// <summary>
+/// Contains info about an extra for a game
+/// </summary>
 type GameExtra =
     { manualUrl: string
       downloaderUrl: string option
@@ -72,13 +91,22 @@ type GameExtra =
       info: int
       size: string }
 
+/// <summary>
+/// Contains some basic info about a product (game / movie)
+/// </summary>
 type ProductInfo = { id: ProductId; title: string }
 
+/// <summary>
+/// Contains some basic info about a file
+/// </summary>
 type File =
     { id: int
       size: uint32
       downlink: DownLink }
 
+/// <summary>
+/// Contains some basic info about bonus content
+/// </summary>
 type BonusContent =
     { id: int
       name: string
@@ -88,6 +116,9 @@ type BonusContent =
       totalSize: uint32
       files: File list }
 
+/// <summary>
+/// Contains info about a tag
+/// </summary>
 type Tag =
     { id: string
       name: string

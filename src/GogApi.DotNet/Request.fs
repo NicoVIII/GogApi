@@ -1,4 +1,4 @@
-namespace GogApi.DotNet.FSharp
+namespace GogApi.DotNet.FSharp.Internal
 
 open GogApi.DotNet.FSharp.DomainTypes
 
@@ -10,6 +10,9 @@ open FsHttp.DslCE
 /// This module contains low-level functions and types to make requests to the GOG API
 /// </summary>
 module Request =
+    /// <summary>
+    /// Used config for parsing the JSON API responses
+    /// </summary>
     let jsonConfig =
         { JsonConfig.Default with
               allowUntyped = true }
@@ -22,8 +25,35 @@ module Request =
     /// <summary>
     /// Creates a RequestParameter
     /// </summary>
+    /// <returns>
+    /// A list to simplify using of optional RequestParameters
+    /// </returns>
+    /// <example>
+    ///   let queries =
+    ///     [ createOptionalRequestParameter "feature"
+    ///           (request.feature |> Option.map GameFeature.toString)
+    ///       createOptionalRequestParameter "language"
+    ///           (request.language |> Option.map Language.toString)
+    ///       createRequestParameter "mediaType" "1" ]
+    ///     |> List.concat
+    /// </example>
     let createRequestParameter name value = [ { name = name; value = value } ]
 
+    /// <summary>
+    /// Creates an optional RequestParameter
+    /// </summary>
+    /// <returns>
+    /// An empty list, if provided parameter is None and the parameter otherwise
+    /// </returns>
+    /// <example>
+    ///   let queries =
+    ///     [ createOptionalRequestParameter "feature"
+    ///           (request.feature |> Option.map GameFeature.toString)
+    ///       createOptionalRequestParameter "language"
+    ///           (request.language |> Option.map Language.toString)
+    ///       createRequestParameter "mediaType" "1" ]
+    ///     |> List.concat
+    /// </example>
     let createOptionalRequestParameter name valueOption =
         match valueOption with
         | Some value -> createRequestParameter name value

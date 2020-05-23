@@ -1,5 +1,9 @@
 namespace GogApi.DotNet.FSharp.DomainTypes
 
+/// <summary>
+/// All possible languages with a custom field for new languages which are not
+/// in this API wrapper yet
+/// </summary>
 type Language =
     | English
     | German
@@ -23,6 +27,9 @@ type Language =
     | Danish
     | Custom of string
 
+/// <summary>
+/// Contains some helper function for <see cref="T:GogApi.DotNet.FSharp.DomainTypes.Language"/>
+/// </summary>
 module Language =
     let private languageMap =
         Map.empty
@@ -50,17 +57,25 @@ module Language =
     let private reverseLanguageMap =
         (Map.empty, languageMap)
         ||> Map.fold (fun rMap language str ->
-            match Map.containsKey str rMap with
-            | false -> rMap |> Map.add str language
-            | true -> failwithf "The identifier of a language is duplicated: %s" str)
+                match Map.containsKey str rMap with
+                | false -> rMap |> Map.add str language
+                | true -> failwithf "The identifier of a language is duplicated: %s" str)
 
+    /// <summary>
+    /// Converts a <see cref="T:GogApi.DotNet.FSharp.DomainTypes.Language"/> into its string representation
+    /// </summary>
     let toString language =
         match language with
         | Custom language -> language
-        | language when Map.containsKey language languageMap -> Map.find language languageMap
+        | language when Map.containsKey language languageMap ->
+            Map.find language languageMap
         | _ -> failwithf "Language case not handled: %A" language
 
+    /// <summary>
+    /// Converts a string representation back to a <see cref="T:GogApi.DotNet.FSharp.DomainTypes.Language"/>
+    /// </summary>
     let fromString str =
         match str with
-        | str when Map.containsKey str reverseLanguageMap -> Map.find str reverseLanguageMap
+        | str when Map.containsKey str reverseLanguageMap ->
+            Map.find str reverseLanguageMap
         | str -> Custom str

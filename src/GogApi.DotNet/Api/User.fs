@@ -1,8 +1,8 @@
 namespace GogApi.DotNet.FSharp
 
 open GogApi.DotNet.FSharp.DomainTypes
-open Request
-open Transforms
+open Internal.Request
+open Internal.Transforms
 
 open FSharp.Json
 
@@ -11,7 +11,7 @@ open FSharp.Json
 /// </summary>
 [<RequireQualifiedAccess>]
 module User =
-    type UserDataResponseInternal =
+    type private UserDataResponseInternal =
         { country: string
           currencies: Currency list
           selectedCurrency: Currency
@@ -41,6 +41,10 @@ module User =
           personalizedProductPrices: obj list // TODO: #10
           personalizedSeriesPrices: obj list } // TODO: #10
 
+    /// <summary>
+    /// Contains info about a user requested via
+    /// <see cref="M:GogApi.DotNet.FSharp.User.getData"/>
+    /// </summary>
     type UserDataResponse =
         { country: string
           currencies: Currency list
@@ -72,7 +76,7 @@ module User =
           personalizedProductPrices: obj list // TODO: #10
           personalizedSeriesPrices: obj list } // TODO: #10
 
-    let fromInternalDataResponse (internalResponse: UserDataResponseInternal) =
+    let private fromInternalDataResponse (internalResponse: UserDataResponseInternal) =
         { country = internalResponse.country
           currencies = internalResponse.currencies
           selectedCurrency = internalResponse.selectedCurrency
@@ -109,6 +113,9 @@ module User =
             return response |> Result.map fromInternalDataResponse
         }
 
+    /// <summary>
+    /// Contains information about owned games requested via <see cref="M:GogApi.DotNet.FSharp.User.getDataGames"/>
+    /// </summary>
     type DataGamesResponse = { owned: ProductId list }
 
     /// <summary>
@@ -118,8 +125,11 @@ module User =
         makeRequest<DataGamesResponse> (Some authentication) []
             "https://embed.gog.com/user/data/games"
 
+    /// <summary>
+    /// Contains info about a wishlist requested via <see cref="M:GogApi.DotNet.FSharp.User.getWishlist"/>
+    /// </summary>
     type WishlistResponse =
-        { [<JsonField(Transform = typeof<GameIdBoolMapStringTransform>)>]
+        { [<JsonField(Transform = typeof<ProductIdBoolMapStringTransform>)>]
           wishlist: Map<ProductId, bool>
           checksum: string }
 

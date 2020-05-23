@@ -13,3 +13,7 @@ Like the README states it uses the knowledge from
 <https://gogapidocs.readthedocs.io/en/latest/> but
 I don't rule out the possibility to further extend this (and hopefully contribute
 it to linked documentation) by own investigations.
+
+This documentation contains always info about the currently available stable release
+of this project. If you want to have a look at the documentation of other version
+(like prereleases) you have to build it yourself (which is quite easy tbf).

@@ -1,4 +1,4 @@
-namespace GogApi.DotNet.FSharp
+namespace GogApi.DotNet.FSharp.Internal
 
 open GogApi.DotNet.FSharp.DomainTypes
 
@@ -9,6 +9,9 @@ open System
 /// Contains all transforms which are necessary to parse json answers
 /// </summary>
 module Transforms =
+    /// <summary>
+    /// Transforms a string into a UserId
+    /// </summary>
     type UserIdStringTransform() =
         interface ITypeTransform with
             member __.targetType() = (fun _ -> typeof<string>)()
@@ -25,7 +28,10 @@ module Transforms =
                     |> uint64
                     |> UserId :> obj) value
 
-    type GameIdBoolMapStringTransform() =
+    /// <summary>
+    /// Transforms a Map from string to bool into a Map from ProductId to bool
+    /// </summary>
+    type ProductIdBoolMapStringTransform() =
         interface ITypeTransform with
             member __.targetType() = (fun _ -> typeof<Map<string,bool>>)()
 
@@ -63,6 +69,9 @@ module Transforms =
               windows = extractDownloadOSInfoList downloadMap "windows" }
         map.Add(objList.[0] |> string, download)
 
+    /// <summary>
+    /// Transforms a list of an object list into a Map from a string to a Download
+    /// </summary>
     type DownloadsObjListTransform() =
         interface ITypeTransform with
             member __.targetType() = (fun _ -> typeof<list<list<obj>>>)()

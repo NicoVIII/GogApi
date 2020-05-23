@@ -1,65 +1,99 @@
 namespace GogApi.DotNet.FSharp
 
 open GogApi.DotNet.FSharp.DomainTypes
-open Request
+open Internal.Request
+
+open FSharp.Json
 
 /// <summary>
 /// Contains special endpoints for Galaxy
 /// </summary>
+[<RequireQualifiedAccess>]
 module GalaxyApi =
+    /// <summary>
+    /// Contains info about an installer file
+    /// </summary>
     type InstallerFileInfo =
         { id: string
           size: int64
           downlink: DownLink }
 
+    /// <summary>
+    /// Contains info about an installer for a game
+    /// </summary>
     type InstallerInfo =
         { id: string
           os: string
           version: string option
           files: InstallerFileInfo list }
 
+    /// <summary>
+    /// Contains info about a patch for a game
+    /// </summary>
     type Patch =
         { id: string
           language: string
-          language_full: string
+          [<JsonField("language_full")>]
+          languageFull: string
           name: string
           os: string
-          total_size: FileSize
+          [<JsonField("total_size")>]
+          totalSize: FileSize
           version: string
           files: {| downlink: DownLink
                     id: string
                     size: FileSize |} list }
 
+    /// <summary>
+    /// Contains info about available downloads for a game
+    /// </summary>
     type DownloadsInfo =
         { installers: InstallerInfo list
           patches: Patch list
-          language_packs: obj list // TODO: #10
-          bonus_content: BonusContent list }
+          [<JsonField("language_packs")>]
+          languagePacks: obj list // TODO: #10
+          [<JsonField("bonus_content")>]
+          bonusContent: BonusContent list }
 
+    /// <summary>
+    /// Contains info about a product
+    /// </summary>
     type Product =
         { id: ProductId
           link: string
-          expanded_link: string }
+          [<JsonField("expanded_link")>]
+          expandedLink: string }
 
+    /// <summary>
+    /// Contains info about a product requested via <see cref="M:GogApi.DotNet.FSharp.GalaxyApi.getProduct"/>
+    /// </summary>
     type ProductsResponse =
         { id: ProductId
           title: string
-          purchase_link: string
+          [<JsonField("purchase_link")>]
+          purchaseLink: string
           slug: string
-          content_system_compatibility: {| windows: bool
-                                           osx: bool
-                                           linux: bool |}
+          [<JsonField("content_system_compatibility")>]
+          contentSystemCompatibility: {| windows: bool
+                                         osx: bool
+                                         linux: bool |}
           languages: Map<string, string>
           links: {| purchase_link: string
                     product_card: string
                     support: string
                     forum: string |}
-          in_development: {| active: bool; until: obj option |} // TODO: #10
-          is_secret: bool
-          is_installable: bool
-          game_type: string
-          is_pre_order: bool
-          release_date: string
+          [<JsonField("in_development")>]
+          inDevelopment: {| active: bool; until: obj option |} // TODO: #10
+          [<JsonField("is_secret")>]
+          isSecret: bool
+          [<JsonField("is_installable")>]
+          isInstallable: bool
+          [<JsonField("game_type")>]
+          gameType: string
+          [<JsonField("is_pre_order")>]
+          isPreOrder: bool
+          [<JsonField("release_date")>]
+          releaseDate: string
           images: {| background: string
                      logo: string
                      logo2x: string
@@ -82,6 +116,9 @@ module GalaxyApi =
         sprintf "https://api.gog.com/products/%i" id
         |> makeRequest<ProductsResponse> (Some authentication) queries
 
+    /// <summary>
+    /// Contains info about a secure url requested via <see cref="M:GogApi.DotNet.FSharp.GalaxyApi.getSecureDownlink"/>
+    /// </summary>
     type SecureUrlResponse =
         { downlink: SafeDownLink
           checksum: string }

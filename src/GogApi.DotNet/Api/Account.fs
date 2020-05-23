@@ -1,15 +1,19 @@
 namespace GogApi.DotNet.FSharp
 
 open GogApi.DotNet.FSharp.DomainTypes
-open Request
-open Transforms
+open Internal.Request
+open Internal.Transforms
 
 open FSharp.Json
 
 /// <summary>
-/// This module holds all API calls which has to do with games/movies on GOG
+/// This module holds all API calls which have to do with games/movies on GOG
 /// </summary>
+[<RequireQualifiedAccess>]
 module Account =
+    /// <summary>
+    /// Contains info about a Dlc for a game
+    /// </summary>
     type Dlc =
         { title: string
           backgroundImage: string
@@ -18,6 +22,9 @@ module Account =
           [<JsonField(Transform = typeof<DownloadsObjListTransform>)>]
           downloads: Map<string, Download> }
 
+    /// <summary>
+    /// Contains detailed info about a game requested via <see cref="M:GogApi.DotNet.FSharp.Account.getGameDetails"/>
+    /// </summary>
     type GameInfoResponse =
         { title: string
           backgroundImage: string
@@ -46,6 +53,10 @@ module Account =
         sprintf "https://embed.gog.com/account/gameDetails/%i.json" id
         |> makeRequest<GameInfoResponse> (Some authentication) []
 
+    /// <summary>
+    /// Contains possible parameters with which one can specify what is searched
+    /// for with <see cref="M:GogApi.DotNet.FSharp.Account.getFilteredGames"/>
+    /// </summary>
     type FilteredProductsRequest =
         { feature: GameFeature option
           language: Language option
@@ -54,7 +65,7 @@ module Account =
           sort: Sort option
           system: OS option }
 
-    type FilteredProductsResponseInternal =
+    type private FilteredProductsResponseInternal =
         { [<JsonField("sort_by")>]
           sortBy: string option
           page: Page
@@ -70,6 +81,10 @@ module Account =
           appliedFilters: {| tags: obj option |}
           hasHiddenProducts: bool }
 
+    /// <summary>
+    /// Contains info about products which matched the search requested via
+    /// <see cref="M:GogApi.DotNet.FSharp.Account.getFilteredGames"/>
+    /// </summary>
     type FilteredProductsResponse =
         { sortBy: Sort option
           page: Page
@@ -85,7 +100,7 @@ module Account =
           appliedFilters: {| tags: obj option |}
           hasHiddenProducts: bool }
 
-    let fromInternaFilteredProductsResponse (internalResponse: FilteredProductsResponseInternal) =
+    let private fromInternaFilteredProductsResponse (internalResponse: FilteredProductsResponseInternal) =
         { sortBy =
               internalResponse.sortBy
               |> Option.map Sort.fromString
@@ -103,7 +118,7 @@ module Account =
           hasHiddenProducts = internalResponse.hasHiddenProducts }
 
     /// <summary>
-    /// Searches for games owned by the user matching the given search term.
+    /// Searches for games owned by the user matching the given search parameters
     /// </summary>
     let getFilteredGames (request: FilteredProductsRequest) authentication =
         let queries =
