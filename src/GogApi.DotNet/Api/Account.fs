@@ -12,17 +12,6 @@ open FSharp.Json
 [<RequireQualifiedAccess>]
 module Account =
     /// <summary>
-    /// Contains info about a Dlc for a game
-    /// </summary>
-    type Dlc =
-        { title: string
-          backgroundImage: string
-          cdKey: string
-          textInformation: string
-          [<JsonField(Transform = typeof<DownloadsObjListTransform>)>]
-          downloads: Map<string, Download> }
-
-    /// <summary>
     /// Contains detailed info about a game requested via <see cref="M:GogApi.DotNet.FSharp.Account.getGameDetails"/>
     /// </summary>
     type GameInfoResponse =

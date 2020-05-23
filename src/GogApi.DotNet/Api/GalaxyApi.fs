@@ -11,60 +11,6 @@ open FSharp.Json
 [<RequireQualifiedAccess>]
 module GalaxyApi =
     /// <summary>
-    /// Contains info about an installer file
-    /// </summary>
-    type InstallerFileInfo =
-        { id: string
-          size: int64
-          downlink: DownLink }
-
-    /// <summary>
-    /// Contains info about an installer for a game
-    /// </summary>
-    type InstallerInfo =
-        { id: string
-          os: string
-          version: string option
-          files: InstallerFileInfo list }
-
-    /// <summary>
-    /// Contains info about a patch for a game
-    /// </summary>
-    type Patch =
-        { id: string
-          language: string
-          [<JsonField("language_full")>]
-          languageFull: string
-          name: string
-          os: string
-          [<JsonField("total_size")>]
-          totalSize: FileSize
-          version: string
-          files: {| downlink: DownLink
-                    id: string
-                    size: FileSize |} list }
-
-    /// <summary>
-    /// Contains info about available downloads for a game
-    /// </summary>
-    type DownloadsInfo =
-        { installers: InstallerInfo list
-          patches: Patch list
-          [<JsonField("language_packs")>]
-          languagePacks: obj list // TODO: #10
-          [<JsonField("bonus_content")>]
-          bonusContent: BonusContent list }
-
-    /// <summary>
-    /// Contains info about a product
-    /// </summary>
-    type Product =
-        { id: ProductId
-          link: string
-          [<JsonField("expanded_link")>]
-          expandedLink: string }
-
-    /// <summary>
     /// Contains info about a product requested via <see cref="M:GogApi.DotNet.FSharp.GalaxyApi.getProduct"/>
     /// </summary>
     type ProductsResponse =

@@ -11,6 +11,7 @@
     <Compile Include="DomainTypes/OS.fs" />
     <Compile Include="DomainTypes/Sort.fs" />
     <Compile Include="Transforms.fs" />
+    <Compile Include="DomainTypesWithTransforms.fs" />
     <Compile Include="Request.fs" />
     <Compile Include="Authentication.fs" />
     <Compile Include="Helpers.fs" />
