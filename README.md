@@ -33,6 +33,8 @@ Documentation can be found at <https://nicoviii.github.io/GogApi.DotNet>.
 
 ### How to release.
 
+#### Releasing from local machine
+
 Create release.cmd or release.sh file (already git-ignored) with following content (sample from `sh`, but `cmd` file is similar):
 
 ```

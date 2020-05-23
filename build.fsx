@@ -19,10 +19,14 @@ open Fake.Api
 let project = "GogApi.DotNet"
 
 let summary = "This project aims at providing an interface to use the (unofficial) GOG API from .NET."
+let authors = "NicoVIII"
+let tags = "GOG,API,F#"
+let copyright = "(C) 2019 NicoVIII"
 
 let gitOwner = "NicoVIII"
 let gitName = "GogApi.DotNet"
 let gitHome = "https://github.com/" + gitOwner
+let gitUrl = gitHome + "/" + gitName
 
 // --------------------------------------------------------------------------------------
 // Build variables
@@ -33,7 +37,16 @@ let nugetDir = "./out/"
 
 System.Environment.CurrentDirectory <- __SOURCE_DIRECTORY__
 
-let release = ReleaseNotes.parse (System.IO.File.ReadAllLines "RELEASE_NOTES.md")
+let changelogFilename = "CHANGELOG.md"
+let changelog = Changelog.load changelogFilename
+let latestEntry = changelog.LatestEntry
+
+let nugetVersion = latestEntry.NuGetVersion
+let packageReleaseNotes = sprintf "%s/blob/v%s/CHANGELOG.md" gitUrl latestEntry.NuGetVersion
+let releaseNotes =
+    latestEntry.Changes
+    |> List.map (fun c -> " * " + c.ToString())
+    |> String.concat "\n"
 
 // --------------------------------------------------------------------------------------
 // Helpers
@@ -58,33 +71,6 @@ let DoNothing = ignore
 // --------------------------------------------------------------------------------------
 Target.create "Clean" (fun _ -> Shell.cleanDirs [ buildDir; nugetDir ])
 
-Target.create "AssemblyInfo" (fun _ ->
-    let getAssemblyInfoAttributes projectName =
-        [ AssemblyInfo.Title projectName
-          AssemblyInfo.Product project
-          AssemblyInfo.Description summary
-          AssemblyInfo.Version release.AssemblyVersion
-          AssemblyInfo.FileVersion release.AssemblyVersion ]
-
-    let getProjectDetails projectPath =
-        let projectName = System.IO.Path.GetFileNameWithoutExtension(projectPath)
-        (projectPath, projectName, System.IO.Path.GetDirectoryName(projectPath),
-         (getAssemblyInfoAttributes projectName))
-
-    !!"src/**/*.??proj"
-    |> Seq.map getProjectDetails
-    |> Seq.iter (fun (projFileName, _, folderName, attributes) ->
-        match projFileName with
-        | proj when proj.EndsWith("fsproj") ->
-            AssemblyInfoFile.createFSharp (folderName </> "AssemblyInfo.fs") attributes
-        | proj when proj.EndsWith("csproj") ->
-            AssemblyInfoFile.createCSharp ((folderName </> "Properties") </> "AssemblyInfo.cs") attributes
-        | proj when proj.EndsWith("vbproj") ->
-            AssemblyInfoFile.createVisualBasic ((folderName </> "My Project") </> "AssemblyInfo.vb") attributes
-        | _ -> ()))
-
-Target.create "Restore" (fun _ -> DotNet.restore id "")
-
 Target.create "Build" (fun _ -> DotNet.build id "")
 
 Target.create "Test"
@@ -103,21 +89,32 @@ Target.create "BuildRelease" (fun _ ->
               MSBuildParams =
                   { p.MSBuildParams with
                         Properties =
-                            [ ("Version", release.NugetVersion)
+                            [ ("Version", nugetVersion)
                               ("PackageReleaseNotes",
-                               String.concat "\n" release.Notes) ] } }) "GogApi.DotNet.sln")
+                               packageReleaseNotes) ] } }) "GogApi.DotNet.sln")
 
 Target.create "Pack" (fun _ ->
+    let properties = [
+        ("Version", nugetVersion);
+        ("Authors", authors)
+        ("PackageProjectUrl", gitUrl)
+        ("PackageTags", tags)
+        ("RepositoryType", "git")
+        ("RepositoryUrl", gitUrl)
+        ("PackageLicenseUrl", gitUrl + "/LICENSE")
+        ("Copyright", copyright)
+        ("PackageReleaseNotes", packageReleaseNotes)
+        ("PackageDescription", summary)
+        ("EnableSourceLink", "true")
+    ]
+
     DotNet.pack (fun p ->
         { p with
             Configuration = DotNet.BuildConfiguration.Release
             OutputPath = Some nugetDir
             MSBuildParams =
             { p.MSBuildParams with
-                  Properties =
-                      [ ("Version", release.NugetVersion)
-                        ("PackageReleaseNotes",
-                         String.concat "\n" release.Notes) ] } }) "./src/GogApi.DotNet/GogApi.DotNet.fsproj")
+                  Properties = properties } }) "./src/GogApi.DotNet/GogApi.DotNet.fsproj")
 
 Target.create "ReleaseGitHub" (fun _ ->
     let remote =
@@ -129,11 +126,11 @@ Target.create "ReleaseGitHub" (fun _ ->
         | Some(s: string) -> s.Split().[0]
 
     Git.Staging.stageAll ""
-    Git.Commit.exec "" (sprintf "Bump version to %s" release.NugetVersion)
+    Git.Commit.exec "" (sprintf "Bump version to %s" nugetVersion)
     Git.Branches.pushBranch "" remote (Git.Information.getBranchName "")
 
-    Git.Branches.tag "" ("v" + release.NugetVersion)
-    Git.Branches.pushTag "" remote ("v" + release.NugetVersion)
+    Git.Branches.tag "" ("v" + nugetVersion)
+    Git.Branches.pushTag "" remote ("v" + nugetVersion)
 
     let client =
         let user =
@@ -149,17 +146,15 @@ Target.create "ReleaseGitHub" (fun _ ->
         // Git.createClient user pw
         GitHub.createClient user pw
 
-    //let files = !!(nugetDir </> "*.nupkg")
+    let files = !!(nugetDir </> "*.nupkg")
 
     // release on github
     let cl =
         client
-        |> GitHub.draftNewRelease gitOwner gitName ("v" + release.NugetVersion) (release.SemVer.PreRelease <> None)
-               release.Notes
+        |> GitHub.draftNewRelease gitOwner gitName ("v" + nugetVersion) (latestEntry.SemVer.PreRelease <> None) [releaseNotes]
 
-    //(cl, files)
-    //||> Seq.fold (fun acc e -> acc |> GitHub.uploadFile e)
-    cl
+    (cl, files)
+    ||> Seq.fold (fun acc e -> acc |> GitHub.uploadFile e)
     |> GitHub.publishDraft
     |> Async.RunSynchronously)
 
@@ -181,15 +176,11 @@ Target.create "Default" DoNothing
 Target.create "Release" DoNothing
 
 "Clean"
-    ==> "AssemblyInfo"
-    ==> "Restore"
     ==> "Build"
     ==> "Test"
     ==> "Default"
 
 "Clean"
-    ==> "AssemblyInfo"
-    ==> "Restore"
     ==> "BuildRelease"
     ==> "Docs"
 
