@@ -13,7 +13,7 @@ let config = {
     theme_variant = Some "blue"
     root_url =
       #if WATCH
-        "http://localhost:8080/"
+        "http://localhost:8080"
       #else
         "https://nicoviii.github.io/GogApi.DotNet"
       #endif
