@@ -1,69 +1,205 @@
-#r "paket:
-nuget Fake.IO.FileSystem
-nuget Fake.DotNet.Cli
-nuget Fake.Core.Target
-nuget FSharp.Formatting //"
-#load "./.fake/build.fsx/intellisense.fsx"
+#r "paket: groupref build //"
+#load ".fake/build.fsx/intellisense.fsx"
+// --------------------------------------------------------------------------------------
+// FAKE build script
+// --------------------------------------------------------------------------------------
 
-open Fake.IO
-open Fake.IO.Globbing.Operators //enables !! and globbing
-open Fake.DotNet
 open Fake.Core
-//open FSharp.MetadataFormat
-open System.IO
+open Fake.DotNet
+open Fake.Tools
+open Fake.IO
+open Fake.IO.FileSystemOperators
+open Fake.IO.Globbing.Operators
+open Fake.Core.TargetOperators
+open Fake.Api
 
-// Properties
-let projectPath = "./src/GogApi.DotNet/FSharp/"
-let projectFile = "GogApi.DotNet.fsproj"
-let projectFilePath = Path.Combine(projectPath, projectFile)
+// --------------------------------------------------------------------------------------
+// Information about the project to be used at NuGet and in AssemblyInfo files
+// --------------------------------------------------------------------------------------
+let project = "GogApi.DotNet"
 
-let forDebug (options:DotNet.BuildOptions) =
-  { options with Configuration = DotNet.BuildConfiguration.Debug }
+let summary = "This project aims at providing an interface to use the (unofficial) GOG API from .NET."
+let authors = "NicoVIII"
+let tags = "GOG,API,F#"
+let copyright = "(C) 2019 NicoVIII"
 
-let packOptions (options:DotNet.PackOptions) =
-    { options with OutputPath = Some __SOURCE_DIRECTORY__ }
+let gitOwner = "NicoVIII"
+let gitName = "GogApi.DotNet"
+let gitHome = "https://github.com/" + gitOwner
+let gitUrl = gitHome + "/" + gitName
 
-// Targets
-Target.create "Clean" (fun _ ->
-  !! "./src/**/bin/"
-    |> Shell.deleteDirs
-  !! "./src/**/obj/"
-    |> Shell.deleteDirs
-)
+// --------------------------------------------------------------------------------------
+// Build variables
+// --------------------------------------------------------------------------------------
+let buildDir = "./build/"
+let nugetDir = "./out/"
 
-Target.create "BuildApp" (fun _ ->
-  DotNet.build forDebug projectPath
-)
+
+System.Environment.CurrentDirectory <- __SOURCE_DIRECTORY__
+
+let changelogFilename = "CHANGELOG.md"
+let changelog = Changelog.load changelogFilename
+let latestEntry = changelog.LatestEntry
+
+// Helper function to remove blank lines
+let isEmptyChange = function
+    | Changelog.Change.Added s
+    | Changelog.Change.Changed s
+    | Changelog.Change.Deprecated s
+    | Changelog.Change.Fixed s
+    | Changelog.Change.Removed s
+    | Changelog.Change.Security s
+    | Changelog.Change.Custom (_, s) ->
+        String.isNullOrWhiteSpace s.CleanedText
+
+let nugetVersion = latestEntry.NuGetVersion
+let packageReleaseNotes = sprintf "%s/blob/v%s/CHANGELOG.md" gitUrl latestEntry.NuGetVersion
+let releaseNotes =
+    latestEntry.Changes
+    |> List.filter (isEmptyChange >> not)
+    |> List.map (fun c -> " * " + c.ToString())
+    |> String.concat "\n"
+
+// --------------------------------------------------------------------------------------
+// Helpers
+// --------------------------------------------------------------------------------------
+let isNullOrWhiteSpace = System.String.IsNullOrWhiteSpace
+
+let exec cmd args dir =
+    let proc =
+        CreateProcess.fromRawCommandLine cmd args
+        |> CreateProcess.ensureExitCodeWithMessage (sprintf "Error while running '%s' with args: %s" cmd args)
+    (if isNullOrWhiteSpace dir
+     then proc
+     else proc |> CreateProcess.withWorkingDirectory dir)
+    |> Proc.run
+    |> ignore
+
+let getBuildParam = Environment.environVar
+let DoNothing = ignore
+
+// --------------------------------------------------------------------------------------
+// Build Targets
+// --------------------------------------------------------------------------------------
+Target.create "Clean" (fun _ -> Shell.cleanDirs [ buildDir; nugetDir ])
+
+Target.create "Build" (fun _ -> DotNet.build id "")
+
+Target.create "Test"
+    (fun _ -> exec "dotnet" @"run --project .\tests\GogApi.DotNet.UnitTests\GogApi.DotNet.UnitTests.fsproj" ".")
+
+Target.create "Docs" (fun _ -> exec "dotnet" @"fornax build" "docs")
+
+// --------------------------------------------------------------------------------------
+// Release Targets
+// --------------------------------------------------------------------------------------
+Target.create "BuildRelease" (fun _ ->
+    DotNet.build (fun p ->
+        { p with
+              Configuration = DotNet.BuildConfiguration.Release
+              OutputPath = Some buildDir
+              MSBuildParams =
+                  { p.MSBuildParams with
+                        Properties =
+                            [ ("Version", nugetVersion)
+                              ("PackageReleaseNotes",
+                               packageReleaseNotes) ] } }) "GogApi.DotNet.sln")
 
 Target.create "Pack" (fun _ ->
-  // Replace version in project file
-  let version = Environment.environVarOrFail "VERSION"
-  let replacements = Seq.ofList [
-      ("<!--<Version>", "<Version>")
-      ("</Version>-->", "</Version>")
-      ("$version$", version)
+    let properties = [
+        ("Version", nugetVersion);
+        ("Authors", authors)
+        ("PackageProjectUrl", gitUrl)
+        ("PackageTags", tags)
+        ("RepositoryType", "git")
+        ("RepositoryUrl", gitUrl)
+        ("PackageLicenseUrl", gitUrl + "/LICENSE")
+        ("Copyright", copyright)
+        ("PackageReleaseNotes", packageReleaseNotes)
+        ("PackageDescription", summary)
+        ("EnableSourceLink", "true")
     ]
-  let files = Seq.ofList [ projectFilePath ]
-  Shell.replaceInFiles replacements files
 
-  DotNet.pack packOptions projectPath
-)
+    DotNet.pack (fun p ->
+        { p with
+            Configuration = DotNet.BuildConfiguration.Release
+            OutputPath = Some nugetDir
+            MSBuildParams =
+            { p.MSBuildParams with
+                  Properties = properties } }) "./src/GogApi.DotNet/GogApi.DotNet.fsproj")
 
-Target.create "GenerateDocu" (fun _ -> ()
-    (*Path.Combine (projectPath, "bin/GogApi.DotNet.dll")
-    |> MetadataFormat.Generate
-    |> ignore*)
-)
+Target.create "ReleaseGitHub" (fun _ ->
+    let remote =
+        Git.CommandHelper.getGitResult "" "remote -v"
+        |> Seq.filter (fun (s: string) -> s.EndsWith("(push)"))
+        |> Seq.tryFind (fun (s: string) -> s.Contains(gitOwner + "/" + gitName))
+        |> function
+        | None -> gitHome + "/" + gitName
+        | Some(s: string) -> s.Split().[0]
 
-// Dependencies
-open Fake.Core.TargetOperators
+    Git.Staging.stageAll ""
+    Git.Commit.exec "" (sprintf "Bump version to %s" nugetVersion)
+    Git.Branches.pushBranch "" remote (Git.Information.getBranchName "")
+
+    Git.Branches.tag "" ("v" + nugetVersion)
+    Git.Branches.pushTag "" remote ("v" + nugetVersion)
+
+    let client =
+        let user =
+            match getBuildParam "GITHUB_USER" with
+            | s when not (isNullOrWhiteSpace s) -> s
+            | _ -> UserInput.getUserInput "Username: "
+
+        let pw =
+            match getBuildParam "GITHUB_PW" with
+            | s when not (isNullOrWhiteSpace s) -> s
+            | _ -> UserInput.getUserPassword "Password: "
+
+        // Git.createClient user pw
+        GitHub.createClient user pw
+
+    let files = !!(nugetDir </> "*.nupkg")
+
+    // release on github
+    let cl =
+        client
+        |> GitHub.draftNewRelease gitOwner gitName ("v" + nugetVersion) (latestEntry.SemVer.PreRelease <> None) [releaseNotes]
+
+    (cl, files)
+    ||> Seq.fold (fun acc e -> acc |> GitHub.uploadFile e)
+    |> GitHub.publishDraft
+    |> Async.RunSynchronously)
+
+Target.create "Push" (fun _ ->
+    let key =
+        match getBuildParam "NUGET_KEY" with
+        | s when not (isNullOrWhiteSpace s) -> s
+        | _ -> UserInput.getUserPassword "NuGet Key: "
+    Paket.push (fun p ->
+        { p with
+              WorkingDir = nugetDir
+              ApiKey = key
+              ToolType = ToolType.CreateLocalTool() }))
+
+// --------------------------------------------------------------------------------------
+// Build order
+// --------------------------------------------------------------------------------------
+Target.create "Default" DoNothing
+Target.create "Release" DoNothing
 
 "Clean"
-  ==> "Pack"
+    ==> "Build"
+    ==> "Test"
+    ==> "Default"
 
 "Clean"
-  ==> "BuildApp"
-  ==> "GenerateDocu"
+    ==> "BuildRelease"
+    ==> "Docs"
 
-// start build
-Target.runOrDefault "BuildApp"
+"Default"
+    ==> "Pack"
+    ==> "ReleaseGitHub"
+    ==> "Push"
+    ==> "Release"
+
+Target.runOrDefault "Default"

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="SimpleDomainTypes.fs" />
+    <Compile Include="DomainTypes/GameFeature.fs" />
+    <Compile Include="DomainTypes/Language.fs" />
+    <Compile Include="DomainTypes/OS.fs" />
+    <Compile Include="DomainTypes/Sort.fs" />
+    <Compile Include="Transforms.fs" />
+    <Compile Include="DomainTypesWithTransforms.fs" />
+    <Compile Include="Request.fs" />
+    <Compile Include="Authentication.fs" />
+    <Compile Include="Helpers.fs" />
+    <Compile Include="Api/Account.fs" />
+    <Compile Include="Api/User.fs" />
+    <Compile Include="Api/GalaxyApi.fs" />
+  </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+</Project>

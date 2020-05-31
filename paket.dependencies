@@ -1,5 +1,37 @@
-source https://www.nuget.org/api/v2
+version 5.241.2
+
+source https://api.nuget.org/v3/index.json
+
+storage: none
+framework: netcoreapp3.1, netstandard2.0, netstandard2.1
 
 nuget FSharp.Core > 4.5 lowest_matching: true, redirects: force
+nuget Expecto.FsCheck
+
 nuget Fsharp.Json ~> 0.4.0
-nuget Http.fs ~> 5.4.0
+nuget SchlenkR.FsHttp ~> 3.0
+
+group Docs
+  source https://api.nuget.org/v3/index.json
+
+  framework: netstandard2.0
+  storage: symlink
+
+  nuget FSharp.Formatting ~> 4.0
+  nuget Markdig
+  nuget Newtonsoft.Json
+
+// [ FAKE GROUP ]
+group Build
+  source https://api.nuget.org/v3/index.json
+
+  framework: netstandard2.0
+  storage: none
+
+  nuget Fake.Core.Target
+  nuget Fake.Core.ReleaseNotes
+  nuget Fake.DotNet.AssemblyInfoFile
+  nuget Fake.DotNet.Paket
+  nuget Fake.Tools.Git
+  nuget Fake.Core.UserInput
+  nuget Fake.Api.GitHub
