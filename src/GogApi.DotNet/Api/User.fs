@@ -11,7 +11,7 @@ open FSharp.Json
 /// </summary>
 [<RequireQualifiedAccess>]
 module User =
-    type private UserDataResponseInternal =
+    type UserDataResponseInternal =
         { country: string
           currencies: Currency list
           selectedCurrency: Currency
@@ -32,12 +32,12 @@ module User =
           userId: UserId
           username: UserName
           galaxyUserId: string
+          email: string
           avatar: string option
           walletBalance: {| currency: string; amount: int |}
           purchasedItems: {| games: int; movies: int |}
           wishlistedItems: int
           friends: FriendInfo list
-          email: string
           personalizedProductPrices: obj list // TODO: #10
           personalizedSeriesPrices: obj list } // TODO: #10
 

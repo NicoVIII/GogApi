@@ -54,7 +54,7 @@ module Account =
           sort: Sort option
           system: OS option }
 
-    type private FilteredProductsResponseInternal =
+    type FilteredProductsResponseInternal =
         { [<JsonField("sort_by")>]
           sortBy: string option
           page: Page
