@@ -428,18 +428,18 @@ select[multiple="multiple"]:focus {
     border: 1px solid #ccc;
 }
 #body .padding {
-    padding: 3rem 16rem;
+    padding: 3rem 6rem;
 }
 @media only all and (max-width: 79.938em) {
     #body .padding {
         position: static;
-        padding: 15px 5rem;
+        padding: 15px 3rem;
     }
 }
 @media only all and (max-width: 59.938em) {
     #body .padding {
         position: static;
-        padding: 15px 3rem;
+        padding: 15px 1rem;
     }
 }
 @media only all and (max-width: 47.938em) {
