@@ -86,7 +86,7 @@ let menu (ctx: SiteContents) (page: string) =
             [ for r in explenations ->
                 li []
                     [ a
-                        [ Href(rootUrl + "/" + r.link)
+                        [ Href(rootUrl.subRoute r.link)
                           if r.title = page then
                               Class "active-link padding"
                           else
@@ -102,7 +102,7 @@ let menu (ctx: SiteContents) (page: string) =
             [ for r in tutorials ->
                 li []
                     [ a
-                        [ Href(rootUrl + "/" + r.link)
+                        [ Href(rootUrl.subRoute r.link)
                           if r.title = page then
                               Class "active-link padding"
                           else
@@ -118,7 +118,7 @@ let menu (ctx: SiteContents) (page: string) =
             [ for r in howtos ->
                 li []
                     [ a
-                        [ Href(rootUrl + "/" + r.link)
+                        [ Href(rootUrl.subRoute r.link)
                           if r.title = page then
                               Class "active-link padding"
                           else
@@ -131,7 +131,7 @@ let menu (ctx: SiteContents) (page: string) =
             [ for r in all ->
                 li []
                     [ a
-                        [ Href(rootUrl + "/reference/" + r.Label + "/index.html")
+                        [ Href(rootUrl.subRoute "/reference/" + r.Label + "/index.html")
                           if r.Label = page then
                               Class "active-link padding"
                           else
@@ -165,15 +165,15 @@ let menu (ctx: SiteContents) (page: string) =
                           [ i [ Class "fas fa-times" ] [] ] ]
                 script
                     [ Type "text/javascript"
-                      Src(rootUrl + "/static/js/lunr.min.js") ] []
+                      Src "//cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"] []
                 script
                     [ Type "text/javascript"
-                      Src(rootUrl + "/static/js/auto-complete.js") ] []
+                      Src "//cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"] []
                 script [ Type "text/javascript" ]
-                    [ !!(sprintf "var baseurl ='%s'" rootUrl) ]
+                    [ !!(sprintf "var baseurl ='%s'" (rootUrl.subRoute "")) ]
                 script
                     [ Type "text/javascript"
-                      Src(rootUrl + "/static/js/search.js") ] [] ]
+                      Src(rootUrl.subRoute "/static/js/search.js") ] [] ]
           div [ Class "highlightable" ]
               [ ul [ Class "topics" ] menuHeader
                 if hasExplenations then renderExpls

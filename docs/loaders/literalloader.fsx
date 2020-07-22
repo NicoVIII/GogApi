@@ -3,8 +3,9 @@ open System
 #r "../../packages/docs/FSharp.Formatting/lib/netstandard2.0/FSharp.CodeFormat.dll"
 #r "../../packages/docs/FSharp.Formatting/lib/netstandard2.0/FSharp.Markdown.dll"
 #r "../../packages/docs/FSharp.Formatting/lib/netstandard2.0/FSharp.Literate.dll"
+
 #if !FORNAX
-#load "contentloader.fsx"
+#load "./contentloader.fsx"
 open Contentloader
 #endif
 
@@ -130,7 +131,7 @@ let loader (projectRoot: string) (siteContent: SiteContents) =
             |> Array.map (loadFile projectRoot)
 
         posts
-        |> Array.iter (fun p -> siteContent.Add p)
+        |> Array.iter siteContent.Add
 
         siteContent.Add({disableLiveRefresh = true})
     with

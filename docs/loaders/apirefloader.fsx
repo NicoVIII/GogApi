@@ -31,15 +31,22 @@ let rec collectModules pn pu nn nu (m: Module) =
 let loader (projectRoot: string) (siteContent: SiteContents) =
     try
         let dlls =
-            [ "GogApi.DotNet", Path.Combine(projectRoot, "..", "build", "GogApi.DotNet.dll") ]
+            [ "GogApi.DotNet",
+              Path.Combine(projectRoot, "..", "build", "GogApi.DotNet.dll") ]
 
         let libs =
             [ Path.Combine(projectRoot, "..", "build") ]
 
         for (label, dll) in dlls do
+            let properties = [ "project-name", label ]
+
             let output =
                 MetadataFormat.Generate
-                    (dll, markDownComments = true, publicOnly = true, libDirs = libs)
+                    (dll,
+                     markDownComments = true,
+                     publicOnly = true,
+                     libDirs = libs,
+                     parameters = properties)
 
             let allModules =
                 output.AssemblyGroup.Namespaces

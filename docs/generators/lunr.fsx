@@ -30,7 +30,7 @@ let generate (ctx: SiteContents) (projectRoot: string) (page: string) =
     let entries =
         pages
         |> Seq.map (fun n ->
-            { uri = rootUrl + "/" + n.link.Replace("content/", "")
+            { uri = rootUrl.subRoute (n.link.Replace("content/", ""))
               title = n.title
               content = n.text })
 
@@ -55,8 +55,7 @@ let generate (ctx: SiteContents) (projectRoot: string) (page: string) =
                              |> String.concat " ")
 
                     { uri =
-                          (rootUrl
-                           + sprintf "/reference/%s/index.html" n.Label)
+                          (rootUrl.subRoutef "/reference/%s/index.html" n.Label)
                       title = sprintf "%s - API Reference" n.Label
                       content = ctn }
 
@@ -82,8 +81,7 @@ let generate (ctx: SiteContents) (projectRoot: string) (page: string) =
                                  |> String.concat " ")
 
                         { uri =
-                              rootUrl
-                              + sprintf "/reference/%s/%s.html" n.Label m.UrlName
+                              rootUrl.subRoutef "/reference/%s/%s.html" n.Label m.UrlName
                           title = m.Name
                           content = cnt })
 
@@ -99,8 +97,7 @@ let generate (ctx: SiteContents) (projectRoot: string) (page: string) =
                                  |> String.concat " ")
 
                         { uri =
-                              rootUrl
-                              + sprintf "/reference/%s/%s.html" n.Label m.UrlName
+                              rootUrl.subRoutef "/reference/%s/%s.html" n.Label m.UrlName
                           title = m.Name
                           content = cnt })
 
