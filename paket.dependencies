@@ -3,7 +3,7 @@ version 5.241.2
 source https://api.nuget.org/v3/index.json
 
 storage: none
-framework: netcoreapp3.1, netstandard2.0, netstandard2.1
+framework: net5.0, netstandard2.0, netstandard2.1
 
 nuget FSharp.Core > 4.5 lowest_matching: true, redirects: force
 nuget Expecto.FsCheck
