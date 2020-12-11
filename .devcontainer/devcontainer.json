@@ -1,13 +1,12 @@
-// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.106.0/containers/dotnetcore-3.1-fsharp
 {
-	"name": "F# (.NET Core 3.1)",
-	"dockerFile": "Dockerfile",
+    "name": "F# (.NET 5.0)",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "VARIANT": "0.153.0-5.0",
+        }
+    },
 
-	// Set *default* container specific settings.json values on container create.
-	//
-	// .NET Core is now the default for F# in .NET Core 3.0+
-	// However, .NET Core scripting is not the default yet. Set that to true.
 	"settings": {
 		"terminal.integrated.shell.linux": "/bin/bash",
 		"FSharp.useSdkScripts":true
