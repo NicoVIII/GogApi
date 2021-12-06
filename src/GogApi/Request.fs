@@ -8,9 +8,9 @@ open FsHttp.DslCE
 
 /// This module contains low-level functions and types to make requests to the GOG API
 module Request =
+    open FsHttp.Helper
     /// Used config for parsing the JSON API responses
-    let jsonConfig =
-        { JsonConfig.Default with allowUntyped = true }
+    let jsonConfig = { JsonConfig.Default with allowUntyped = true }
 
     /// Simple record for request parameters
     type RequestParameter = { name: string; value: string }
@@ -71,10 +71,10 @@ module Request =
         // Extend request header with authentication info if available
         let request =
             match authentication with
-            | Some { accessToken = token } -> httpRequest baseHeader { BearerAuth token }
+            | Some { accessToken = token } -> baseHeader { AuthorizationBearer token }
             | None -> baseHeader
 
-        request |> sendAsync
+        request |> Request.sendAsync
 
     /// Helper function which catches exception from FSharp.Json and returns Result type
     ///
@@ -101,6 +101,6 @@ module Request =
         async {
             let! response = setupRequest authentication parameters url
 
-            let message = response |> toText
+            let message = response |> Response.toText
             return parseJson<'T> message
         }

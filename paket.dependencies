@@ -6,8 +6,8 @@ framework: net5.0, netstandard2.1, netstandard2.0
 nuget FSharp.Core > 4.5 lowest_matching: true, redirects: force
 nuget Expecto.FsCheck
 
-nuget Fsharp.Json ~> 0.4.0
-nuget SchlenkR.FsHttp ~> 3.0
+nuget NicoVIII.Fsharp.Json ~> 0.5.0
+nuget FsHttp ~> 6.0
 
 group Docs
   source https://api.nuget.org/v3/index.json

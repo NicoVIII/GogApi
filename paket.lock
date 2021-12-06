@@ -10,15 +10,15 @@ NUGET
       FsCheck (>= 2.14.2)
     FsCheck (2.14.2)
       FSharp.Core (>= 4.2.3)
-    FSharp.Core (4.7) - redirects: force
-    FSharp.Data (3.3.3)
-      FSharp.Core (>= 4.3.4)
-    Fsharp.Json (0.4)
-      FSharp.Core (>= 4.6.2)
+    FSharp.Core (5.0) - redirects: force
+    FSharp.Data (4.2.6)
+      FSharp.Core (>= 4.7.2)
+    FsHttp (6.0.1)
+      FSharp.Core (>= 5.0)
+      FSharp.Data (>= 4.0.1)
     Mono.Cecil (0.11.2)
-    SchlenkR.FsHttp (3.1)
-      FSharp.Core (>= 4.7)
-      FSharp.Data (>= 3.1.1)
+    NicoVIII.Fsharp.Json (0.5)
+      FSharp.Core (>= 4.3.4)
 
 GROUP Docs
 STORAGE: SYMLINK

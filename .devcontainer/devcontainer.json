@@ -7,9 +7,8 @@
             "VERSION": "0.202.1"
         }
     },
-
-	"settings": {
-		"terminal.integrated.profiles.linux": {
+    "settings": {
+        "terminal.integrated.profiles.linux": {
             "bash": {
                 "path": "bash",
                 "icon": "terminal-bash"
@@ -22,11 +21,10 @@
                 "icon": "terminal-powershell"
             }
         },
-        "FSharp.useSdkScripts":true
-	},
-
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
+        "FSharp.useSdkScripts": true
+    },
+    // Add the IDs of extensions you want installed when the container is created.
+    "extensions": [
         "ionide.ionide-fsharp",
         "ionide.ionide-fake",
         "ionide.ionide-paket",
@@ -35,14 +33,13 @@
         "aaron-bond.better-comments",
         "gruntfuggly.todo-tree",
         "ybaumes.highlight-trailing-white-spaces"
-	],
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [8080],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "dotnet tool restore && dotnet restore",
-
-	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode"
+    ],
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    "forwardPorts": [
+        8080
+    ],
+    // Use 'postCreateCommand' to run commands after the container is created.
+    "postCreateCommand": "dotnet run restore",
+    // Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
+    "remoteUser": "vscode"
 }
