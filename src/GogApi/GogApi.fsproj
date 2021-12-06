@@ -9,6 +9,7 @@
     <Tags>GOG;API;F#</Tags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
+  <Import Project="./Metadata.targets" />
   <ItemGroup>
     <Compile Include="SimpleDomainTypes.fs" />
     <Compile Include="DomainTypes/GameFeature.fs" />
