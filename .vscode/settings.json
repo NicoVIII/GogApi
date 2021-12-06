@@ -1,4 +1,3 @@
 {
-    // Thanks Fantomas!
-    "editor.formatOnSave": false
+    "editor.formatOnSave": true
 }

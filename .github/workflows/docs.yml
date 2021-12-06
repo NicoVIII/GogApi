@@ -16,12 +16,8 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.201
-    - name: Restore tools
-      run: dotnet tool restore
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Run Fornax
-      run: dotnet fake build -t Docs
+    - name: Build docs
+      run: dotnet run docs
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:

@@ -1,9 +1,7 @@
-version 5.251.0
-
 source https://api.nuget.org/v3/index.json
 
 storage: none
-framework: net5.0, netstandard2.0, netstandard2.1
+framework: net5.0, netstandard2.1, netstandard2.0
 
 nuget FSharp.Core > 4.5 lowest_matching: true, redirects: force
 nuget Expecto.FsCheck
@@ -20,18 +18,3 @@ group Docs
   nuget FSharp.Compiler.Service ~> 35.0
   nuget FSharp.Formatting ~> 4.1
   nuget Newtonsoft.Json
-
-// [ FAKE GROUP ]
-group Build
-  source https://api.nuget.org/v3/index.json
-
-  framework: netstandard2.0
-  storage: none
-
-  nuget Fake.Core.Target
-  nuget Fake.Core.ReleaseNotes
-  nuget Fake.DotNet.AssemblyInfoFile
-  nuget Fake.DotNet.Paket
-  nuget Fake.Tools.Git
-  nuget Fake.Core.UserInput
-  nuget Fake.Api.GitHub

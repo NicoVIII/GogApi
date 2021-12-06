@@ -121,7 +121,7 @@ in order to craft an excellent pull request:
 
    ```bash
    dotnet tool restore
-   dotnet tool build
+   dotnet build
    ```
 
 6. Push your topic branch up to your fork:

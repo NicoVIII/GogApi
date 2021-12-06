@@ -10,6 +10,7 @@ release.sh
 _public
 build/
 out/
+deploy/
 authentication.json
 
 # Created by https://www.gitignore.io/api/linux,macos,windows,visualstudiocode
