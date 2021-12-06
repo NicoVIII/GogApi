@@ -1,7 +1,7 @@
 # GogApi
 
-[![GitHub Release](https://img.shields.io/github/release/NicoVIII/GogApi.svg)](https://github.com/NicoVIII/GogApi/releases/latest)
-[![Last commit](https://img.shields.io/github/last-commit/NicoVIII/GogApi)
+[![GitHub Actions Build](https://img.shields.io/github/workflow/status/NicoVIII/GogApi/Build?style=flat-square)](https://github.com/NicoVIII/GogApi/actions/workflows/build.yml)
+[![Last commit](https://img.shields.io/github/last-commit/NicoVIII/GogApi?style=flat-square)](https://github.com/NicoVIII/GogApi/commits/)
 
 This project aims at providing an interface to use the (unofficial) GOG API documented at <https://www.gog.com/forum/general/unofficial_gog_api_documentation/page1> from .NET (atm only for F#).
 
