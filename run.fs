@@ -72,8 +72,7 @@ module Task =
     let pack version () =
         let outDir = Config.packPath
 
-        if Directory.Exists outDir then
-            Directory.Delete outDir
+        Shell.deleteDir outDir
 
         dotnet [ "pack"
                  "-c"
