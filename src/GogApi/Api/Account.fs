@@ -1,6 +1,6 @@
-namespace GogApi.DotNet.FSharp
+namespace GogApi
 
-open GogApi.DotNet.FSharp.DomainTypes
+open GogApi.DomainTypes
 open Internal.Request
 open Internal.Transforms
 
@@ -12,7 +12,7 @@ open FSharp.Json
 [<RequireQualifiedAccess>]
 module Account =
     /// <summary>
-    /// Contains detailed info about a game requested via <see cref="M:GogApi.DotNet.FSharp.Account.getGameDetails"/>
+    /// Contains detailed info about a game requested via <see cref="M:GogApi.Account.getGameDetails"/>
     /// </summary>
     type GameInfoResponse =
         { title: string
@@ -44,7 +44,7 @@ module Account =
 
     /// <summary>
     /// Contains possible parameters with which one can specify what is searched
-    /// for with <see cref="M:GogApi.DotNet.FSharp.Account.getFilteredGames"/>
+    /// for with <see cref="M:GogApi.Account.getFilteredGames"/>
     /// </summary>
     type FilteredProductsRequest =
         { feature: GameFeature option
@@ -72,7 +72,7 @@ module Account =
 
     /// <summary>
     /// Contains info about products which matched the search requested via
-    /// <see cref="M:GogApi.DotNet.FSharp.Account.getFilteredGames"/>
+    /// <see cref="M:GogApi.Account.getFilteredGames"/>
     /// </summary>
     type FilteredProductsResponse =
         { sortBy: Sort option
@@ -91,8 +91,8 @@ module Account =
 
     let private fromInternaFilteredProductsResponse (internalResponse: FilteredProductsResponseInternal) =
         { sortBy =
-              internalResponse.sortBy
-              |> Option.map Sort.fromString
+            internalResponse.sortBy
+            |> Option.map Sort.fromString
           page = internalResponse.page
           totalProducts = internalResponse.totalProducts
           totalPages = internalResponse.totalPages
@@ -111,18 +111,16 @@ module Account =
     /// </summary>
     let getFilteredGames (request: FilteredProductsRequest) authentication =
         let queries =
-            [ createOptionalRequestParameter "feature"
-                  (request.feature |> Option.map GameFeature.toString)
-              createOptionalRequestParameter "language"
-                  (request.language |> Option.map Language.toString)
+            [ createOptionalRequestParameter "feature" (request.feature |> Option.map GameFeature.toString)
+              createOptionalRequestParameter "language" (request.language |> Option.map Language.toString)
               createRequestParameter "mediaType" "1"
               createOptionalRequestParameter "page" (Option.map (fun (Page p) -> p.ToString()) request.page)
               createOptionalRequestParameter "search" request.search
-              createOptionalRequestParameter "sort"
-                  (request.sort |> Option.map Sort.toString)
-              createOptionalRequestParameter "system"
-                  (request.system |> Option.map OS.toString) ]
+              createOptionalRequestParameter "sort" (request.sort |> Option.map Sort.toString)
+              createOptionalRequestParameter "system" (request.system |> Option.map OS.toString) ]
             |> List.concat
 
-        makeRequest<FilteredProductsResponse> (Some authentication) queries
+        makeRequest<FilteredProductsResponse>
+            (Some authentication)
+            queries
             "https://embed.gog.com/account/getFilteredProducts"

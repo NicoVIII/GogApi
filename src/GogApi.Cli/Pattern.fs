@@ -1,4 +1,4 @@
-namespace GogApi.DotNet.Cli
+namespace GogApi.Cli
 
 open System
 

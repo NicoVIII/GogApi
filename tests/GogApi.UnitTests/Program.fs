@@ -1,4 +1,4 @@
-﻿namespace GogApi.DotNet.UnitTests
+﻿namespace GogApi.UnitTests
 
 open Tests
 

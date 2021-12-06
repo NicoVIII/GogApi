@@ -1,6 +1,6 @@
-namespace GogApi.DotNet.FSharp.DomainTypes
+namespace GogApi.DomainTypes
 
-open GogApi.DotNet.FSharp.Internal.Transforms
+open GogApi.Internal.Transforms
 
 open FSharp.Json
 open System

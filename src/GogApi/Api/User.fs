@@ -1,6 +1,6 @@
-namespace GogApi.DotNet.FSharp
+namespace GogApi
 
-open GogApi.DotNet.FSharp.DomainTypes
+open GogApi.DomainTypes
 open Internal.Request
 open Internal.Transforms
 
@@ -43,7 +43,7 @@ module User =
 
     /// <summary>
     /// Contains info about a user requested via
-    /// <see cref="M:GogApi.DotNet.FSharp.User.getData"/>
+    /// <see cref="M:GogApi.User.getData"/>
     /// </summary>
     type UserDataResponse =
         { country: string
@@ -81,11 +81,11 @@ module User =
           currencies = internalResponse.currencies
           selectedCurrency = internalResponse.selectedCurrency
           preferredLanguage =
-              {| code = internalResponse.preferredLanguage.code
-                 name = internalResponse.preferredLanguage.name
-                 language =
-                     internalResponse.preferredLanguage.code
-                     |> Language.fromString |}
+            {| code = internalResponse.preferredLanguage.code
+               name = internalResponse.preferredLanguage.name
+               language =
+                internalResponse.preferredLanguage.code
+                |> Language.fromString |}
           ratingBrand = internalResponse.ratingBrand
           isLoggedIn = internalResponse.isLoggedIn
           checksum = internalResponse.checksum
@@ -108,13 +108,13 @@ module User =
     let getData authentication =
         async {
             let! response =
-                makeRequest<UserDataResponseInternal> (Some authentication) []
-                    "https://embed.gog.com/userData.json"
+                makeRequest<UserDataResponseInternal> (Some authentication) [] "https://embed.gog.com/userData.json"
+
             return response |> Result.map fromInternalDataResponse
         }
 
     /// <summary>
-    /// Contains information about owned games requested via <see cref="M:GogApi.DotNet.FSharp.User.getDataGames"/>
+    /// Contains information about owned games requested via <see cref="M:GogApi.User.getDataGames"/>
     /// </summary>
     type DataGamesResponse = { owned: ProductId list }
 
@@ -122,11 +122,10 @@ module User =
     /// Fetches a list of ids of the games and movies the authenticated account owns
     /// </summary>
     let getDataGames authentication =
-        makeRequest<DataGamesResponse> (Some authentication) []
-            "https://embed.gog.com/user/data/games"
+        makeRequest<DataGamesResponse> (Some authentication) [] "https://embed.gog.com/user/data/games"
 
     /// <summary>
-    /// Contains info about a wishlist requested via <see cref="M:GogApi.DotNet.FSharp.User.getWishlist"/>
+    /// Contains info about a wishlist requested via <see cref="M:GogApi.User.getWishlist"/>
     /// </summary>
     type WishlistResponse =
         { [<JsonField(Transform = typeof<ProductIdBoolMapStringTransform>)>]
@@ -137,5 +136,4 @@ module User =
     /// Fetches information about the wishlist of the current user
     /// </summary>
     let getWishlist authentication =
-        makeRequest<WishlistResponse> (Some authentication) []
-            "https://embed.gog.com/user/wishlist.json"
+        makeRequest<WishlistResponse> (Some authentication) [] "https://embed.gog.com/user/wishlist.json"

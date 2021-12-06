@@ -1,6 +1,6 @@
-namespace GogApi.DotNet.FSharp
+namespace GogApi
 
-open GogApi.DotNet.FSharp.DomainTypes
+open GogApi.DomainTypes
 open Internal.Request
 
 open FSharp.Json
@@ -11,7 +11,7 @@ open FSharp.Json
 [<RequireQualifiedAccess>]
 module GalaxyApi =
     /// <summary>
-    /// Contains info about a product requested via <see cref="M:GogApi.DotNet.FSharp.GalaxyApi.getProduct"/>
+    /// Contains info about a product requested via <see cref="M:GogApi.GalaxyApi.getProduct"/>
     /// </summary>
     type ProductsResponse =
         { id: ProductId
@@ -29,7 +29,7 @@ module GalaxyApi =
                     support: string
                     forum: string |}
           [<JsonField("in_development")>]
-          inDevelopment: {| active: bool; until: obj option |} // TODO: #10
+          inDevelopment: {| active: bool; until: obj option |}
           [<JsonField("is_secret")>]
           isSecret: bool
           [<JsonField("is_installable")>]
@@ -63,7 +63,7 @@ module GalaxyApi =
         |> makeRequest<ProductsResponse> (Some authentication) queries
 
     /// <summary>
-    /// Contains info about a secure url requested via <see cref="M:GogApi.DotNet.FSharp.GalaxyApi.getSecureDownlink"/>
+    /// Contains info about a secure url requested via <see cref="M:GogApi.GalaxyApi.getSecureDownlink"/>
     /// </summary>
     type SecureUrlResponse =
         { downlink: SafeDownLink

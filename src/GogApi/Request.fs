@@ -1,6 +1,6 @@
-namespace GogApi.DotNet.FSharp.Internal
+namespace GogApi.Internal
 
-open GogApi.DotNet.FSharp.DomainTypes
+open GogApi.DomainTypes
 
 open FSharp.Json
 open FsHttp
@@ -10,8 +10,7 @@ open FsHttp.DslCE
 module Request =
     /// Used config for parsing the JSON API responses
     let jsonConfig =
-        { JsonConfig.Default with
-              allowUntyped = true }
+        { JsonConfig.Default with allowUntyped = true }
 
     /// Simple record for request parameters
     type RequestParameter = { name: string; value: string }
@@ -88,7 +87,8 @@ module Request =
         let parsedJson =
             try
                 Json.deserializeEx<'T> jsonConfig rawJson |> Ok
-            with ex -> Error(rawJson, ex.ToString())
+            with
+            | ex -> Error(rawJson, ex.ToString())
 
         parsedJson
 

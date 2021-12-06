@@ -1,11 +1,11 @@
-# GogApi.DotNet
+# GogApi
 
-[![GitHub Release](https://img.shields.io/github/release/NicoVIII/GogApi.DotNet.svg)](https://github.com/NicoVIII/GogApi.DotNet/releases/latest)
-[![Last commit](https://img.shields.io/github/last-commit/NicoVIII/GogApi.DotNet)
+[![GitHub Release](https://img.shields.io/github/release/NicoVIII/GogApi.svg)](https://github.com/NicoVIII/GogApi/releases/latest)
+[![Last commit](https://img.shields.io/github/last-commit/NicoVIII/GogApi)
 
 This project aims at providing an interface to use the (unofficial) GOG API documented at <https://www.gog.com/forum/general/unofficial_gog_api_documentation/page1> from .NET (atm only for F#).
 
-Documentation can be found at <https://nicoviii.github.io/GogApi.DotNet>.
+Documentation can be found at <https://nicoviii.github.io/GogApi>.
 
 ## Development
 
@@ -42,7 +42,7 @@ Thank you for contributing!
 
 ### Contributing and copyright
 
-The project is hosted on [GitHub](https://github.com/NicoVIII/GogApi.DotNet) where you can report issues, fork
+The project is hosted on [GitHub](https://github.com/NicoVIII/GogApi) where you can report issues, fork
 the project and submit pull requests.
 
 The library is available under [MIT license](LICENSE.md), which allows modification and redistribution for both commercial and non-commercial purposes.

@@ -10,11 +10,9 @@ open RunHelpers.FakeHelpers
 
 [<RequireQualifiedAccess>]
 module Config =
-    let runProject =
-        "./src/GogApi.DotNet.Cli/GogApi.DotNet.Cli.fsproj"
+    let runProject = "./src/GogApi.Cli/GogApi.Cli.fsproj"
 
-    let libProject =
-        "./src/GogApi.DotNet/GogApi.DotNet.fsproj"
+    let libProject = "./src/GogApi/GogApi.fsproj"
 
     let docsFolder = "./docs"
 

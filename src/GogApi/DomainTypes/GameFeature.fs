@@ -1,4 +1,4 @@
-namespace GogApi.DotNet.FSharp.DomainTypes
+namespace GogApi.DomainTypes
 
 /// <summary>
 /// All possible game features with a custom field for new fields which are not
@@ -17,7 +17,7 @@ type GameFeature =
     | Custom of string
 
 /// <summary>
-/// Contains some helper function for <see cref="T:GogApi.DotNet.FSharp.DomainTypes.GameFeature"/>
+/// Contains some helper function for <see cref="T:GogApi.DomainTypes.GameFeature"/>
 /// </summary>
 module GameFeature =
     let private featureMap =
@@ -35,12 +35,12 @@ module GameFeature =
     let private reverseFeatureMap =
         (Map.empty, featureMap)
         ||> Map.fold (fun rMap feature str ->
-                match Map.containsKey str rMap with
-                | false -> rMap |> Map.add str feature
-                | true -> failwithf "The identifier of a feature is duplicated: %s" str)
+            match Map.containsKey str rMap with
+            | false -> rMap |> Map.add str feature
+            | true -> failwithf "The identifier of a feature is duplicated: %s" str)
 
     /// <summary>
-    /// Converts a <see cref="T:GogApi.DotNet.FSharp.DomainTypes.GameFeature"/> into its string representation
+    /// Converts a <see cref="T:GogApi.DomainTypes.GameFeature"/> into its string representation
     /// </summary>
     let toString feature =
         match feature with
@@ -49,7 +49,7 @@ module GameFeature =
         | _ -> failwithf "GameFeature case not handled: %A" feature
 
     /// <summary>
-    /// Converts a string representation back to a <see cref="T:GogApi.DotNet.FSharp.DomainTypes.GameFeature"/>
+    /// Converts a string representation back to a <see cref="T:GogApi.DomainTypes.GameFeature"/>
     /// </summary>
     let fromString str =
         match str with

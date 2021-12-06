@@ -2,6 +2,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>NicoVIII.GogApi</Product>
+    <PackageId>NicoVIII.GogApi</PackageId>
+    <Title>GogApi</Title>
+    <Description>This project aims at providing an interface to use the (unofficial) GOG API from .NET.</Description>
+    <Tags>GOG;API;F#</Tags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>

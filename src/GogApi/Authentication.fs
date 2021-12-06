@@ -1,6 +1,6 @@
-namespace GogApi.DotNet.FSharp
+namespace GogApi
 
-open GogApi.DotNet.FSharp.DomainTypes
+open GogApi.DomainTypes
 open Internal.Request
 
 open FSharp.Json
@@ -39,16 +39,14 @@ module Authentication =
                   refreshToken = response.refreshToken
                   // Safety second to avoid errors through code execution duration
                   accessExpires =
-                      response.expiresIn
-                      - 1
+                      response.expiresIn - 1
                       |> float
                       |> DateTimeOffset.Now.AddSeconds }
         | Error _ -> None
 
     let private getBasicParameters () =
         [ createRequestParameter "client_id" "46899977096215655"
-          createRequestParameter "client_secret"
-              "9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9" ]
+          createRequestParameter "client_secret" "9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9" ]
         |> List.concat
 
     /// <summary>
@@ -64,8 +62,7 @@ module Authentication =
                   createRequestParameter "redirect_uri" redirectUri ]
                 |> List.concat
 
-            let! result =
-                makeRequest<TokenResponse> None queries "https://auth.gog.com/token"
+            let! result = makeRequest<TokenResponse> None queries "https://auth.gog.com/token"
             return createAuth result
         }
 
@@ -84,7 +81,6 @@ module Authentication =
                   createRequestParameter "refresh_token" authentication.refreshToken ]
                 |> List.concat
 
-            let! response =
-                makeRequest<TokenResponse> None queries "https://auth.gog.com/token"
+            let! response = makeRequest<TokenResponse> None queries "https://auth.gog.com/token"
             return createAuth response
         }

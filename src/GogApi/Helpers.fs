@@ -1,6 +1,6 @@
-namespace GogApi.DotNet.FSharp
+namespace GogApi
 
-open GogApi.DotNet.FSharp.DomainTypes
+open GogApi.DomainTypes
 
 open System
 
@@ -35,13 +35,14 @@ module Helpers =
                     Some authentication |> async.Return
 
             // Execute API function
-            let! fncResult = match authentication with
-                             | Some authentication ->
-                                 async { return! apiFnc authentication }
-                             | None ->
-                                 // I guess it's okay to throw an exception here
-                                 // Only if the authentication wasn't valid before
-                                 // this should fail (or GOG is down or something?)
-                                 failwith "Didn't get valid authentication!"
+            let! fncResult =
+                match authentication with
+                | Some authentication -> async { return! apiFnc authentication }
+                | None ->
+                    // I guess it's okay to throw an exception here
+                    // Only if the authentication wasn't valid before
+                    // this should fail (or GOG is down or something?)
+                    failwith "Didn't get valid authentication!"
+
             return (fncResult, authentication.Value)
         }

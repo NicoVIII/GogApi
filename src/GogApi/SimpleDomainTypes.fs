@@ -1,4 +1,4 @@
-namespace GogApi.DotNet.FSharp.DomainTypes
+namespace GogApi.DomainTypes
 
 open FSharp.Json
 open System
@@ -41,7 +41,7 @@ type FriendInfo =
 type Currency = { code: string; symbol: string }
 
 /// Contains info about a specific download for a specific OS.
-/// Is used inside of <T:GogApi.DotNet.FSharp.DomainTypes.Download>
+/// Is used inside of <T:GogApi.DomainTypes.Download>
 type DownloadOSInfo =
     { date: string
       downloaderUrl: string option

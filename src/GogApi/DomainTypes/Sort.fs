@@ -1,4 +1,4 @@
-namespace GogApi.DotNet.FSharp.DomainTypes
+namespace GogApi.DomainTypes
 /// <summary>
 /// All possible ways to sort with a custom field for new sorting ways which are not
 /// in this API wrapper yet
@@ -14,7 +14,7 @@ type Sort =
     | Custom of string
 
 /// <summary>
-/// Contains some helper function for <see cref="T:GogApi.DotNet.FSharp.DomainTypes.Sort"/>
+/// Contains some helper function for <see cref="T:GogApi.DomainTypes.Sort"/>
 /// </summary>
 module Sort =
     let private sortMap =
@@ -30,12 +30,12 @@ module Sort =
     let private reverseSortMap =
         (Map.empty, sortMap)
         ||> Map.fold (fun rMap sort str ->
-                match Map.containsKey str rMap with
-                | false -> rMap |> Map.add str sort
-                | true -> failwithf "The identifier of a sort is duplicated: %s" str)
+            match Map.containsKey str rMap with
+            | false -> rMap |> Map.add str sort
+            | true -> failwithf "The identifier of a sort is duplicated: %s" str)
 
     /// <summary>
-    /// Converts a <see cref="T:GogApi.DotNet.FSharp.DomainTypes.Sort"/> into its string representation
+    /// Converts a <see cref="T:GogApi.DomainTypes.Sort"/> into its string representation
     /// </summary>
     let toString sort =
         match sort with
@@ -44,7 +44,7 @@ module Sort =
         | _ -> failwithf "Sort case not handled: %A" sort
 
     /// <summary>
-    /// Converts a string representation back to a <see cref="T:GogApi.DotNet.FSharp.DomainTypes.Sort"/>
+    /// Converts a string representation back to a <see cref="T:GogApi.DomainTypes.Sort"/>
     /// </summary>
     let fromString str =
         match str with
