@@ -7,7 +7,7 @@ jobs:
     name: Test building of library
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest]
         dotnet: [5.0.403]
     runs-on: ${{ matrix.os }}
 
@@ -23,5 +23,3 @@ jobs:
       run: dotnet run build
     - name: Test library
       run: dotnet run test
-    - name: Build documentation
-      run: dotnet run docs
