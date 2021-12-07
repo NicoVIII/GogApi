@@ -16,12 +16,16 @@ type ProductId =
         let (ProductId value) = productId
         value
 
+    member this.value = ProductId.getValue this
+
 /// Represents the id of a user
 type UserId =
     | UserId of uint64
     static member getValue userId =
         let (UserId value) = userId
         value
+
+    member this.value = UserId.getValue this
 
 /// Represents the name of a user
 type UserName =
@@ -30,12 +34,16 @@ type UserName =
         let (UserName value) = userName
         value
 
+    member this.value = UserName.getValue this
+
 /// Represents a link, which can be used to request a safe download link
 type DownLink =
     | DownLink of string
     static member getValue downLink =
         let (DownLink value) = downLink
         value
+
+    member this.value = DownLink.getValue this
 
 /// Represents a link, which can be used to download a file
 type SafeDownLink =
@@ -44,6 +52,8 @@ type SafeDownLink =
         let (SafeDownLink value) = safeDownLink
         value
 
+    member this.value = SafeDownLink.getValue this
+
 /// Represents a size of a file
 type FileSize =
     | FileSize of uint64
@@ -51,12 +61,16 @@ type FileSize =
         let (FileSize value) = fileSize
         value
 
+    member this.value = FileSize.getValue this
+
 /// Represents a page in requests
 type Page =
     | Page of uint32
     static member getValue page =
         let (Page value) = page
         value
+
+    member this.value = Page.getValue this
 
 /// Contains info about a friend
 type FriendInfo =

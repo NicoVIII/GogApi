@@ -65,8 +65,8 @@ module GalaxyApi =
 
     /// Takes a downlink from productinfo and transforms it into a secure version
     /// which can be used to download installer files
-    let getSecureDownlink (DownLink downlink) authentication =
+    let getSecureDownlink (downlink: DownLink) authentication =
         // Workaround: For some reason FsHttp isn't following the redirect correctly
         // Therefore I have to replace http with https here
-        let downlink = downlink.Replace("http://", "https://")
+        let downlink = downlink.value.Replace("http://", "https://")
         makeRequest<SecureUrlResponse> (Some authentication) [] downlink
