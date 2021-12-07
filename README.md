@@ -1,11 +1,12 @@
 # GogApi
 
+[![Nuget](https://img.shields.io/nuget/v/NicoVIII.GogApi?style=flat-square&logo=nuget)](https://www.nuget.org/packages/NicoVIII.GogApi/)
 [![GitHub Actions Build](https://img.shields.io/github/workflow/status/NicoVIII/GogApi/Build?style=flat-square)](https://github.com/NicoVIII/GogApi/actions/workflows/build.yml)
 [![Last commit](https://img.shields.io/github/last-commit/NicoVIII/GogApi?style=flat-square)](https://github.com/NicoVIII/GogApi/commits/)
 
 This project aims at providing an interface to use the (unofficial) GOG API documented at <https://www.gog.com/forum/general/unofficial_gog_api_documentation/page1> from .NET (atm only for F#).
 
-📚 [Documentation](https://nicoviii.github.io/GogApi).
+📚 [Documentation](https://nicoviii.github.io/GogApi)
 
 ## Development
 
