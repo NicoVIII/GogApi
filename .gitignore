@@ -1,17 +1,14 @@
-.fake/
 packages/
 paket-files/
-nupkg/
 bin/
 obj/
-release.cmd
-release.sh
 .ionide/
-_public
-build/
-out/
+.fake/
+.fsdocs/
+output/
 deploy/
 authentication.json
+tmp/
 
 # Created by https://www.gitignore.io/api/linux,macos,windows,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=linux,macos,windows,visualstudiocode

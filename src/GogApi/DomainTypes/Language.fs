@@ -1,9 +1,7 @@
 namespace GogApi.DomainTypes
 
-/// <summary>
 /// All possible languages with a custom field for new languages which are not
 /// in this API wrapper yet
-/// </summary>
 type Language =
     | English
     | German
@@ -27,9 +25,7 @@ type Language =
     | Danish
     | Custom of string
 
-/// <summary>
-/// Contains some helper function for <see cref="T:GogApi.DomainTypes.Language"/>
-/// </summary>
+/// Contains some helper function for Language
 module Language =
     let private languageMap =
         Map.empty
@@ -61,18 +57,14 @@ module Language =
             | false -> rMap |> Map.add str language
             | true -> failwithf "The identifier of a language is duplicated: %s" str)
 
-    /// <summary>
-    /// Converts a <see cref="T:GogApi.DomainTypes.Language"/> into its string representation
-    /// </summary>
+    /// Converts a Language into its string representation
     let toString language =
         match language with
         | Custom language -> language
         | language when Map.containsKey language languageMap -> Map.find language languageMap
         | _ -> failwithf "Language case not handled: %A" language
 
-    /// <summary>
-    /// Converts a string representation back to a <see cref="T:GogApi.DomainTypes.Language"/>
-    /// </summary>
+    /// Converts a string representation back to a Language
     let fromString str =
         match str with
         | str when Map.containsKey str reverseLanguageMap -> Map.find str reverseLanguageMap

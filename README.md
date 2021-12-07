@@ -5,7 +5,7 @@
 
 This project aims at providing an interface to use the (unofficial) GOG API documented at <https://www.gog.com/forum/general/unofficial_gog_api_documentation/page1> from .NET (atm only for F#).
 
-Documentation can be found at <https://nicoviii.github.io/GogApi>.
+📚 [Documentation](https://nicoviii.github.io/GogApi).
 
 ## Development
 

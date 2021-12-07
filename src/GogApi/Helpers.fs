@@ -4,21 +4,17 @@ open GogApi.DomainTypes
 
 open System
 
-/// <summary>
 /// This module holds everything which isn't an API call but can help with handling
 /// them
-/// </summary>
 module Helpers =
-    /// <summary>
-    /// This helper function is used to extend every API call function and
-    /// provide auto refresh, if the current authentication token is not valid
-    /// anymore.
-    /// </summary>
-    /// <param name="apiFnc">This is one of the regular functions of the API
+    ///<summary>This helper function is used to extend every API call function
+    /// and provide auto refresh, if the current authentication token is not
+    /// valid anymore.</summary>
+    ///<param name="apiFnc">This is one of the regular functions of the API
     /// which should be extended</param>
-    /// <param name="authentication">Authentication which should be used for
+    ///<param name="authentication">Authentication which should be used for
     /// this request</param>
-    /// <returns>Async which after execution holds API response and current
+    ///<returns>Async which after execution holds API response and current
     /// Authentication (could change because of the refresh)</returns>
     let withAutoRefresh apiFnc (authentication: Authentication) =
         async {

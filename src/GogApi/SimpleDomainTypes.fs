@@ -10,25 +10,53 @@ type Authentication =
       accessExpires: DateTimeOffset }
 
 /// Represents the id of a product (game/movie)
-type ProductId = ProductId of uint32
+type ProductId =
+    | ProductId of uint32
+    static member getValue productId =
+        let (ProductId value) = productId
+        value
 
 /// Represents the id of a user
-type UserId = UserId of uint64
+type UserId =
+    | UserId of uint64
+    static member getValue userId =
+        let (UserId value) = userId
+        value
 
 /// Represents the name of a user
-type UserName = UserName of string
+type UserName =
+    | UserName of string
+    static member getValue userName =
+        let (UserName value) = userName
+        value
 
 /// Represents a link, which can be used to request a safe download link
-type DownLink = DownLink of string
+type DownLink =
+    | DownLink of string
+    static member getValue downLink =
+        let (DownLink value) = downLink
+        value
 
 /// Represents a link, which can be used to download a file
-type SafeDownLink = SafeDownLink of string
+type SafeDownLink =
+    | SafeDownLink of string
+    static member getValue safeDownLink =
+        let (SafeDownLink value) = safeDownLink
+        value
 
 /// Represents a size of a file
-type FileSize = FileSize of uint64
+type FileSize =
+    | FileSize of uint64
+    static member getValue fileSize =
+        let (FileSize value) = fileSize
+        value
 
 /// Represents a page in requests
-type Page = Page of uint32
+type Page =
+    | Page of uint32
+    static member getValue page =
+        let (Page value) = page
+        value
 
 /// Contains info about a friend
 type FriendInfo =
@@ -40,8 +68,8 @@ type FriendInfo =
 /// Contains info about a currency
 type Currency = { code: string; symbol: string }
 
-/// Contains info about a specific download for a specific OS.
-/// Is used inside of <T:GogApi.DomainTypes.Download>
+///<summary>Contains info about a specific download for a specific OS.
+/// Is used inside of <see cref="T:GogApi.DomainTypes.Download"/></summary>
 type DownloadOSInfo =
     { date: string
       downloaderUrl: string option

@@ -5,13 +5,9 @@ open GogApi.DomainTypes
 open FSharp.Json
 open System
 
-/// <summary>
 /// Contains all transforms which are necessary to parse json answers
-/// </summary>
 module Transforms =
-    /// <summary>
     /// Transforms a string into a UserId
-    /// </summary>
     type UserIdStringTransform() =
         interface ITypeTransform with
             member __.targetType() = (fun _ -> typeof<string>) ()
@@ -27,9 +23,7 @@ module Transforms =
             member __.fromTargetType value =
                 (fun (v: obj) -> v :?> string |> uint64 |> UserId :> obj) value
 
-    /// <summary>
     /// Transforms a Map from string to bool into a Map from ProductId to bool
-    /// </summary>
     type ProductIdBoolMapStringTransform() =
         interface ITypeTransform with
             member __.targetType() = (fun _ -> typeof<Map<string, bool>>) ()
@@ -75,9 +69,7 @@ module Transforms =
 
         map.Add(objList.[0] |> string, download)
 
-    /// <summary>
     /// Transforms a list of an object list into a Map from a string to a Download
-    /// </summary>
     type DownloadsObjListTransform() =
         interface ITypeTransform with
             member __.targetType() = (fun _ -> typeof<list<list<obj>>>) ()

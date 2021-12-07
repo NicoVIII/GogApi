@@ -2,8 +2,14 @@
     <PropertyGroup>
         <Authors>NicoVIII</Authors>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageProjectUrl>https://github.com/NicoVIII/GogApi</PackageProjectUrl>
+        <PackageProjectUrl>https://nicoviii.github.io/GogApi</PackageProjectUrl>
         <RepositoryUrl>https://github.com/NicoVIII/GogApi</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
+    </PropertyGroup>
+    <PropertyGroup>
+        <UsesMarkdownComments>true</UsesMarkdownComments>
+        <FsDocsLogoLink>https://nicoviii.github.io/GogApi</FsDocsLogoLink>
+        <FsDocsLicenseLink>https://github.com/NicoVIII/GogApi/blob/main/License.md</FsDocsLicenseLink>
+        <FsDocsReleaseNotesLink>https://github.com/NicoVIII/GogApi/blob/main/CHANGELOG.md</FsDocsReleaseNotesLink>
     </PropertyGroup>
 </Project>

@@ -6,9 +6,7 @@ open Internal.Transforms
 
 open FSharp.Json
 
-/// <summary>
 /// Methods used to manage the user’s account
-/// </summary>
 [<RequireQualifiedAccess>]
 module User =
     type UserDataResponseInternal =
@@ -41,10 +39,8 @@ module User =
           personalizedProductPrices: obj list // TODO: #10
           personalizedSeriesPrices: obj list } // TODO: #10
 
-    /// <summary>
-    /// Contains info about a user requested via
-    /// <see cref="M:GogApi.User.getData"/>
-    /// </summary>
+    ///<summary>Contains info about a user requested via
+    /// <see cref="M:GogApi.User.getData"/></summary>
     type UserDataResponse =
         { country: string
           currencies: Currency list
@@ -102,9 +98,7 @@ module User =
           personalizedProductPrices = internalResponse.personalizedProductPrices
           personalizedSeriesPrices = internalResponse.personalizedSeriesPrices }
 
-    /// <summary>
     /// Fetches information about the currently authenticated user
-    /// </summary>
     let getData authentication =
         async {
             let! response =
@@ -113,27 +107,20 @@ module User =
             return response |> Result.map fromInternalDataResponse
         }
 
-    /// <summary>
-    /// Contains information about owned games requested via <see cref="M:GogApi.User.getDataGames"/>
-    /// </summary>
+    ///<summary>Contains information about owned games requested via
+    /// <see cref="M:GogApi.User.getDataGames"/></summary>
     type DataGamesResponse = { owned: ProductId list }
 
-    /// <summary>
     /// Fetches a list of ids of the games and movies the authenticated account owns
-    /// </summary>
     let getDataGames authentication =
         makeRequest<DataGamesResponse> (Some authentication) [] "https://embed.gog.com/user/data/games"
 
-    /// <summary>
     /// Contains info about a wishlist requested via <see cref="M:GogApi.User.getWishlist"/>
-    /// </summary>
     type WishlistResponse =
         { [<JsonField(Transform = typeof<ProductIdBoolMapStringTransform>)>]
           wishlist: Map<ProductId, bool>
           checksum: string }
 
-    /// <summary>
     /// Fetches information about the wishlist of the current user
-    /// </summary>
     let getWishlist authentication =
         makeRequest<WishlistResponse> (Some authentication) [] "https://embed.gog.com/user/wishlist.json"

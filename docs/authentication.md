@@ -1,7 +1,8 @@
 ---
 title: Authentication
-category: how-to
-menu_order: 1
+category: Documentation
+categoryindex: 1
+index: 2
 ---
 
 # Authentication

@@ -8,16 +8,16 @@
         "paket"
       ]
     },
-    "fornax": {
-      "version": "0.13.1",
-      "commands": [
-        "fornax"
-      ]
-    },
     "fantomas-tool": {
       "version": "4.6.0-alpha-010",
       "commands": [
         "fantomas"
+      ]
+    },
+    "fsdocs-tool": {
+      "version": "14.0.1",
+      "commands": [
+        "fsdocs"
       ]
     }
   }

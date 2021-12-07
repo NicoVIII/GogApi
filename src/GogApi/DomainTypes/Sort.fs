@@ -1,8 +1,7 @@
 namespace GogApi.DomainTypes
-/// <summary>
+
 /// All possible ways to sort with a custom field for new sorting ways which are not
 /// in this API wrapper yet
-/// </summary>
 type Sort =
     | BestSelling
     | Alphabetically
@@ -13,9 +12,7 @@ type Sort =
     | NewestFirst
     | Custom of string
 
-/// <summary>
-/// Contains some helper function for <see cref="T:GogApi.DomainTypes.Sort"/>
-/// </summary>
+/// Contains some helper function for Sort
 module Sort =
     let private sortMap =
         Map.empty
@@ -34,18 +31,14 @@ module Sort =
             | false -> rMap |> Map.add str sort
             | true -> failwithf "The identifier of a sort is duplicated: %s" str)
 
-    /// <summary>
-    /// Converts a <see cref="T:GogApi.DomainTypes.Sort"/> into its string representation
-    /// </summary>
+    /// Converts a Sort into its string representation
     let toString sort =
         match sort with
         | Custom sort -> sort
         | sort when Map.containsKey sort sortMap -> Map.find sort sortMap
         | _ -> failwithf "Sort case not handled: %A" sort
 
-    /// <summary>
-    /// Converts a string representation back to a <see cref="T:GogApi.DomainTypes.Sort"/>
-    /// </summary>
+    /// Converts a string representation back to a Sort
     let fromString str =
         match str with
         | str when Map.containsKey str reverseSortMap -> Map.find str reverseSortMap

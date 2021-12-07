@@ -1,33 +1,28 @@
 open System
 open System.IO
 
-open Fake.Core
 open Fake.IO
 
 open RunHelpers
 open RunHelpers.BasicShortcuts
-open RunHelpers.FakeHelpers
 
 [<RequireQualifiedAccess>]
-module Config =
+module private Config =
     let runProject = "./src/GogApi.Cli/GogApi.Cli.fsproj"
 
     let libProject = "./src/GogApi/GogApi.fsproj"
-
-    let docsFolder = "./docs"
 
     let testFolder = "./tests"
 
     let packPath = "./deploy"
 
-type BuildMode =
-    | Debug
-    | Release
+[<AutoOpen>]
+module private Types =
+    type BuildMode =
+        | Debug
+        | Release
 
-module Task =
-    open System.IO
-    open System.IO
-
+module private Task =
     let restore () =
         job {
             Template.DotNet.toolRestore ()
@@ -44,14 +39,14 @@ module Task =
                  "--no-restore" ]
 
     let docs () =
-        CreateProcess.fromRawCommand "dotnet" [ "fornax"; "build" ]
-        |> CreateProcess.withWorkingDirectory Config.docsFolder
-        |> Proc.runAsJob 10
+        Shell.deleteDir "./output"
+
+        dotnet [ "fsdocs"; "build" ]
 
     let docsWatch () =
-        CreateProcess.fromRawCommand "dotnet" [ "fornax"; "watch" ]
-        |> CreateProcess.withWorkingDirectory Config.docsFolder
-        |> Proc.runAsJob 10
+        Shell.deleteDir "./tmp"
+
+        dotnet [ "fsdocs"; "watch" ]
 
     let run () =
         dotnet [ "run"
@@ -82,7 +77,7 @@ module Task =
                  $"/p:Version=%s{version}"
                  Config.libProject ]
 
-module Command =
+module private Command =
     let restore () = Task.restore ()
 
     let build () =
@@ -94,14 +89,14 @@ module Command =
     let docs () =
         job {
             Task.restore ()
-            Task.build Release
+            Task.build Debug
             Task.docs ()
         }
 
     let docsWatch () =
         job {
             Task.restore ()
-            Task.build Release
+            Task.build Debug
             Task.docsWatch ()
         }
 

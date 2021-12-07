@@ -6,13 +6,9 @@ open Internal.Request
 open FSharp.Json
 open System
 
-/// <summary>
 /// This module holds everything which is needed to authenticate to the API
-/// </summary>
 module Authentication =
-    /// <summary>
-    /// Typesafe variant of the response data of https://auth.gog.com/token
-    /// </summary>
+    /// Typesafe variant of the response data of <https://auth.gog.com/token>
     type TokenResponse =
         { [<JsonField("expires_in")>]
           expiresIn: int
@@ -28,9 +24,7 @@ module Authentication =
           [<JsonField("session_id")>]
           sessionId: string }
 
-    /// <summary>
     /// Creates a new authentication from a TokenResponse
-    /// </summary>
     let createAuth response =
         match response with
         | Ok response ->
@@ -49,10 +43,8 @@ module Authentication =
           createRequestParameter "client_secret" "9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9" ]
         |> List.concat
 
-    /// <summary>
     /// Uses authentication code to create a Authentication with authorization
     /// token
-    /// </summary>
     let getNewToken (redirectUri: string) (code: string) =
         async {
             let queries =
@@ -66,13 +58,10 @@ module Authentication =
             return createAuth result
         }
 
-    /// <summary>
     /// Tries to refresh the current authentication.
-    /// </summary>
-    /// <returns>
+    /// Returns
     /// - New Authentication, if token in given authentication expired
     /// - otherwise the input
-    /// </returns>
     let getRefreshToken (authentication: Authentication) =
         async {
             let queries =

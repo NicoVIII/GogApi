@@ -5,14 +5,11 @@ open Internal.Request
 
 open FSharp.Json
 
-/// <summary>
 /// Contains special endpoints for Galaxy
-/// </summary>
 [<RequireQualifiedAccess>]
 module GalaxyApi =
-    /// <summary>
-    /// Contains info about a product requested via <see cref="M:GogApi.GalaxyApi.getProduct"/>
-    /// </summary>
+    ///<summary>Contains info about a product requested via
+    /// <see cref="M:GogApi.GalaxyApi.getProduct"/></summary>
     type ProductsResponse =
         { id: ProductId
           title: string
@@ -51,9 +48,7 @@ module GalaxyApi =
           // dlcs: Dlcs // TODO: #11 fix somehow... When empty: [], when not record
           downloads: DownloadsInfo }
 
-    /// <summary>
     /// Returns information about a product
-    /// </summary>
     let getProduct (ProductId id) authentication =
         let queries =
             [ createRequestParameter "expand" "downloads" ]
@@ -62,17 +57,14 @@ module GalaxyApi =
         sprintf "https://api.gog.com/products/%i" id
         |> makeRequest<ProductsResponse> (Some authentication) queries
 
-    /// <summary>
-    /// Contains info about a secure url requested via <see cref="M:GogApi.GalaxyApi.getSecureDownlink"/>
-    /// </summary>
+    ///<summary>Contains info about a secure url requested via
+    /// <see cref="M:GogApi.GalaxyApi.getSecureDownlink"/></summary>
     type SecureUrlResponse =
         { downlink: SafeDownLink
           checksum: string }
 
-    /// <summary>
     /// Takes a downlink from productinfo and transforms it into a secure version
     /// which can be used to download installer files
-    /// </summary>
     let getSecureDownlink (DownLink downlink) authentication =
         // Workaround: For some reason FsHttp isn't following the redirect correctly
         // Therefore I have to replace http with https here

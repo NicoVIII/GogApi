@@ -1,9 +1,7 @@
 namespace GogApi.DomainTypes
 
-/// <summary>
 /// All possible OSes with a custom field for new OSes which are not
 /// in this API wrapper yet
-/// </summary>
 type OS =
     | WindowsXP
     | WindowsVista
@@ -17,9 +15,7 @@ type OS =
     | Ubuntu18
     | Custom of string
 
-/// <summary>
-/// Contains some helper function for <see cref="T:GogApi.DomainTypes.OS"/>
-/// </summary>
+/// Contains some helper function for OS
 module OS =
     let private systemMap =
         Map.empty
@@ -41,18 +37,14 @@ module OS =
             | false -> rMap |> Map.add str system
             | true -> failwithf "The identifier of a system is duplicated: %s" str)
 
-    /// <summary>
-    /// Converts a <see cref="T:GogApi.DomainTypes.OS"/> into its string representation
-    /// </summary>
+    /// Converts a OS into its string representation
     let toString sort =
         match sort with
         | Custom sort -> sort
         | sort when Map.containsKey sort systemMap -> Map.find sort systemMap
         | _ -> failwithf "System case not handled: %A" sort
 
-    /// <summary>
-    /// Converts a string representation back to a <see cref="T:GogApi.DomainTypes.OS"/>
-    /// </summary>
+    /// Converts a string representation back to a OS
     let fromString str =
         match str with
         | str when Map.containsKey str reverseSystemMap -> Map.find str reverseSystemMap

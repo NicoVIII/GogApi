@@ -8,48 +8,40 @@ open FsHttp.DslCE
 
 /// This module contains low-level functions and types to make requests to the GOG API
 module Request =
-    open FsHttp.Helper
     /// Used config for parsing the JSON API responses
     let jsonConfig = { JsonConfig.Default with allowUntyped = true }
 
     /// Simple record for request parameters
     type RequestParameter = { name: string; value: string }
 
-    /// Creates a RequestParameter
-    /// Returns a list to simplify using of optional RequestParameters
-    ///
-    /// Example:
-    /// ```
-    ///   let queries =
-    ///     [ createOptionalRequestParameter "feature"
-    ///           (request.feature |> Option.map GameFeature.toString)
-    ///       createOptionalRequestParameter "language"
-    ///           (request.language |> Option.map Language.toString)
-    ///       createRequestParameter "mediaType" "1" ]
-    ///     |> List.concat
-    /// ```
+    ///<summary>Creates a RequestParameter</summary>
+    ///<returns>A list to simplify using of optional RequestParameters</returns>
+    ///<example><code lang="fsharp">
+    ///let queries =
+    ///    [ createOptionalRequestParameter "feature" (request.feature |> Option.map GameFeature.toString)
+    ///      createOptionalRequestParameter "language" (request.language |> Option.map Language.toString)
+    ///      createRequestParameter "mediaType" "1" ]
+    ///    |> List.concat
+    ///</code></example>
     let createRequestParameter name value = [ { name = name; value = value } ]
 
-    /// Creates an optional RequestParameter
-    /// Returns an empty list, if provided parameter is None and the parameter otherwise
-    ///
-    /// Example:
-    /// ```
-    ///   let queries =
-    ///     [ createOptionalRequestParameter "feature"
-    ///           (request.feature |> Option.map GameFeature.toString)
-    ///       createOptionalRequestParameter "language"
-    ///           (request.language |> Option.map Language.toString)
-    ///       createRequestParameter "mediaType" "1" ]
-    ///     |> List.concat
-    /// ```
+    ///<summary>Creates an optional RequestParameter</summary>
+    ///<returns>An empty list, if provided parameter is None and the parameter otherwise</returns>
+    ///<example><code lang="fsharp">
+    ///let queries =
+    ///    [ createOptionalRequestParameter "feature" (request.feature |> Option.map GameFeature.toString)
+    ///      createOptionalRequestParameter "language" (request.language |> Option.map Language.toString)
+    ///      createRequestParameter "mediaType" "1" ]
+    ///    |> List.concat
+    ///</code></example>
     let createOptionalRequestParameter name valueOption =
         match valueOption with
         | Some value -> createRequestParameter name value
         | None -> []
 
-    /// Creates the GET request with correct authentication headers and parameters to given url
-    /// Returns an Async which can be executed to send the request
+    ///<summary>Creates the GET request with correct authentication headers and
+    ///parameters to given url</summary>
+    ///<returns>An Async which can be executed to send the request</returns>
     let setupRequest authentication parameters url =
         // Add parameters to request url
         let url =
@@ -76,13 +68,9 @@ module Request =
 
         request |> Request.sendAsync
 
-    /// Helper function which catches exception from FSharp.Json and returns Result type
-    ///
-    /// The 'T Type represents a typesafe variant of the json
-    ///
-    /// Returns:
-    /// - Error when exception occured
-    /// - otherwise Ok with parsed object
+    ///<summary>Helper function which catches exception from FSharp.Json and
+    /// returns Result type</summary>
+    ///<returns>Error when exception occured, otherwise Ok with parsed object</returns>
     let parseJson<'T> rawJson =
         let parsedJson =
             try
@@ -92,11 +80,9 @@ module Request =
 
         parsedJson
 
-    /// Function which creates an request which will be parsed into an object after returning
-    ///
-    /// The 'T Type represents a typesafe variant of the json response
-    ///
-    /// Returns an Async which can be executed to send the request and parse the answer
+    ///<summary>Function which creates an request which will be parsed into an
+    /// object after returning</summary>
+    ///<returns>An Async which can be executed to send the request and parse the answer</returns>
     let makeRequest<'T> authentication parameters url =
         async {
             let! response = setupRequest authentication parameters url

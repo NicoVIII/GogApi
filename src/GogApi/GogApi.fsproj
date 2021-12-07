@@ -8,6 +8,7 @@
     <Description>This project aims at providing an interface to use the (unofficial) GOG API from .NET.</Description>
     <Tags>GOG;API;F#</Tags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <WarnOn>3390;$(WarnOn)</WarnOn>
   </PropertyGroup>
   <Import Project="./Metadata.targets" />
   <ItemGroup>

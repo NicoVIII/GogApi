@@ -21,5 +21,7 @@ jobs:
         dotnet-version: ${{ matrix.dotnet }}
     - name: Build library
       run: dotnet run build
+    - name: Build docs
+      run: dotnet run docs
     - name: Test library
       run: dotnet run test

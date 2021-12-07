@@ -26,7 +26,6 @@
     // Add the IDs of extensions you want installed when the container is created.
     "extensions": [
         "ionide.ionide-fsharp",
-        "ionide.ionide-fake",
         "ionide.ionide-paket",
         "ms-dotnettools.csharp",
         "editorconfig.editorconfig",
@@ -36,7 +35,7 @@
     ],
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     "forwardPorts": [
-        8080
+        8901
     ],
     // Use 'postCreateCommand' to run commands after the container is created.
     "postCreateCommand": "dotnet run restore",
