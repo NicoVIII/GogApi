@@ -4,7 +4,6 @@ open GogApi.DomainTypes
 
 open FSharp.Json
 open FsHttp
-open FsHttp.DslCE
 
 /// This module contains low-level functions and types to make requests to the GOG API
 module Request =
@@ -56,7 +55,7 @@ module Request =
                 url + "?" + parameters
         // Headerpart which is always used - with authentication and without it
         let baseHeader =
-            httpLazy {
+            http {
                 GET url
                 CacheControl "no-cache"
             }

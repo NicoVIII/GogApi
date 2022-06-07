@@ -4,7 +4,7 @@ storage: none
 framework: auto-detect
 
 nuget FSharp.Core > 4.5 lowest_matching: true, redirects: force
-nuget NicoVIII.Fsharp.Json ~> 0.5.0
-nuget FsHttp ~> 6.0
+nuget NicoVIII.FSharp.Json ~> 0.6.0
+nuget FsHttp ~> 9.0
 
 nuget Expecto.FsCheck
