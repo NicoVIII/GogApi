@@ -18,6 +18,7 @@
                 "icon": "terminal-powershell"
             }
         },
+        "FSharp.dotnetRoot": "/usr/bin",
         "FSharp.useSdkScripts": true
     },
     // Add the IDs of extensions you want installed when the container is created.
