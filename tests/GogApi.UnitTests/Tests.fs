@@ -7,12 +7,12 @@ let tests =
     testList
         "DU to/from string tests"
         [ testProperty "GameFeature to/from string" (fun feature ->
-            let actual =
-                feature
-                |> GameFeature.toString
-                |> GameFeature.fromString
+              let actual =
+                  feature
+                  |> GameFeature.toString
+                  |> GameFeature.fromString
 
-            actual = feature)
+              actual = feature)
           testProperty "Language to/from string" (fun language ->
               let actual =
                   language

@@ -1,11 +1,8 @@
 {
-    "name": "F# (.NET 5.0)",
+    "name": "F# (.NET 6.0)",
     "build": {
         "dockerfile": "Dockerfile",
-        "args": {
-            "VARIANT": "5.0",
-            "VERSION": "0.202.1"
-        }
+        "args": {}
     },
     "settings": {
         "terminal.integrated.profiles.linux": {
@@ -25,10 +22,9 @@
     },
     // Add the IDs of extensions you want installed when the container is created.
     "extensions": [
-        "ionide.ionide-fsharp",
-        "ionide.ionide-paket",
-        "ms-dotnettools.csharp",
         "editorconfig.editorconfig",
+        "ms-dotnettools.csharp",
+        "ionide.ionide-fsharp",
         "aaron-bond.better-comments",
         "gruntfuggly.todo-tree",
         "ybaumes.highlight-trailing-white-spaces"

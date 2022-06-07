@@ -4,7 +4,8 @@ open System.IO
 open Fake.IO
 
 open RunHelpers
-open RunHelpers.BasicShortcuts
+open RunHelpers.Shortcuts
+open RunHelpers.Templates
 
 [<RequireQualifiedAccess>]
 module private Config =
@@ -25,8 +26,8 @@ module private Types =
 module private Task =
     let restore () =
         job {
-            Template.DotNet.toolRestore ()
-            Template.DotNet.restore Config.runProject
+            DotNet.toolRestore ()
+            DotNet.restore Config.runProject
         }
 
     let build mode =
@@ -134,9 +135,6 @@ let main args =
         | [ "test" ] -> Command.test ()
         | [ "pack"; version ] -> Command.pack version ()
         | _ ->
-            let msg =
-                [ "Usage: dotnet run [<command>]"
-                  "Look up available commands at the bottom of run.fs" ]
-
-            Error(1, msg)
-    |> ProcessResult.wrapUp
+            Job.error [ "Usage: dotnet run [<command>]"
+                        "Look up available commands at the bottom of run.fs" ]
+    |> Job.execute

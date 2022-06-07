@@ -1,3 +1,1 @@
-ARG VERSION=0
-ARG VARIANT=5.0
-FROM mcr.microsoft.com/vscode/devcontainers/dotnet:${VERSION}-${VARIANT}
+FROM mcr.microsoft.com/vscode/devcontainers/dotnet:6.0-focal
