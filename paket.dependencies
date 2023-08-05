@@ -1,9 +1,8 @@
 source https://api.nuget.org/v3/index.json
 
-storage: none
 framework: auto-detect
 
-nuget FSharp.Core > 4.5 lowest_matching: true, redirects: force
+nuget FSharp.Core >= 6.0 lowest_matching: true, redirects: force
 nuget NicoVIII.FSharp.Json ~> 0.6.0
 nuget FsHttp ~> 9.0
 
