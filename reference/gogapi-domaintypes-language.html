@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Language (GogApi)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="NicoVIII">
+
+    <link rel="stylesheet" id="theme_link" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/materia/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://nicoviii.github.io/GogApi/img/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="https://nicoviii.github.io/GogApi/content/navbar-fixed-left.css" />
+    <link type="text/css" rel="stylesheet" href="https://nicoviii.github.io/GogApi/content/fsdocs-default.css" />
+    <link type="text/css" rel="stylesheet" href="https://nicoviii.github.io/GogApi/content/fsdocs-custom.css" />
+    <script type="text/javascript" src="https://nicoviii.github.io/GogApi/content/fsdocs-tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-secondary fixed-left" id="fsdocs-nav">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse navbar-nav-scroll" id="navbarsExampleDefault">
+            <a href="https://nicoviii.github.io/GogApi"><img id="fsdocs-logo" src="https://nicoviii.github.io/GogApi/img/logo.png" /></a>
+            <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+            <div id="header">
+                <div class="searchbox" id="fsdocs-searchbox">
+                    <label for="search-by">
+                        <i class="fas fa-search"></i>
+                    </label>
+                    <input data-search-input="" id="search-by" type="search" placeholder="Search..." />
+                    <span data-search-clear="">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </div>
+            </div>
+
+            <!-- END SEARCH BOX: this adds support for the search box -->
+            <ul class="navbar-nav">
+                <li class="nav-header">Links</li>
+                <li class="nav-item" id="fsdocs-license-link"><a class="nav-link" href="https://github.com/NicoVIII/GogApi/blob/main/License.md">License</a></li>
+                <li class="nav-item" id="fsdocs-release-notes-link"><a class="nav-link" href="https://github.com/NicoVIII/GogApi/blob/main/CHANGELOG.md">Release Notes</a></li>
+                <li class="nav-item" id="fsdocs-repository-link"><a class="nav-link" href="https://github.com/NicoVIII/GogApi/">Source Repository</a></li>
+                <li class="nav-header">
+  Documentation
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://nicoviii.github.io/GogApi/overview.html">
+    Overview
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://nicoviii.github.io/GogApi/authentication.html">
+    Authentication
+  </a>
+</li>
+                <li class="nav-header">
+  API Reference
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://nicoviii.github.io/GogApi/reference/index.html">
+    All Namespaces
+  </a>
+</li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="masthead">
+            <h3 class="muted"><a href="https://nicoviii.github.io/GogApi/">GogApi</a></h3>
+        </div>
+        <hr />
+        <div class="container" id="fsdocs-content">
+            <div>
+  <h2>
+    Language Type
+  </h2>
+  <dl class="fsdocs-metadata">
+    <dt>
+      Namespace: 
+      <a href="https://nicoviii.github.io/GogApi/reference/gogapi-domaintypes.html">
+        GogApi.DomainTypes
+      </a>
+    </dt>
+    <dt>
+      Assembly: GogApi.dll
+    </dt>
+    <dt>
+      Base Type: 
+      <code>obj</code>
+    </dt>
+    <dt>
+      All Interfaces: 
+      <code><span><a href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a href="https://nicoviii.github.io/GogApi/reference/gogapi-domaintypes-language.html">Language</a>&gt;</span></code>
+      , 
+      <code><a href="https://learn.microsoft.com/dotnet/api/system.collections.istructuralequatable">IStructuralEquatable</a></code>
+      , 
+      <code><span><a href="https://learn.microsoft.com/dotnet/api/system.icomparable-1">IComparable</a>&lt;<a href="https://nicoviii.github.io/GogApi/reference/gogapi-domaintypes-language.html">Language</a>&gt;</span></code>
+      , 
+      <code><a href="https://learn.microsoft.com/dotnet/api/system.icomparable">IComparable</a></code>
+      , 
+      <code><a href="https://learn.microsoft.com/dotnet/api/system.collections.istructuralcomparable">IStructuralComparable</a></code>
+    </dt>
+  </dl>
+  <div class="fsdocs-xmldoc">
+    <div>
+      <p class="fsdocs-summary">
+        <p>All possible languages with a custom field for new languages which are not
+in this API wrapper yet</p>
+
+
+      </p>
+    </div>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div>
+    <h3>
+      Union cases
+    </h3>
+    <table class="table outer-list fsdocs-member-list">
+      <thead>
+        <tr>
+          <td class="fsdocs-member-list-header">
+            Union case
+          </td>
+          <td class="fsdocs-member-list-header">
+            Description
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '207', 207)" onmouseover="showTip(event, '207', 207)">
+                <p>
+                  <a id="Chinese">
+                    <a href="#Chinese">
+                      <code><span>Chinese</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="207">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Chinese</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L18-18" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '208', 208)" onmouseover="showTip(event, '208', 208)">
+                <p>
+                  <a id="Custom">
+                    <a href="#Custom">
+                      <code><span>Custom&#32;string</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="208">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Custom&#32;string</span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        Item
+                      </b>
+                      :
+                      <code>string</code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  Item
+                </span>
+                :
+                <code>string</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '209', 209)" onmouseover="showTip(event, '209', 209)">
+                <p>
+                  <a id="Czech">
+                    <a href="#Czech">
+                      <code><span>Czech</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="209">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Czech</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L16-16" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '210', 210)" onmouseover="showTip(event, '210', 210)">
+                <p>
+                  <a id="Danish">
+                    <a href="#Danish">
+                      <code><span>Danish</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="210">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Danish</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L25-25" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '211', 211)" onmouseover="showTip(event, '211', 211)">
+                <p>
+                  <a id="Dutch">
+                    <a href="#Dutch">
+                      <code><span>Dutch</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="211">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Dutch</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L17-17" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '212', 212)" onmouseover="showTip(event, '212', 212)">
+                <p>
+                  <a id="English">
+                    <a href="#English">
+                      <code><span>English</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="212">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>English</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L6-6" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '213', 213)" onmouseover="showTip(event, '213', 213)">
+                <p>
+                  <a id="Finnish">
+                    <a href="#Finnish">
+                      <code><span>Finnish</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="213">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Finnish</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L23-23" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '214', 214)" onmouseover="showTip(event, '214', 214)">
+                <p>
+                  <a id="Frensh">
+                    <a href="#Frensh">
+                      <code><span>Frensh</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="214">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Frensh</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L8-8" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '215', 215)" onmouseover="showTip(event, '215', 215)">
+                <p>
+                  <a id="German">
+                    <a href="#German">
+                      <code><span>German</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="215">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>German</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L7-7" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '216', 216)" onmouseover="showTip(event, '216', 216)">
+                <p>
+                  <a id="Hungarian">
+                    <a href="#Hungarian">
+                      <code><span>Hungarian</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="216">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Hungarian</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L21-21" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '217', 217)" onmouseover="showTip(event, '217', 217)">
+                <p>
+                  <a id="Italian">
+                    <a href="#Italian">
+                      <code><span>Italian</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="217">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Italian</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L10-10" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '218', 218)" onmouseover="showTip(event, '218', 218)">
+                <p>
+                  <a id="Japanese">
+                    <a href="#Japanese">
+                      <code><span>Japanese</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="218">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Japanese</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L15-15" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '219', 219)" onmouseover="showTip(event, '219', 219)">
+                <p>
+                  <a id="Korean">
+                    <a href="#Korean">
+                      <code><span>Korean</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="219">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Korean</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L19-19" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '220', 220)" onmouseover="showTip(event, '220', 220)">
+                <p>
+                  <a id="Norwegian">
+                    <a href="#Norwegian">
+                      <code><span>Norwegian</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="220">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Norwegian</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L24-24" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '221', 221)" onmouseover="showTip(event, '221', 221)">
+                <p>
+                  <a id="Polish">
+                    <a href="#Polish">
+                      <code><span>Polish</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="221">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Polish</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L14-14" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '222', 222)" onmouseover="showTip(event, '222', 222)">
+                <p>
+                  <a id="Portuguese">
+                    <a href="#Portuguese">
+                      <code><span>Portuguese</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="222">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Portuguese</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L12-12" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '223', 223)" onmouseover="showTip(event, '223', 223)">
+                <p>
+                  <a id="PortugueseBrazil">
+                    <a href="#PortugueseBrazil">
+                      <code><span>PortugueseBrazil</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="223">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>PortugueseBrazil</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L11-11" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '224', 224)" onmouseover="showTip(event, '224', 224)">
+                <p>
+                  <a id="Russian">
+                    <a href="#Russian">
+                      <code><span>Russian</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="224">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Russian</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L13-13" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '225', 225)" onmouseover="showTip(event, '225', 225)">
+                <p>
+                  <a id="Spanish">
+                    <a href="#Spanish">
+                      <code><span>Spanish</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="225">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Spanish</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L9-9" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '226', 226)" onmouseover="showTip(event, '226', 226)">
+                <p>
+                  <a id="Swedish">
+                    <a href="#Swedish">
+                      <code><span>Swedish</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="226">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Swedish</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L22-22" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '227', 227)" onmouseover="showTip(event, '227', 227)">
+                <p>
+                  <a id="Turkish">
+                    <a href="#Turkish">
+                      <code><span>Turkish</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="227">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Turkish</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/Language.fs#L20-20" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+            
+        </div>
+
+        <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+        <script type="text/javascript">var fsdocs_search_baseurl = 'https://nicoviii.github.io/GogApi/';</script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
+        <script type="text/javascript" src="https://nicoviii.github.io/GogApi/content/fsdocs-search.js"></script>
+        <!-- END SEARCH BOX: this adds support for the search box -->
+    </div>
+</body>
+
+</html>

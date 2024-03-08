@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>OS (GogApi)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="NicoVIII">
+
+    <link rel="stylesheet" id="theme_link" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/materia/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://nicoviii.github.io/GogApi/img/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="https://nicoviii.github.io/GogApi/content/navbar-fixed-left.css" />
+    <link type="text/css" rel="stylesheet" href="https://nicoviii.github.io/GogApi/content/fsdocs-default.css" />
+    <link type="text/css" rel="stylesheet" href="https://nicoviii.github.io/GogApi/content/fsdocs-custom.css" />
+    <script type="text/javascript" src="https://nicoviii.github.io/GogApi/content/fsdocs-tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-secondary fixed-left" id="fsdocs-nav">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse navbar-nav-scroll" id="navbarsExampleDefault">
+            <a href="https://nicoviii.github.io/GogApi"><img id="fsdocs-logo" src="https://nicoviii.github.io/GogApi/img/logo.png" /></a>
+            <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+            <div id="header">
+                <div class="searchbox" id="fsdocs-searchbox">
+                    <label for="search-by">
+                        <i class="fas fa-search"></i>
+                    </label>
+                    <input data-search-input="" id="search-by" type="search" placeholder="Search..." />
+                    <span data-search-clear="">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </div>
+            </div>
+
+            <!-- END SEARCH BOX: this adds support for the search box -->
+            <ul class="navbar-nav">
+                <li class="nav-header">Links</li>
+                <li class="nav-item" id="fsdocs-license-link"><a class="nav-link" href="https://github.com/NicoVIII/GogApi/blob/main/License.md">License</a></li>
+                <li class="nav-item" id="fsdocs-release-notes-link"><a class="nav-link" href="https://github.com/NicoVIII/GogApi/blob/main/CHANGELOG.md">Release Notes</a></li>
+                <li class="nav-item" id="fsdocs-repository-link"><a class="nav-link" href="https://github.com/NicoVIII/GogApi/">Source Repository</a></li>
+                <li class="nav-header">
+  Documentation
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://nicoviii.github.io/GogApi/overview.html">
+    Overview
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://nicoviii.github.io/GogApi/authentication.html">
+    Authentication
+  </a>
+</li>
+                <li class="nav-header">
+  API Reference
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://nicoviii.github.io/GogApi/reference/index.html">
+    All Namespaces
+  </a>
+</li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="masthead">
+            <h3 class="muted"><a href="https://nicoviii.github.io/GogApi/">GogApi</a></h3>
+        </div>
+        <hr />
+        <div class="container" id="fsdocs-content">
+            <div>
+  <h2>
+    OS Type
+  </h2>
+  <dl class="fsdocs-metadata">
+    <dt>
+      Namespace: 
+      <a href="https://nicoviii.github.io/GogApi/reference/gogapi-domaintypes.html">
+        GogApi.DomainTypes
+      </a>
+    </dt>
+    <dt>
+      Assembly: GogApi.dll
+    </dt>
+    <dt>
+      Base Type: 
+      <code>obj</code>
+    </dt>
+    <dt>
+      All Interfaces: 
+      <code><span><a href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a href="https://nicoviii.github.io/GogApi/reference/gogapi-domaintypes-os.html">OS</a>&gt;</span></code>
+      , 
+      <code><a href="https://learn.microsoft.com/dotnet/api/system.collections.istructuralequatable">IStructuralEquatable</a></code>
+      , 
+      <code><span><a href="https://learn.microsoft.com/dotnet/api/system.icomparable-1">IComparable</a>&lt;<a href="https://nicoviii.github.io/GogApi/reference/gogapi-domaintypes-os.html">OS</a>&gt;</span></code>
+      , 
+      <code><a href="https://learn.microsoft.com/dotnet/api/system.icomparable">IComparable</a></code>
+      , 
+      <code><a href="https://learn.microsoft.com/dotnet/api/system.collections.istructuralcomparable">IStructuralComparable</a></code>
+    </dt>
+  </dl>
+  <div class="fsdocs-xmldoc">
+    <div>
+      <p class="fsdocs-summary">
+        <p>All possible OSes with a custom field for new OSes which are not
+in this API wrapper yet</p>
+
+
+      </p>
+    </div>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div>
+    <h3>
+      Union cases
+    </h3>
+    <table class="table outer-list fsdocs-member-list">
+      <thead>
+        <tr>
+          <td class="fsdocs-member-list-header">
+            Union case
+          </td>
+          <td class="fsdocs-member-list-header">
+            Description
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '228', 228)" onmouseover="showTip(event, '228', 228)">
+                <p>
+                  <a id="Custom">
+                    <a href="#Custom">
+                      <code><span>Custom&#32;string</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="228">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Custom&#32;string</span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        Item
+                      </b>
+                      :
+                      <code>string</code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  Item
+                </span>
+                :
+                <code>string</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '229', 229)" onmouseover="showTip(event, '229', 229)">
+                <p>
+                  <a id="Mint">
+                    <a href="#Mint">
+                      <code><span>Mint</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="229">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Mint</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/OS.fs#L14-14" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '230', 230)" onmouseover="showTip(event, '230', 230)">
+                <p>
+                  <a id="OSX106">
+                    <a href="#OSX106">
+                      <code><span>OSX106</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="230">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>OSX106</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/OS.fs#L11-11" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '231', 231)" onmouseover="showTip(event, '231', 231)">
+                <p>
+                  <a id="OSX107">
+                    <a href="#OSX107">
+                      <code><span>OSX107</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="231">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>OSX107</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/OS.fs#L12-12" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '232', 232)" onmouseover="showTip(event, '232', 232)">
+                <p>
+                  <a id="Ubuntu">
+                    <a href="#Ubuntu">
+                      <code><span>Ubuntu</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="232">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Ubuntu</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/OS.fs#L13-13" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '233', 233)" onmouseover="showTip(event, '233', 233)">
+                <p>
+                  <a id="Ubuntu18">
+                    <a href="#Ubuntu18">
+                      <code><span>Ubuntu18</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="233">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Ubuntu18</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/OS.fs#L15-15" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '234', 234)" onmouseover="showTip(event, '234', 234)">
+                <p>
+                  <a id="Windows10">
+                    <a href="#Windows10">
+                      <code><span>Windows10</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="234">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Windows10</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/OS.fs#L10-10" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '235', 235)" onmouseover="showTip(event, '235', 235)">
+                <p>
+                  <a id="Windows7">
+                    <a href="#Windows7">
+                      <code><span>Windows7</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="235">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Windows7</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/OS.fs#L8-8" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '236', 236)" onmouseover="showTip(event, '236', 236)">
+                <p>
+                  <a id="Windows8">
+                    <a href="#Windows8">
+                      <code><span>Windows8</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="236">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Windows8</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/OS.fs#L9-9" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '237', 237)" onmouseover="showTip(event, '237', 237)">
+                <p>
+                  <a id="WindowsVista">
+                    <a href="#WindowsVista">
+                      <code><span>WindowsVista</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="237">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>WindowsVista</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/OS.fs#L7-7" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '238', 238)" onmouseover="showTip(event, '238', 238)">
+                <p>
+                  <a id="WindowsXP">
+                    <a href="#WindowsXP">
+                      <code><span>WindowsXP</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="238">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>WindowsXP</span></code>
+                  <br/>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <a href="https://github.com/NicoVIII/GogApi/tree/master/src/GogApi/DomainTypes/OS.fs#L6-6" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://nicoviii.github.io/GogApi/content/img/github.png" class="normal"/>
+                <img src="https://nicoviii.github.io/GogApi/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+            
+        </div>
+
+        <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+        <script type="text/javascript">var fsdocs_search_baseurl = 'https://nicoviii.github.io/GogApi/';</script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
+        <script type="text/javascript" src="https://nicoviii.github.io/GogApi/content/fsdocs-search.js"></script>
+        <!-- END SEARCH BOX: this adds support for the search box -->
+    </div>
+</body>
+
+</html>

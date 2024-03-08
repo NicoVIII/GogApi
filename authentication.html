@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Authentication</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="NicoVIII">
+
+    <link rel="stylesheet" id="theme_link" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/materia/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://nicoviii.github.io/GogApi/img/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="https://nicoviii.github.io/GogApi/content/navbar-fixed-left.css" />
+    <link type="text/css" rel="stylesheet" href="https://nicoviii.github.io/GogApi/content/fsdocs-default.css" />
+    <link type="text/css" rel="stylesheet" href="https://nicoviii.github.io/GogApi/content/fsdocs-custom.css" />
+    <script type="text/javascript" src="https://nicoviii.github.io/GogApi/content/fsdocs-tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-secondary fixed-left" id="fsdocs-nav">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse navbar-nav-scroll" id="navbarsExampleDefault">
+            <a href="https://nicoviii.github.io/GogApi"><img id="fsdocs-logo" src="https://nicoviii.github.io/GogApi/img/logo.png" /></a>
+            <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+            <div id="header">
+                <div class="searchbox" id="fsdocs-searchbox">
+                    <label for="search-by">
+                        <i class="fas fa-search"></i>
+                    </label>
+                    <input data-search-input="" id="search-by" type="search" placeholder="Search..." />
+                    <span data-search-clear="">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </div>
+            </div>
+
+            <!-- END SEARCH BOX: this adds support for the search box -->
+            <ul class="navbar-nav">
+                <li class="nav-header">Links</li>
+                <li class="nav-item" id="fsdocs-license-link"><a class="nav-link" href="https://github.com/NicoVIII/GogApi/blob/main/License.md">License</a></li>
+                <li class="nav-item" id="fsdocs-release-notes-link"><a class="nav-link" href="https://github.com/NicoVIII/GogApi/blob/main/CHANGELOG.md">Release Notes</a></li>
+                <li class="nav-item" id="fsdocs-repository-link"><a class="nav-link" href="https://github.com/NicoVIII/GogApi/">Source Repository</a></li>
+                <li class="nav-header">
+  Documentation
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://nicoviii.github.io/GogApi/overview.html">
+    Overview
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://nicoviii.github.io/GogApi/authentication.html">
+    Authentication
+  </a>
+</li>
+                <li class="nav-header">
+  API Reference
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://nicoviii.github.io/GogApi/reference/index.html">
+    All Namespaces
+  </a>
+</li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="masthead">
+            <h3 class="muted"><a href="https://nicoviii.github.io/GogApi/">GogApi</a></h3>
+        </div>
+        <hr />
+        <div class="container" id="fsdocs-content">
+            
+<h1><a name="Authentication" class="anchor" href="#Authentication">Authentication</a></h1>
+<p>You can read about the Authflow here:
+<a href="https://gogapidocs.readthedocs.io/en/latest/auth.html">https://gogapidocs.readthedocs.io/en/latest/auth.html</a></p>
+<p>In this guide I will show you how this is effectivly done with this library in F#.</p>
+<h2><a name="Request-authentication-code" class="anchor" href="#Request-authentication-code">Request authentication code</a></h2>
+<p>At first you need to request a authentication code. For that you need some kind of embedded
+browser and point the browser to an url like:<br />
+<a href="https://login.gog.com/auth?client_id=46899977096215655&amp;layout=client2&amp;redirect_uri=__REDIRECT_URI__&amp;response_type=code">https://login.gog.com/auth?client_id=46899977096215655&layout=client2&redirect_uri=__REDIRECT_URI__&response_type=code</a></p>
+<p>I use always <code>https://embed.gog.com/on_login_success?origin=client</code> as redirect uri and therefore the link is:
+<a href="https://login.gog.com/auth?client_id=46899977096215655&amp;layout=client2&amp;redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&amp;response_type=code">https://login.gog.com/auth?client_id=46899977096215655&layout=client2&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code</a></p>
+<p>You can find the documentation for that endpoint here:<br />
+<a href="https://gogapidocs.readthedocs.io/en/latest/auth.html#methods">https://gogapidocs.readthedocs.io/en/latest/auth.html#methods</a></p>
+<p>The user has to login there and is redirected to an url like this:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="id">https</span><span class="pn">:</span><span class="c">//embed.gog.com/on_login_success?origin=client&amp;code=iUZDhNPZNpQkQEPS9OqEUfyx-iNMpJT-W_AY9Miw8lpYnmkPOzE908Xp33t4cNXRUCyULAXB3koWEDFhQUzfboRrlZiKxTddDBiw-fnutQcAxmicbjdWdPnPuyZTnMC1tEsg2jZMhoeTvDt66Q5SP8idHGvqq8Z04AwOU09vkUw</span>
+</code></pre>
+<p>The important part here is the <code>code=..</code> parameter. In this example this is</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="id">iUZDhNPZNpQkQEPS9OqEUfyx</span><span class="o">-</span><span class="id">iNMpJT</span><span class="o">-</span><span class="id">W_AY9Miw8lpYnmkPOzE908Xp33t4cNXRUCyULAXB3koWEDFhQUzfboRrlZiKxTddDBiw</span><span class="o">-</span><span class="id">fnutQcAxmicbjdWdPnPuyZTnMC1tEsg2jZMhoeTvDt66Q5SP8idHGvqq8Z04AwOU09vkUw</span>
+</code></pre>
+<p>This is the authentication code you need for the next step.</p>
+<h2><a name="Request-authentication-token" class="anchor" href="#Request-authentication-token">Request authentication token</a></h2>
+<p>For this you need the used redirect uri and authentication code from the previous step. This is used to request
+an authentication token, which is used to authenticate your API calls.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span class="id">GogApi</span><span class="pn">.</span><span class="id">DotNet</span><span class="pn">.</span><span class="id">FSharp</span>
+
+<span class="c">// let redirectUri = &lt;RedirectUri&gt;</span>
+<span class="c">// let authCode = &lt;AuthenticationCode&gt;</span>
+
+<span class="k">let</span> <span class="id">newTokenAsync</span> <span class="o">=</span> <span class="id">Authentication</span><span class="pn">.</span><span class="id">getNewToken</span> <span class="id">redirectUri</span> <span class="id">authCode</span>
+<span class="c">// newTokenAsync: Async&lt;Authentication&gt;</span>
+</code></pre>
+<p>From here you can fire the call to the API in any way you see fitting.
+E.g. you could use <code>Async.RunSynchronously</code> or if you use Elmish something like
+<code>Cmd.OfAsync</code>.</p>
+<p>The <code>Authentication</code> you get from that has to be used for the other API calls.</p>
+<h2><a name="Refresh-authentication" class="anchor" href="#Refresh-authentication">Refresh authentication</a></h2>
+<p>Because the access token you get from GOG is only valid for a limited time, you
+have to regularly refresh your tokens. You can do this manually by calling
+<code>Authentication.getRefreshToken</code> or use a helper function which automatically
+refreshes the authentication when the tokens validity runs out.</p>
+<p>You can use this to autorefresh before any API call:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="id">Authentication</span><span class="pn">.</span><span class="id">withAutoRefresh</span><span class="pn">(</span><span class="id">Games</span><span class="pn">.</span><span class="id">getAvailableGamesForSearch</span> <span class="id">search</span><span class="pn">)</span> <span class="id">authentication</span>
+</code></pre>
+
+            
+        </div>
+
+        <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+        <script type="text/javascript">var fsdocs_search_baseurl = 'https://nicoviii.github.io/GogApi/';</script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
+        <script type="text/javascript" src="https://nicoviii.github.io/GogApi/content/fsdocs-search.js"></script>
+        <!-- END SEARCH BOX: this adds support for the search box -->
+    </div>
+</body>
+
+</html>
