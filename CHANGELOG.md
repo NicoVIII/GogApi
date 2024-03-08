@@ -6,9 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.0.0] - 2024-03-08
+
 ### Changed
 
 * Target net6.0 instead of netstandard2.0
+* Update FsHttp: 9 -> 14
 
 ## [4.0.0] - 2022-06-07
 

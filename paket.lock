@@ -10,8 +10,8 @@ NUGET
     FsCheck (2.16.6)
       FSharp.Core (>= 4.2.3)
     FSharp.Core (6.0) - redirects: force
-    FsHttp (9.1.2)
-      FSharp.Core (>= 5.0)
+    FsHttp (14.5)
+      FSharp.Core (>= 5.0.2)
     Mono.Cecil (0.11.5)
     NicoVIII.FSharp.Json (0.6)
       FSharp.Core (>= 4.3.4)
