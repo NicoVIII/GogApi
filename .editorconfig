@@ -11,6 +11,9 @@ trim_trailing_whitespace = true
 [*.{c,f}sproj]
 indent_size = 2
 
+[*.fs]
+fsharp_multiline_bracket_style = stroustrup
+
 [*.{sh,yml,xaml}]
 indent_size = 2
 

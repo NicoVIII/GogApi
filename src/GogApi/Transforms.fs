@@ -13,12 +13,7 @@ module Transforms =
             member __.targetType() = (fun _ -> typeof<string>) ()
 
             member __.toTargetType value =
-                (fun (v: obj) ->
-                    (v :?> UserId)
-                    |> (fun (UserId userId) -> userId)
-                    |> string
-                    :> obj)
-                    value
+                (fun (v: obj) -> (v :?> UserId) |> (fun (UserId userId) -> userId) |> string :> obj) value
 
             member __.fromTargetType value =
                 (fun (v: obj) -> v :?> string |> uint64 |> UserId :> obj) value
@@ -47,25 +42,24 @@ module Transforms =
             |> List.map (fun (map: obj) ->
                 let map = map :?> Map<string, obj>
 
-                { date = map.Item "date" :?> string
-                  downloaderUrl =
-                    map.TryFind "downloaderUrl"
-                    |> Option.map (fun x -> x :?> string)
-                  manualUrl = map.Item "manualUrl" :?> string
-                  name = map.Item "name" :?> string
-                  size = map.Item "size" :?> string
-                  version =
-                    map.TryFind "version"
-                    |> Option.map (fun x -> x :?> string) })
+                {
+                    date = map.Item "date" :?> string
+                    downloaderUrl = map.TryFind "downloaderUrl" |> Option.map (fun x -> x :?> string)
+                    manualUrl = map.Item "manualUrl" :?> string
+                    name = map.Item "name" :?> string
+                    size = map.Item "size" :?> string
+                    version = map.TryFind "version" |> Option.map (fun x -> x :?> string)
+                })
         | None -> []
 
     let private objListToDownloadInfo (map: Map<string, Download>) (objList: obj list) =
         let downloadMap = objList.[1] :?> Map<string, obj>
 
-        let download =
-            { linux = extractDownloadOSInfoList downloadMap "linux"
-              mac = extractDownloadOSInfoList downloadMap "mac"
-              windows = extractDownloadOSInfoList downloadMap "windows" }
+        let download = {
+            linux = extractDownloadOSInfoList downloadMap "linux"
+            mac = extractDownloadOSInfoList downloadMap "mac"
+            windows = extractDownloadOSInfoList downloadMap "windows"
+        }
 
         map.Add(objList.[0] |> string, download)
 
@@ -78,6 +72,4 @@ module Transforms =
                 failwith "This is a one way transform only!"
 
             member __.fromTargetType value =
-                value :?> list<list<obj>>
-                |> List.fold objListToDownloadInfo Map.empty
-                :> obj
+                value :?> list<list<obj>> |> List.fold objListToDownloadInfo Map.empty :> obj

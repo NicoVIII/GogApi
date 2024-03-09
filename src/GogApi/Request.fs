@@ -8,7 +8,10 @@ open FsHttp
 /// This module contains low-level functions and types to make requests to the GOG API
 module Request =
     /// Used config for parsing the JSON API responses
-    let jsonConfig = { JsonConfig.Default with allowUntyped = true }
+    let jsonConfig = {
+        JsonConfig.Default with
+            allowUntyped = true
+    }
 
     /// Simple record for request parameters
     type RequestParameter = { name: string; value: string }
@@ -74,8 +77,8 @@ module Request =
         let parsedJson =
             try
                 Json.deserializeEx<'T> jsonConfig rawJson |> Ok
-            with
-            | ex -> Error(rawJson, ex.ToString())
+            with ex ->
+                Error(rawJson, ex.ToString())
 
         parsedJson
 

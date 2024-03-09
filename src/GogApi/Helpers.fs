@@ -20,8 +20,7 @@ module Helpers =
         async {
             // Refresh authentication only, when old one nearly expired
             let oldTokenExpired =
-                authentication.accessExpires
-                |> DateTimeOffset.Now.AddMinutes(-1.0).CompareTo
+                authentication.accessExpires |> DateTimeOffset.Now.AddMinutes(-1.0).CompareTo
                 >= 0
 
             let! authentication =

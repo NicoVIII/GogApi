@@ -25,8 +25,7 @@ module Program =
 
     let inline handleApiCall apiCall authentication =
         let result, authentication =
-            Helpers.withAutoRefresh apiCall authentication
-            |> Async.RunSynchronously
+            Helpers.withAutoRefresh apiCall authentication |> Async.RunSynchronously
 
         printfn "%A\n" result
         authentication
@@ -44,17 +43,9 @@ module Program =
             else
                 language |> Language.fromString |> Some
 
-        let search =
-            if search = "-" then
-                None
-            else
-                search |> Some
+        let search = if search = "-" then None else search |> Some
 
-        let sort =
-            if sort = "-" then
-                None
-            else
-                sort |> Sort.fromString |> Some
+        let sort = if sort = "-" then None else sort |> Sort.fromString |> Some
 
         let system =
             if system = "-" then
@@ -69,13 +60,14 @@ module Program =
             | _ -> None
 
         handleApiCall
-            (Account.getFilteredGames
-                { feature = feature
-                  language = language
-                  page = page
-                  search = search
-                  sort = sort
-                  system = system })
+            (Account.getFilteredGames {
+                feature = feature
+                language = language
+                page = page
+                search = search
+                sort = sort
+                system = system
+            })
             authentication
 
     let rec handleCommand authentication =
@@ -125,15 +117,9 @@ module Program =
                 NonEmptyString page ] ->
                 handleGetFilteredGames search feature language sort system page authentication
                 |> handleCommand
-            | [ "User/getData" ] ->
-                handleApiCall User.getData authentication
-                |> handleCommand
-            | [ "User/getDataGames" ] ->
-                handleApiCall User.getDataGames authentication
-                |> handleCommand
-            | [ "User/getWishlist" ] ->
-                handleApiCall User.getWishlist authentication
-                |> handleCommand
+            | [ "User/getData" ] -> handleApiCall User.getData authentication |> handleCommand
+            | [ "User/getDataGames" ] -> handleApiCall User.getDataGames authentication |> handleCommand
+            | [ "User/getWishlist" ] -> handleApiCall User.getWishlist authentication |> handleCommand
             | "GalaxyApi/getProduct" :: [ UInt productId ] ->
                 handleApiCall (GalaxyApi.getProduct (ProductId productId)) authentication
                 |> handleCommand

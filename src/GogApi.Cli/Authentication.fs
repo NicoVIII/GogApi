@@ -26,9 +26,7 @@ module Authentication =
             match authentication with
             | Some authentication -> authentication
             | None -> get ()
-        | true ->
-            Json.deserialize<Authentication>
-            <| File.ReadAllText authFile
+        | true -> Json.deserialize<Authentication> <| File.ReadAllText authFile
 
     let save (authentication: Authentication) =
         File.WriteAllText(authFile, authentication |> Json.serialize)
