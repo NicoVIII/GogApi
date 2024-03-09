@@ -6,11 +6,19 @@
 
 version: 2
 updates:
- - package-ecosystem: "devcontainers"
-   directory: "/"
-   schedule:
-     interval: monthly
- - package-ecosystem: "github-actions"
-   directory: "/"
-   schedule:
-     interval: monthly
+  - package-ecosystem: "devcontainers"
+    directory: "/"
+    groups:
+      features:
+        patterns:
+          - "*"
+    schedule:
+      interval: monthly
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    groups:
+      actions:
+        patterns:
+          - "*"
+    schedule:
+      interval: monthly
